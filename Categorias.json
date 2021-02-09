@@ -1,8 +1,12 @@
 {
-    "Datos": [{
+    "Datos": [
+        {
             "Indice": "A",
-            "Departamentos": [{
-                    "Deportes": [{
+            "Departamentos": [
+                {
+                    "Nombre": "Deportes",
+                    "Tiendas": [
+                        {
                             "Nombre": "Aurora",
                             "Descripcion": "Es una empresa multinacional estadounidense dedicada al diseño, desarrollo, fabricación y comercialización de equipamiento deportivo: balones, calzado, ropa, equipo, accesorios y otros artículos deportivos",
                             "Contacto": "5544-3377",
@@ -23,33 +27,43 @@
                     ]
                 },
                 {
-                    "Comida": [{
-                        "Nombre": "A comer todo",
-                        "Descripcion": "todo lo que puedan pedir por un dollar",
-                        "Contacto": "559999",
-                        "Calificacion": 5
-                    }]
+                    "Nombre": "Comida",
+                    "Tiendas": [
+                        {
+                            "Nombre": "A comer todo",
+                            "Descripcion": "todo lo que puedan pedir por un dollar",
+                            "Contacto": "559999",
+                            "Calificacion": 5
+                        }
+                    ]
                 },
                 {
-                    "Celulares": []
+                    "Nombre": "celulares",
+                    "Tiendas": []
                 }
             ]
         },
         {
             "Indice": "B",
-            "Departamentos": [{
-                    "Deportes": []
+            "Departamentos": [
+                {
+                    "Nombre":"Deportes",
+                    "Tiendas": []
                 },
                 {
-                    "Comida": []
+                    "Nombre":"Comida",
+                    "Tiendas": []
                 },
                 {
-                    "Celulares": [{
-                        "Nombre": "Bayoneta",
-                        "Descripcion": "Telefonos militares",
-                        "Contacto": "bayoneta@gmail.com",
-                        "Calificacion": 5
-                    }]
+                    "Nombre":"Celulares",
+                    "Tiendas": [
+                        {
+                            "Nombre": "Bayoneta",
+                            "Descripcion": "Telefonos militares",
+                            "Contacto": "bayoneta@gmail.com",
+                            "Calificacion": 5
+                        }
+                    ]
                 }
             ]
         }
