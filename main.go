@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"strconv"
 )
 
 /////////////////////////////////////////////////////////////////////                   ESTRUCTURAS ORDENADAS
@@ -61,13 +62,83 @@ func (Lista *Lista) Insertar(Nombre string, Descripcion string, Contacto string,
 	Lista.Tamanio++
 }
 
+func (Lista *Lista) eliminar(Nombre string, categoria string, Calificacion int) {
+	aux := Lista.Primero
+	for aux != nil {
+		if aux.Nombre == Nombre && aux.Calificacion == Calificacion {
+			if Lista.Tamanio == 1 {
+				Lista.Primero = nil
+				break
+			}
+			if aux == Lista.Primero {
+				Lista.Primero = aux.Siguiente
+				aux.Siguiente = nil
+				Lista.Primero.Anterior = nil
+				Lista.Tamanio--
+				break
+			} else if aux == Lista.Ultimo {
+				Lista.Ultimo = aux.Anterior
+				aux.Anterior = nil
+				Lista.Ultimo.Siguiente = nil
+				Lista.Tamanio--
+				break
+			} else {
+				aux.Anterior.Siguiente = aux.Siguiente
+				aux.Siguiente.Anterior = aux.Anterior
+				Lista.Tamanio--
+				break
+			}
+		}
+		aux = aux.Siguiente
+	}
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////      GRAPHVIZ
 func generardot() {
 	if len(vector) == 0 {
 		fmt.Println("Primero cargue un archivo")
 		return
 	}
-
+	cadena := "digraph grafo{\nfontname=\"Verdana\" color=red fontsize=22;" +
+		"node [shape=record fontsize=12 fontname=\"Verdana\" style=filled];" +
+		"edge [color=\"blue\"]\nsubgraph cluster{\nlabel = \"Vector\";\nbgcolor=\"yellow:dodgerblue\"" +
+		"vector[label=\""
+	for i := 1; i <= len(vector); i++ {
+		cadena = cadena + "<" + strconv.Itoa(i) + ">" + strconv.Itoa(i) + "|"
+		if i%7 == 0 {
+			cadena = cadena + "\n"
+		}
+	}
+	cadena = cadena + "\",width=4.5, fillcolor=\"aquamarine:violet\"];\n}\n"
+	for j := 1; j <= len(vector); j++ {
+		if vector[j-1].Primero != nil {
+			contador := 1
+			Lista := vector[j-1]
+			aux := Lista.Primero
+			//primer nodo
+			//id del nodo=posicion en el vector + calificacion+posicion en la lista
+			cadena = cadena + strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) +
+				"[label=\"" + aux.Nombre + " \\n " + aux.Contacto + " \\n " +
+				strconv.Itoa(aux.Calificacion) + "\", fillcolor=\"yellowgreen:aquamarine\"];\n" +
+				"vector:" + strconv.Itoa(j) + "->" + strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "\n"
+			contador++
+			aux = aux.Siguiente
+			//el resto de nodos
+			for aux != nil {
+				cadena = cadena + strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "->" +
+					strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador-1) + "\n" + //nodo actual->nodo anterior
+					strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador-1) + "->" +
+					strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "\n" + //nodo anterior->nodo actual
+					//se crea nuevo nodo
+					strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "[label=\"" + aux.Nombre + " \\n " +
+					aux.Contacto + strconv.Itoa(aux.Calificacion) + "\", fillcolor=\"yellowgreen:aquamarine\"];\n"
+				contador++
+				aux = aux.Siguiente
+			}
+		}
+	}
+	cadena = cadena + "}"
+	fmt.Println(cadena)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////      FUNCIONES
@@ -145,5 +216,6 @@ func Linealizar() {
 }
 
 func main() {
-
+	Linealizar()
+	generardot()
 }
