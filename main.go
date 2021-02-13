@@ -1,148 +1,149 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
-	"strconv"
+	"io/ioutil"
+	"log"
 )
 
-type nodo struct {
-	nombre       string
-	descripcion  string
-	contacto     string
-	calificacion int
-	siguiente    *nodo
-	anterior     *nodo
+/////////////////////////////////////////////////////////////////////                   ESTRUCTURAS ORDENADAS
+type Data struct {
+	Datos []*Principal `json:"Datos"`
 }
 
-type lista struct {
-	categoria    string
-	indice       string
-	calificacion int
-	tamanio      int
-	primero      *nodo
-	ultimo       *nodo
+type Principal struct {
+	Indice        string `json:"Indice"`
+	Departamentos []*Dep `json:"Departamentos"`
 }
 
-func (Lista *lista) insertar(nombre string, descripcion string, contacto string, calificacion int) {
-	nuevo := new(nodo)
-	nuevo.nombre = nombre
-	nuevo.descripcion = descripcion
-	nuevo.contacto = contacto
-	nuevo.calificacion = calificacion
-	if Lista.primero == nil {
-		Lista.primero = nuevo
-		Lista.ultimo = nuevo
+type Dep struct {
+	Nombre  string    `json:"Nombre"`
+	Tiendas []*Tienda `json:"Tiendas"`
+}
+
+//un sinonimo de nodo
+type Tienda struct {
+	Nombre       string `json:"Nombre"`
+	Descripcion  string `json:"Descripcion"`
+	Contacto     string `json:"Contacto"`
+	Calificacion int    `json:"Calificacion"`
+	Siguiente    *Tienda
+	Anterior     *Tienda
+}
+
+/////////////////////////////////////////////////////////////////////////                 LISTA
+
+//lista doblemente enlazada
+type Lista struct {
+	Categoria    string
+	Indice       string
+	Calificacion int
+	Tamanio      int
+	Primero      *Tienda
+	Ultimo       *Tienda
+}
+
+func (Lista *Lista) Insertar(Nombre string, Descripcion string, Contacto string, Calificacion int) {
+	nuevo := new(Tienda)
+	nuevo.Nombre = Nombre
+	nuevo.Descripcion = Descripcion
+	nuevo.Contacto = Contacto
+	nuevo.Calificacion = Calificacion
+	if Lista.Primero == nil {
+		Lista.Primero = nuevo
+		Lista.Ultimo = nuevo
 	} else {
-		Lista.ultimo.siguiente = nuevo
-		Lista.ultimo.siguiente.anterior = Lista.ultimo
-		Lista.ultimo = nuevo
+		Lista.Ultimo.Siguiente = nuevo
+		Lista.Ultimo.Siguiente.Anterior = Lista.Ultimo
+		Lista.Ultimo = nuevo
 	}
-	Lista.tamanio++
+	Lista.Tamanio++
 }
 
-//saber si funciona bien todavia
-func (Lista *lista) eliminar(nombre string, calificacion int) {
-	aux := Lista.primero
-	for aux != nil {
-		if aux.nombre == nombre && aux.calificacion == calificacion {
-			if Lista.tamanio == 1 {
-				Lista.primero = nil
-				break
+////////////////////////////////////////////////////////////////////////////////////////////      GRAPHVIZ
+func generardot() {
+	if len(vector) == 0 {
+		fmt.Println("Primero cargue un archivo")
+		return
+	}
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////      FUNCIONES
+
+//arreglo de departamentos
+var depa []string
+
+//vector para linealizar
+var vector []Lista
+
+func Linealizar() {
+	lector, err := ioutil.ReadFile("pruebas.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+	c := Data{}
+	err = json.Unmarshal(lector, &c)
+	if err != nil {
+		log.Fatal(err)
+	}
+	//Contar numero de departamentos
+	for i := 0; i < len(c.Datos); i++ {
+		for j := 0; j < len(c.Datos[i].Departamentos); j++ {
+			existe := false
+			for _, a := range depa {
+				if c.Datos[i].Departamentos[j].Nombre == a {
+					existe = true
+				}
 			}
-			if aux == Lista.primero {
-				Lista.primero = aux.siguiente
-				aux.siguiente = nil
-				Lista.primero.anterior = nil
-				Lista.tamanio--
-				break
-			} else if aux == Lista.ultimo {
-				Lista.ultimo = aux.anterior
-				aux.anterior = nil
-				Lista.ultimo.siguiente = nil
-				Lista.tamanio--
-				break
-			} else {
-				aux.anterior.siguiente = aux.siguiente
-				aux.siguiente.anterior = aux.anterior
-				Lista.tamanio--
-				break
+			if existe == false {
+				depa = append(depa, c.Datos[i].Departamentos[j].Nombre)
 			}
 		}
-		aux = aux.siguiente
 	}
-}
-
-//hacia adelante
-func (Lista lista) mostrar() {
-	aux := Lista.primero
-	for aux != nil {
-		fmt.Println(aux.nombre + "_" + strconv.Itoa(aux.calificacion))
-		aux = aux.siguiente
+	//alfabeto
+	let := 'A'
+	//indices
+	for abc := 0; abc < 26; abc++ {
+		//departamentos
+		for _, dep := range depa {
+			//calificaciones
+			for calif := 1; calif <= 5; calif++ {
+				//se crea la lista con las caracteristicas correspondientes
+				Lista := new(Lista)
+				Lista.Indice = string(let)
+				Lista.Categoria = dep
+				Lista.Calificacion = calif
+				//recorrer datos del json para comparar
+				for i := 0; i < len(c.Datos); i++ {
+					for j := 0; j < len(c.Datos[i].Departamentos); j++ {
+						for k := 0; k < len(c.Datos[i].Departamentos[j].Tiendas); k++ {
+							prim := c.Datos[i]
+							sec := prim.Departamentos[j]
+							terc := sec.Tiendas[k]
+							//si una tienda cargada desde el json cumple con las caracteristicas, se agrega a la lista
+							if prim.Indice == string(let) && sec.Nombre == dep && terc.Calificacion == calif {
+								Lista.Insertar(terc.Nombre, terc.Descripcion, terc.Contacto, terc.Calificacion)
+								fmt.Println("Se inserta: " + terc.Nombre)
+							}
+						}
+					}
+				}
+				//si la lista queda vacia:
+				if Lista.Tamanio == 0 {
+					Lista.Primero = nil
+					Lista.Ultimo = nil
+				}
+				//se agrega la lista al vector
+				vector = append(vector, *Lista)
+			}
+		}
+		let++
 	}
-	fmt.Println(strconv.Itoa(Lista.tamanio))
-}
-
-//funcion para ordenar vector
-func vector() {
 
 }
 
 func main() {
-	a := 22
-	b := 5
-	c := a % b
-	fmt.Println(c)
+
 }
-
-/*
-//para ordenar una lista segun calificaciones de tienda
-func (Lista *lista) ordenar() *lista {
-	nuevalista := new(lista)
-	cont := 1
-	for cont <= Lista.tamanio {
-		aux := Lista.primero
-		for aux != nil {
-			if aux.calificacion == cont {
-				nuevalista.insertar(aux.nombre, aux.descripcion, aux.contacto, aux.calificacion)
-			}
-			aux = aux.siguiente
-		}
-		cont++
-	}
-	return nuevalista
-}
-*/
-
-/*
-//abecedario y comparar letras
-	abecedario := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	for i := 0; i < 26; i++ {
-		fmt.Println(string((abecedario)[i]))
-	}
-
-	palabra := "ABCDE"
-	fmt.Println(string((palabra)[1]))
-*/
-
-/*
-//pruebas casi inutiles
-var arreglo []lista
-Lista := new(lista)
-Lista.insertar("tienda1", "desc", "6666", 5)
-Lista.insertar("tienda2", "desc", "6666", 4)
-Lista.insertar("tienda3", "desc", "6666", 3)
-Lista.insertar("tienda4", "desc", "6666", 1)
-Lista.insertar("tienda5", "desc", "6666", 1)
-fmt.Println("antes")
-Lista.mostrar()
-fmt.Println("despues")
-Lista1 := Lista.ordenar()
-Lista1.mostrar()
-Listaex := new(lista)
-arreglo = append(arreglo, *Lista)
-arreglo = append(arreglo, *Lista1)
-arreglo = append(arreglo, *Listaex)
-fmt.Println(arreglo[0].primero)
-fmt.Println(arreglo[1].ultimo)
-fmt.Println(arreglo[2].primero)
-*/
