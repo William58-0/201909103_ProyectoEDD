@@ -35,59 +35,70 @@ func Generardot(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Primero cargue un archivo")
 		return
 	}
-	cadena := "digraph grafo{\nfontname=\"Verdana\" color=red fontsize=22;\n" +
-		"node [shape=record fontsize=8 fontname=\"Verdana\" style=filled];\n" +
-		"edge [color=\"blue\"]\nsubgraph cluster{\nlabel = \"Vector\";\nbgcolor=\"yellow:dodgerblue\"\n" +
-		"Vector[label=\""
-	for i := 1; i <= len(Vector); i++ {
-		cadena = cadena + "<" + strconv.Itoa(i) + ">" + strconv.Itoa(i) + "|"
-		if i%7 == 0 {
-			cadena = cadena + "\n"
-		}
-	}
-	cadena = strings.TrimSuffix(cadena, "|")
-	cadena = cadena + "\",width=4.5, fillcolor=\"aquamarine:violet\"];\n}\n"
-	for j := 1; j <= len(Vector); j++ {
-		if Vector[j-1].Primero != nil {
-			contador := 1
-			Lista := Vector[j-1]
-			aux := Lista.Primero
-			//primer nodo
-			//id del nodo=posicion en el Vector + calificacion+posicion en la lista
-			cadena = cadena + strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) +
-				"[label=\"" + aux.Nombre + " \\n " + aux.Contacto + " \\n " +
-				tipoCalif(aux.Calificacion) + "\", fillcolor=\"yellowgreen:aquamarine\"];\n" +
-				"Vector:" + strconv.Itoa(j) + "->" + strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) +
-				"[color=red]\n"
-			contador++
-			aux = aux.Siguiente
-			//el resto de nodos
-			for aux != nil {
-				cadena = cadena + strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "->" +
-					strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador-1) + "\n" + //nodo actual->nodo anterior
-					strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador-1) + "->" +
-					strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "\n" + //nodo anterior->nodo actual
-					//se crea nuevo nodo
-					strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "[label=\"" + aux.Nombre + " \\n " +
-					aux.Contacto + " \\n " + tipoCalif(aux.Calificacion) + "\", fillcolor=\"yellowgreen:aquamarine\"];\n"
-				contador++
-				aux = aux.Siguiente
+	a := 0
+	k := 0
+	q := 0
+	for a < len(Vector)/20+len(Vector)%20 {
+		cadena := "digraph grafo{\nfontname=\"Verdana\" color=red fontsize=22;\n" +
+			"node [shape=record fontsize=8 fontname=\"Verdana\" style=filled];\n" +
+			"edge [color=\"blue\"]\nsubgraph cluster{\nlabel = \"Vector\";\nbgcolor=\"yellow:dodgerblue\"\n" +
+			"Vector[label=\""
+		for i := k; i < len(Vector); i++ {
+			cadena = cadena + "<" + strconv.Itoa(i) + ">" + strconv.Itoa(i+1) + "|"
+			if (i+1)%20 == 0 {
+				k = i + 1
+				break
 			}
 		}
+		cadena = strings.TrimSuffix(cadena, "|")
+		cadena = cadena + "\",width=15, fillcolor=\"aquamarine:violet\"];\n}\n"
+		for j := q; j < len(Vector); j++ {
+			if Vector[j].Primero != nil {
+				contador := 1
+				Lista := Vector[j]
+				aux := Lista.Primero
+				//primer nodo
+				//id del nodo=posicion en el Vector + calificacion+posicion en la lista
+				cadena = cadena + strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) +
+					"[label=\"" + aux.Nombre + " \\n " + aux.Contacto + " \\n " +
+					tipoCalif(aux.Calificacion) + "\", fillcolor=\"yellowgreen:aquamarine\"];\n" +
+					"Vector:" + strconv.Itoa(j) + "->" + strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) +
+					"[color=red]\n"
+				contador++
+				aux = aux.Siguiente
+				//el resto de nodos
+				for aux != nil {
+					cadena = cadena + strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "->" +
+						strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador-1) + "\n" + //nodo actual->nodo anterior
+						strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador-1) + "->" +
+						strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "\n" + //nodo anterior->nodo actual
+						//se crea nuevo nodo
+						strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "[label=\"" + aux.Nombre + " \\n " +
+						aux.Contacto + " \\n " + tipoCalif(aux.Calificacion) + "\", fillcolor=\"yellowgreen:aquamarine\"];\n"
+					contador++
+					aux = aux.Siguiente
+				}
+			}
+			if (j+1)%20 == 0 {
+				q = j + 1
+				break
+			}
+		}
+		cadena = cadena + "}"
+		//se escribe el archivo dot
+		b := []byte(cadena)
+		err := ioutil.WriteFile("grafo"+strconv.Itoa(a)+".dot", b, 0644)
+		if err != nil {
+			log.Fatal(err)
+		}
+		//se crea la imagen
+		path, _ := exec.LookPath("dot")
+		cmd, _ := exec.Command(path, "-Tpng", "grafo"+strconv.Itoa(a)+".dot").Output()
+		mode := int(0777)
+		ioutil.WriteFile("grafo"+strconv.Itoa(a)+".png", cmd, os.FileMode(mode))
+		//para abrir la imagen
+		a++
 	}
-	cadena = cadena + "}"
-	//se escribe el archivo dot
-	b := []byte(cadena)
-	err := ioutil.WriteFile("grafo.dot", b, 0644)
-	if err != nil {
-		log.Fatal(err)
-	}
-	//se crea la imagen
-	path, _ := exec.LookPath("dot")
-	cmd, _ := exec.Command(path, "-Tpng", "grafo.dot").Output()
-	mode := int(0777)
-	ioutil.WriteFile("grafo.png", cmd, os.FileMode(mode))
-	//para abrir la imagen
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////      FUNCIONES
