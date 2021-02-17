@@ -9,10 +9,26 @@ import (
 	"os"
 	"os/exec"
 	"strconv"
+	"strings"
 
 	"./Estructuras"
 	"github.com/gorilla/mux"
 )
+
+func tipoCalif(calif int) string {
+	switch ej := calif; ej {
+	case 1:
+		return "Regular (1)"
+	case 2:
+		return "Buena (2)"
+	case 3:
+		return "Muy Buena (3)"
+	case 4:
+		return "Excelente (4)"
+	default:
+		return "Magnifica (5)"
+	}
+}
 
 func Generardot(w http.ResponseWriter, r *http.Request) {
 	if len(Vector) == 0 {
@@ -29,6 +45,7 @@ func Generardot(w http.ResponseWriter, r *http.Request) {
 			cadena = cadena + "\n"
 		}
 	}
+	cadena = strings.TrimSuffix(cadena, "|")
 	cadena = cadena + "\",width=4.5, fillcolor=\"aquamarine:violet\"];\n}\n"
 	for j := 1; j <= len(Vector); j++ {
 		if Vector[j-1].Primero != nil {
@@ -39,7 +56,7 @@ func Generardot(w http.ResponseWriter, r *http.Request) {
 			//id del nodo=posicion en el Vector + calificacion+posicion en la lista
 			cadena = cadena + strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) +
 				"[label=\"" + aux.Nombre + " \\n " + aux.Contacto + " \\n " +
-				strconv.Itoa(aux.Calificacion) + "\", fillcolor=\"yellowgreen:aquamarine\"];\n" +
+				tipoCalif(aux.Calificacion) + "\", fillcolor=\"yellowgreen:aquamarine\"];\n" +
 				"Vector:" + strconv.Itoa(j) + "->" + strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) +
 				"[color=red]\n"
 			contador++
@@ -52,7 +69,7 @@ func Generardot(w http.ResponseWriter, r *http.Request) {
 					strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "\n" + //nodo anterior->nodo actual
 					//se crea nuevo nodo
 					strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "[label=\"" + aux.Nombre + " \\n " +
-					aux.Contacto + strconv.Itoa(aux.Calificacion) + "\", fillcolor=\"yellowgreen:aquamarine\"];\n"
+					aux.Contacto + " \\n " + tipoCalif(aux.Calificacion) + "\", fillcolor=\"yellowgreen:aquamarine\"];\n"
 				contador++
 				aux = aux.Siguiente
 			}
@@ -228,7 +245,7 @@ func Buscarenvector(w http.ResponseWriter, r *http.Request) {
 		a := new(Estructuras.Salida)
 		a.Nombre = aux.Nombre
 		a.Descripcion = aux.Descripcion
-		a.Contacto = aux.Descripcion
+		a.Contacto = aux.Contacto
 		a.Calificacion = aux.Calificacion
 		lista = append(lista, *a)
 		aux = aux.Siguiente
@@ -239,45 +256,64 @@ func Buscarenvector(w http.ResponseWriter, r *http.Request) {
 	}
 	for _, i := range lista {
 		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(i.Nombre)
-		json.NewEncoder(w).Encode(i.Descripcion)
-		json.NewEncoder(w).Encode(i.Contacto)
-		json.NewEncoder(w).Encode(i.Calificacion)
+		json.NewEncoder(w).Encode(i)
 	}
 	//w.Header().Set("Content-Type", "application/json")
 	//json.NewEncoder(w).Encode(Vector[obj])
 }
 
 func GuardarJson(w http.ResponseWriter, r *http.Request) {
-	var vector []Estructuras.Dep1
-	for b := 0; b < len(depa); b++ {
-		Departamento := new(Estructuras.Dep1)
-		Departamento.Nombre = depa[b]
-		var ListaTiendas []Estructuras.Tienda1
-		for a := 0; a < 5; a++ {
-			indice := (b * 5) + a
-			//atributos de las tiendas
-			aux := Vector[indice].Primero
-			for aux != nil {
-				Tienda1 := new(Estructuras.Tienda1)
-				Tienda1.Nombre = aux.Nombre
-				Tienda1.Descripcion = aux.Descripcion
-				Tienda1.Contacto = aux.Contacto
-				Tienda1.Calificacion = aux.Calificacion
-				if Tienda1 != nil {
-					ListaTiendas = append(ListaTiendas, *Tienda1)
+	Data := new(Estructuras.Data1)
+	var ListaPrincipal []Estructuras.Principal1
+	let := 'A'
+	for c := 0; c < 26; c++ {
+		Principal := new(Estructuras.Principal1)
+		Principal.Indice = string(let)
+		var vector []Estructuras.Dep1
+		////////////////////////////////////////////////////////////////////////7
+		for b := 0; b < len(depa); b++ {
+			Departamento := new(Estructuras.Dep1)
+			Departamento.Nombre = depa[b]
+			var ListaTiendas []Estructuras.Tienda1
+			for a := 0; a < 5; a++ {
+				indice := c*5*len(depa) + (b * 5) + a
+				//atributos de las tiendas
+				aux := Vector[indice].Primero
+				for aux != nil {
+					Tienda1 := new(Estructuras.Tienda1)
+					Tienda1.Nombre = aux.Nombre
+					Tienda1.Descripcion = aux.Descripcion
+					Tienda1.Contacto = aux.Contacto
+					Tienda1.Calificacion = aux.Calificacion
+					if Tienda1 != nil {
+						ListaTiendas = append(ListaTiendas, *Tienda1)
+					}
+					aux = aux.Siguiente
 				}
-				aux = aux.Siguiente
+			}
+			Departamento.Tiendas = ListaTiendas
+			vector = append(vector, *Departamento)
+		}
+		////////////////////////////////////////////////////////////////////////
+		conviene := false
+		for _, o := range vector {
+			if o.Tiendas != nil {
+				conviene = true
 			}
 		}
-		Departamento.Tiendas = ListaTiendas
-		vector = append(vector, *Departamento)
+		if conviene == true {
+			Principal.Departamentos = vector
+			ListaPrincipal = append(ListaPrincipal, *Principal)
+		}
+
+		let++
 	}
-	cadenaJson, err := json.Marshal(vector)
+	Data.Datos = ListaPrincipal
+	cadenaJson, err := json.Marshal(Data)
 	if err != nil {
 		fmt.Printf("Error: %v", err)
 	} else {
-		//se escribe el archivo dot
+		//se escribe el archivo json
 		b := []byte(cadenaJson)
 		err := ioutil.WriteFile("guardado.json", b, 0644)
 		w.Header().Set("Content-Type", "application/json")
@@ -285,7 +321,6 @@ func GuardarJson(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Fatal(err)
 		}
-
 	}
 }
 

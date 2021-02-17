@@ -45,9 +45,13 @@ type Salida struct {
 }
 
 //////////////////////////////////////////////////////////////////////////					para generar json
+type Data1 struct {
+	Datos []Principal1
+}
+
 type Principal1 struct {
 	Indice        string
-	Departamentos []*Dep1
+	Departamentos []Dep1
 }
 
 type Dep1 struct {
