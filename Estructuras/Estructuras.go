@@ -33,7 +33,7 @@ type Tienda struct {
 //////////////////////////////////////////////////////////////////////////					para buscary/o eliminar
 type Objetivo struct {
 	Nombre       string `json:"Nombre"`
-	Categoria    string `json:"Categoria"`
+	Departamento string `json:"Departamento"`
 	Calificacion int    `json:"Calificacion"`
 }
 

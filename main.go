@@ -159,32 +159,25 @@ func BuscarPosicion(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 	Nombre := c.Nombre
-	Categoria := c.Categoria
+	Departamento := c.Departamento
 	Calificacion := c.Calificacion
 	for _, Lista := range Vector {
 		if Lista.Primero != nil {
 			//Si encuentra la categoria, y la calificacion
-			if Lista.Categoria == Categoria && Lista.Calificacion == Calificacion {
+			if Lista.Categoria == Departamento && Lista.Calificacion == Calificacion {
 				//buscar en la lista
 				a := Lista.Buscar(Nombre, Calificacion)
 				if a.Nombre != "" {
 					fmt.Println("Encontrado")
-					//cadenaJson, err := json.Marshal(a)
-					/*
-						if err != nil {
-							fmt.Printf("Error: %v", err)
-						} else {
-							gophers, _ := a.repository.FetchGophers()
-							w.Header().Set("Content-Type", "application/json")
-							json.NewEncoder(w).Encode(gophers)
-							return
-						}
-					*/
+					w.Header().Set("Content-Type", "application/json")
+					json.NewEncoder(w).Encode(a)
+					return
 				}
 			}
 		}
 	}
-
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode("No encontrado")
 }
 
 //Eliminar Registro
@@ -200,13 +193,13 @@ func Eliminar(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 	Nombre := c.Nombre
-	Categoria := c.Categoria
+	Departamento := c.Departamento
 	Calificacion := c.Calificacion
 	cont := 0
 	for _, Lista := range Vector {
 		if Lista.Primero != nil {
 			//Si encuentra la categoria, y la calificacion
-			if Lista.Categoria == Categoria && Lista.Calificacion == Calificacion {
+			if Lista.Categoria == Departamento && Lista.Calificacion == Calificacion {
 				//buscar en la lista
 				if Lista.Eliminar(Nombre, Calificacion) == true {
 					fmt.Println("Encontrado")
@@ -219,9 +212,43 @@ func Eliminar(w http.ResponseWriter, r *http.Request) {
 		cont++
 	}
 	fmt.Println("No encontrado")
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode("No encontrado")
 }
 
-func listasavectores(w http.ResponseWriter, r *http.Request) {
+func Buscarenvector(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	obj, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		return
+	}
+	var lista []Estructuras.Salida
+	aux := Vector[obj].Primero
+	for aux != nil {
+		a := new(Estructuras.Salida)
+		a.Nombre = aux.Nombre
+		a.Descripcion = aux.Descripcion
+		a.Contacto = aux.Descripcion
+		a.Calificacion = aux.Calificacion
+		lista = append(lista, *a)
+		aux = aux.Siguiente
+	}
+	if len(lista) == 0 {
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode("No hay tiendas en este indice")
+	}
+	for _, i := range lista {
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(i.Nombre)
+		json.NewEncoder(w).Encode(i.Descripcion)
+		json.NewEncoder(w).Encode(i.Contacto)
+		json.NewEncoder(w).Encode(i.Calificacion)
+	}
+	//w.Header().Set("Content-Type", "application/json")
+	//json.NewEncoder(w).Encode(Vector[obj])
+}
+
+func GuardarJson(w http.ResponseWriter, r *http.Request) {
 	var vector []Estructuras.Dep1
 	for b := 0; b < len(depa); b++ {
 		Departamento := new(Estructuras.Dep1)
@@ -253,6 +280,8 @@ func listasavectores(w http.ResponseWriter, r *http.Request) {
 		//se escribe el archivo dot
 		b := []byte(cadenaJson)
 		err := ioutil.WriteFile("guardado.json", b, 0644)
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode("Se guardó json")
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -269,7 +298,9 @@ func main() {
 	router.HandleFunc("/", indexRoute)
 	router.HandleFunc("/cargartienda", Cargar).Methods("POST")
 	router.HandleFunc("/getArreglo", Generardot).Methods("GET")
-	router.HandleFunc("/TiendaEspecifica.", BuscarPosicion).Methods("POST")
+	router.HandleFunc("/TiendaEspecifica", BuscarPosicion).Methods("POST")
+	router.HandleFunc("/id:/{id}", Buscarenvector).Methods("GET")
 	router.HandleFunc("/Eliminar", Eliminar).Methods("POST")
+	router.HandleFunc("/Guardar", GuardarJson).Methods("POST")
 	log.Fatal(http.ListenAndServe(":3000", router))
 }
