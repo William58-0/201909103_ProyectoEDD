@@ -96,6 +96,33 @@ func (Lista *Lista) Insertar(Nombre string, Descripcion string, Contacto string,
 	Lista.Tamanio++
 }
 
+func (Lista *Lista) Ordenar() []string {
+	aux1 := Lista.Primero
+	var vector []string
+	//se agregan los nombres de las listas a un slice
+	for aux1 != nil {
+		vector = append(vector, aux1.Nombre)
+		aux1 = aux1.Siguiente
+	}
+	//se ordenan lo nombres
+	var j int
+	var aux string
+	n := len(vector)
+	fmt.Println("vectores de entrada: ", vector)
+	for i := 1; i < n; i++ {
+		j = i
+		aux = vector[i]
+
+		for j > 0 && aux < vector[j-1] {
+			vector[j] = vector[j-1]
+			j--
+		}
+		vector[j] = aux
+	}
+	fmt.Println("vector ordenado: ", vector)
+	return vector
+}
+
 func (Lista *Lista) Eliminar(Nombre string, Calificacion int) bool {
 	aux := Lista.Primero
 	for aux != nil {

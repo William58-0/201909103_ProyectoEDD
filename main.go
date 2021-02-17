@@ -38,29 +38,29 @@ func Generardot(w http.ResponseWriter, r *http.Request) {
 	a := 0
 	k := 0
 	q := 0
-	for a < len(Vector)/20+len(Vector)%20 {
+	for a < len(Vector)/10+len(Vector)%10 && k < len(Vector) && q < len(Vector) {
 		cadena := "digraph grafo{\nfontname=\"Verdana\" color=red fontsize=22;\n" +
 			"node [shape=record fontsize=8 fontname=\"Verdana\" style=filled];\n" +
 			"edge [color=\"blue\"]\nsubgraph cluster{\nlabel = \"Vector\";\nbgcolor=\"yellow:dodgerblue\"\n" +
 			"Vector[label=\""
 		for i := k; i < len(Vector); i++ {
 			cadena = cadena + "<" + strconv.Itoa(i) + ">" + strconv.Itoa(i+1) + "|"
-			if (i+1)%20 == 0 {
+			if (i+1)%10 == 0 {
 				k = i + 1
 				break
 			}
 		}
 		cadena = strings.TrimSuffix(cadena, "|")
-		cadena = cadena + "\",width=15, fillcolor=\"aquamarine:violet\"];\n}\n"
+		cadena = cadena + "\",width=20, fillcolor=\"aquamarine:violet\"];\n}\n"
 		for j := q; j < len(Vector); j++ {
 			if Vector[j].Primero != nil {
 				contador := 1
 				Lista := Vector[j]
 				aux := Lista.Primero
 				//primer nodo
-				//id del nodo=posicion en el Vector + calificacion+posicion en la lista
+				//id del nodo=posicion en el Vector + calificacion + posicion en la lista
 				cadena = cadena + strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) +
-					"[label=\"" + aux.Nombre + " \\n " + aux.Contacto + " \\n " +
+					"[label=\"Nombre: " + aux.Nombre + " \\n Contacto: " + aux.Contacto + " \\n Calificacion: " +
 					tipoCalif(aux.Calificacion) + "\", fillcolor=\"yellowgreen:aquamarine\"];\n" +
 					"Vector:" + strconv.Itoa(j) + "->" + strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) +
 					"[color=red]\n"
@@ -73,13 +73,13 @@ func Generardot(w http.ResponseWriter, r *http.Request) {
 						strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador-1) + "->" +
 						strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "\n" + //nodo anterior->nodo actual
 						//se crea nuevo nodo
-						strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "[label=\"" + aux.Nombre + " \\n " +
-						aux.Contacto + " \\n " + tipoCalif(aux.Calificacion) + "\", fillcolor=\"yellowgreen:aquamarine\"];\n"
+						strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "[label=\"Nombre: " + aux.Nombre +
+						" \\n Contacto: " + aux.Contacto + " \\n Calificacion: " + tipoCalif(aux.Calificacion) + "\", fillcolor=\"yellowgreen:aquamarine\"];\n"
 					contador++
 					aux = aux.Siguiente
 				}
 			}
-			if (j+1)%20 == 0 {
+			if (j+1)%10 == 0 {
 				q = j + 1
 				break
 			}
@@ -166,8 +166,21 @@ func Cargar(w http.ResponseWriter, r *http.Request) {
 					Lista.Primero = nil
 					Lista.Ultimo = nil
 				}
+				//Se ordena la lista
+				Nombres := Lista.Ordenar()
+				ListaOrdenada := new(Estructuras.Lista)
+				for _, o := range Nombres {
+					aux1 := Lista.Primero
+					for aux1 != nil {
+						if aux1.Nombre == o {
+							ListaOrdenada.Insertar(aux1.Nombre, aux1.Descripcion, aux1.Contacto, aux1.Calificacion)
+						}
+						aux1 = aux1.Siguiente
+					}
+				}
+
 				//se agrega la lista al Vector
-				Vector = append(Vector, *Lista)
+				Vector = append(Vector, *ListaOrdenada)
 			}
 		}
 		let++
