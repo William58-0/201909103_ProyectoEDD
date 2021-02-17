@@ -30,7 +30,21 @@ type Tienda struct {
 	Anterior     *Tienda
 }
 
-//////////////////////////////////////////////////////////////////////////					prueba
+//////////////////////////////////////////////////////////////////////////					para buscary/o eliminar
+type Objetivo struct {
+	Nombre       string `json:"Nombre"`
+	Categoria    string `json:"Categoria"`
+	Calificacion int    `json:"Calificacion"`
+}
+
+type Salida struct {
+	Nombre       string
+	Descripcion  string
+	Contacto     string
+	Calificacion int
+}
+
+//////////////////////////////////////////////////////////////////////////					para generar json
 type Principal1 struct {
 	Indice        string
 	Departamentos []*Dep1
@@ -116,40 +130,23 @@ func (Lista *Lista) Eliminar(Nombre string, Calificacion int) bool {
 	return false
 }
 
-/*
-func (Lista *Lista) Eliminar(Nombre string, Calificacion int) bool {
-	aux := Lista.Primero
-	NuevaLista:=new(*Lista)
-	for aux != nil {
-		if aux.Nombre == Nombre && aux.Calificacion == Calificacion {
-			fmt.Println("Encontrado")
-			aux1 := Lista.Primero
-			for aux1 != nil {
-				if aux1 != aux {
-					NuevaLista.Insertar(aux1.Nombre, aux1.Descripcion, aux1.Contacto, aux1.Calificacion)
-				}
-				aux1 = aux1.Siguiente
-			}
-			return *NuevaLista
-		}
-		aux = aux.Siguiente
-	}
-	fmt.Println("No se encontro")
-	return *NuevaLista
-}*/
-
-func (Lista *Lista) Buscar(Nombre string, Calificacion int) bool {
+func (Lista *Lista) Buscar(Nombre string, Calificacion int) Salida {
+	Salida := new(Salida)
 	aux := Lista.Primero
 	for aux != nil {
 		if aux.Nombre == Nombre && aux.Calificacion == Calificacion {
+			Salida.Nombre = aux.Nombre
+			Salida.Descripcion = aux.Descripcion
+			Salida.Contacto = aux.Contacto
+			Salida.Calificacion = aux.Calificacion
 			fmt.Println("Nombre: " + aux.Nombre)
 			fmt.Println("Descripcion: " + aux.Descripcion)
 			fmt.Println("Contacto: " + aux.Contacto)
 			fmt.Println("Calificacion: " + strconv.Itoa(aux.Calificacion))
-			return true
+			return *Salida
 		}
 		aux = aux.Siguiente
 	}
 	fmt.Println("No existe en esta lista")
-	return false
+	return *Salida
 }

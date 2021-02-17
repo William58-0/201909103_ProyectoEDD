@@ -5,14 +5,16 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"net/http"
 	"os"
 	"os/exec"
 	"strconv"
 
 	"./Estructuras"
+	"github.com/gorilla/mux"
 )
 
-func Generardot() {
+func Generardot(w http.ResponseWriter, r *http.Request) {
 	if len(Vector) == 0 {
 		fmt.Println("Primero cargue un archivo")
 		return
@@ -79,9 +81,8 @@ var depa []string
 //Vector para Linealizar
 var Vector []Estructuras.Lista
 
-func Cargar() {
-	lector, err := ioutil.ReadFile("pruebas.json")
-	//lector, err := ioutil.ReadFile(archivo)
+func Cargar(w http.ResponseWriter, r *http.Request) {
+	lector, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -146,24 +147,61 @@ func Cargar() {
 }
 
 //Busqueda de Posicion especifica
-func BuscarPosicion(Categoria, Nombre string, Calificacion int) {
+func BuscarPosicion(w http.ResponseWriter, r *http.Request) {
+	lector, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	//fmt.Println(string(lector))
+	c := Estructuras.Objetivo{}
+	err = json.Unmarshal(lector, &c)
+	if err != nil {
+		log.Fatal(err)
+	}
+	Nombre := c.Nombre
+	Categoria := c.Categoria
+	Calificacion := c.Calificacion
 	for _, Lista := range Vector {
 		if Lista.Primero != nil {
 			//Si encuentra la categoria, y la calificacion
 			if Lista.Categoria == Categoria && Lista.Calificacion == Calificacion {
 				//buscar en la lista
-				if Lista.Buscar(Nombre, Calificacion) == true {
+				a := Lista.Buscar(Nombre, Calificacion)
+				if a.Nombre != "" {
 					fmt.Println("Encontrado")
-					return
+					//cadenaJson, err := json.Marshal(a)
+					/*
+						if err != nil {
+							fmt.Printf("Error: %v", err)
+						} else {
+							gophers, _ := a.repository.FetchGophers()
+							w.Header().Set("Content-Type", "application/json")
+							json.NewEncoder(w).Encode(gophers)
+							return
+						}
+					*/
 				}
 			}
 		}
 	}
-	fmt.Println("No encontrado")
+
 }
 
 //Eliminar Registro
-func Eliminar(Categoria, Nombre string, Calificacion int) {
+func Eliminar(w http.ResponseWriter, r *http.Request) {
+	lector, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	//fmt.Println(string(lector))
+	c := Estructuras.Objetivo{}
+	err = json.Unmarshal(lector, &c)
+	if err != nil {
+		log.Fatal(err)
+	}
+	Nombre := c.Nombre
+	Categoria := c.Categoria
+	Calificacion := c.Calificacion
 	cont := 0
 	for _, Lista := range Vector {
 		if Lista.Primero != nil {
@@ -183,19 +221,7 @@ func Eliminar(Categoria, Nombre string, Calificacion int) {
 	fmt.Println("No encontrado")
 }
 
-//Guardar json
-/*
-func Guardar() {
-cadena:="{\n\"Datos\": [\n{\n"
-for i:=0;i<len(Vector);i++{
-	if Vector[i].Indice!=""{
-		cadena=cadena+"\"Indice\":"+"\""+Vector[i].Indice+"\",\n\"Departamentos\":"
-	}
-}
-}
-*/
-
-func listasavectores() {
+func listasavectores(w http.ResponseWriter, r *http.Request) {
 	var vector []Estructuras.Dep1
 	for b := 0; b < len(depa); b++ {
 		Departamento := new(Estructuras.Dep1)
@@ -224,19 +250,26 @@ func listasavectores() {
 	if err != nil {
 		fmt.Printf("Error: %v", err)
 	} else {
-		fmt.Println(string(cadenaJson))
+		//se escribe el archivo dot
+		b := []byte(cadenaJson)
+		err := ioutil.WriteFile("guardado.json", b, 0644)
+		if err != nil {
+			log.Fatal(err)
+		}
+
 	}
 }
 
-func Guardar() {
-	mascotaComoJson, err := json.Marshal(Vector)
-	if err != nil {
-		fmt.Printf("Error codificando mascota: %v", err)
-	} else {
-		fmt.Println(string(mascotaComoJson))
-	}
+func indexRoute(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "201909103")
 }
+
 func main() {
-	Cargar()
-	listasavectores()
+	router := mux.NewRouter().StrictSlash(true)
+	router.HandleFunc("/", indexRoute)
+	router.HandleFunc("/cargartienda", Cargar).Methods("POST")
+	router.HandleFunc("/getArreglo", Generardot).Methods("GET")
+	router.HandleFunc("/TiendaEspecifica.", BuscarPosicion).Methods("POST")
+	router.HandleFunc("/Eliminar", Eliminar).Methods("POST")
+	log.Fatal(http.ListenAndServe(":3000", router))
 }
