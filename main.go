@@ -103,6 +103,8 @@ func Generardot(w http.ResponseWriter, r *http.Request) {
 		ioutil.WriteFile("grafo"+strconv.Itoa(a)+".png", cmd, os.FileMode(mode))
 		a++
 	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode("Imagenes creadas")
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////      FUNCIONES
@@ -222,17 +224,33 @@ func BuscarPosicion(w http.ResponseWriter, r *http.Request) {
 	Departamento := c.Departamento
 	Nombre := c.Nombre
 	Calificacion := c.Calificacion
-	for _, Lista := range Vector {
-		if Lista.Primero != nil {
-			//Si encuentra la categoria, y la calificacion
-			if Lista.Categoria == Departamento && Lista.Calificacion == Calificacion {
-				//buscar en la lista
-				a := Lista.Buscar(Nombre, Calificacion)
-				if a.Nombre != "" {
+	j := 0
+	///encontrar numero de departamento
+	for q := 0; q < len(depa); q++ {
+		if depa[j] == Departamento {
+			j = q
+			break
+		}
+	}
+	Salida := new(Estructuras.Salida)
+	///FORMULA ROW MAJOR
+	//( i * TamColum + j ) * TamProf + k
+	for i := 0; i < len(ind); i++ {
+		indice := (i*len(depa)+j)*5 + (Calificacion - 1)
+		fmt.Println(indice)
+		if Vector[indice].Categoria == Departamento {
+			aux := Vector[indice].Primero
+			for aux != nil {
+				if aux.Nombre == Nombre && aux.Calificacion == Calificacion {
 					w.Header().Set("Content-Type", "application/json")
-					json.NewEncoder(w).Encode(a)
+					Salida.Nombre = aux.Nombre
+					Salida.Descripcion = aux.Descripcion
+					Salida.Contacto = aux.Contacto
+					Salida.Calificacion = aux.Calificacion
+					json.NewEncoder(w).Encode(Salida)
 					return
 				}
+				aux = aux.Siguiente
 			}
 		}
 	}
@@ -254,21 +272,28 @@ func Eliminar(w http.ResponseWriter, r *http.Request) {
 	Nombre := c.Nombre
 	Categoria := c.Categoria
 	Calificacion := c.Calificacion
-	cont := 0
-	for _, Lista := range Vector {
-		if Lista.Primero != nil {
-			//Si encuentra la categoria, y la calificacion
-			if Lista.Categoria == Categoria && Lista.Calificacion == Calificacion {
-				//buscar en la lista
-				if Lista.Eliminar(Nombre, Calificacion) == true {
-					w.Header().Set("Content-Type", "application/json")
-					json.NewEncoder(w).Encode("Eliminado")
-					Vector[cont] = Lista
-					return
-				}
+	j := 0
+	///encontrar numero de departamento
+	for q := 0; q < len(depa); q++ {
+		if depa[j] == Categoria {
+			j = q
+			break
+		}
+	}
+	///FORMULA ROW MAJOR
+	//( i * TamColum + j ) * TamProf + k
+	for i := 0; i < len(ind); i++ {
+		indice := (i*len(depa)+j)*5 + (Calificacion - 1)
+		fmt.Println(indice)
+		if Vector[indice].Categoria == Categoria {
+			Lista := Vector[indice]
+			if Lista.Eliminar(Nombre, Calificacion) == true {
+				w.Header().Set("Content-Type", "application/json")
+				json.NewEncoder(w).Encode("Eliminado")
+				Vector[indice] = Lista
+				return
 			}
 		}
-		cont++
 	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode("No encontrado")
@@ -280,24 +305,36 @@ func Buscarenvector(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
-	var lista []Estructuras.Salida
-	aux := Vector[obj].Primero
-	for aux != nil {
-		a := new(Estructuras.Salida)
-		a.Nombre = aux.Nombre
-		a.Descripcion = aux.Descripcion
-		a.Contacto = aux.Contacto
-		a.Calificacion = aux.Calificacion
-		lista = append(lista, *a)
-		aux = aux.Siguiente
+	if obj > len(Vector) {
+
 	}
-	if len(lista) == 0 {
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode("No hay tiendas en este indice")
-	}
-	for _, i := range lista {
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(i)
+	///encontrar numero de departamento
+	for i := 0; i < len(ind); i++ {
+		for j := 0; j < len(depa); j++ {
+			for k := 0; k < 5; k++ {
+				///FORMULA ROW MAJOR
+				///( i * TamColum + j ) * TamProf + k
+				indice := (i*len(depa)+j)*5 + k
+				if indice == obj {
+					Salida := new(Estructuras.Salida)
+					aux := Vector[indice].Primero
+					if Vector[indice].Tamanio == 0 {
+						w.Header().Set("Content-Type", "application/json")
+						json.NewEncoder(w).Encode("No hay tiendas en este indice")
+						return
+					}
+					for aux != nil {
+						w.Header().Set("Content-Type", "application/json")
+						Salida.Nombre = aux.Nombre
+						Salida.Descripcion = aux.Descripcion
+						Salida.Contacto = aux.Contacto
+						Salida.Calificacion = aux.Calificacion
+						json.NewEncoder(w).Encode(Salida)
+						aux = aux.Siguiente
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -344,8 +381,6 @@ func GuardarJson(w http.ResponseWriter, r *http.Request) {
 	}
 	Data.Datos = ListaPrincipal
 	cadenaJson, err := json.Marshal(Data)
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(Data)
 	if err != nil {
 		fmt.Printf("Error: %v", err)
 	} else {
