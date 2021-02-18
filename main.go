@@ -32,20 +32,25 @@ func tipoCalif(calif int) string {
 
 func Generardot(w http.ResponseWriter, r *http.Request) {
 	if len(Vector) == 0 {
-		fmt.Println("Primero cargue un archivo")
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode("No hay datos cargados")
 		return
 	}
 	a := 0
 	k := 0
 	q := 0
-	for a < len(Vector)/10+len(Vector)%10 && k < len(Vector) && q < len(Vector) {
+	for a < len(Vector)/5+len(Vector)%5 && k < len(Vector) && q < len(Vector) {
 		cadena := "digraph grafo{\nfontname=\"Verdana\" color=red fontsize=22;\n" +
 			"node [shape=record fontsize=8 fontname=\"Verdana\" style=filled];\n" +
 			"edge [color=\"blue\"]\nsubgraph cluster{\nlabel = \"Vector\";\nbgcolor=\"yellow:dodgerblue\"\n" +
 			"Vector[label=\""
 		for i := k; i < len(Vector); i++ {
-			cadena = cadena + "<" + strconv.Itoa(i) + ">" + strconv.Itoa(i+1) + "|"
-			if (i+1)%10 == 0 {
+			cadena = cadena + "<" + strconv.Itoa(i) + ">" +
+				"Posicion: " + strconv.Itoa(i+1) +
+				"\\n Indice: " + Vector[i].Indice +
+				"\\n Categoria: " + Vector[i].Categoria +
+				"\\n Calificacion: " + strconv.Itoa(Vector[i].Calificacion) + "|"
+			if (i+1)%5 == 0 {
 				k = i + 1
 				break
 			}
@@ -79,7 +84,7 @@ func Generardot(w http.ResponseWriter, r *http.Request) {
 					aux = aux.Siguiente
 				}
 			}
-			if (j+1)%10 == 0 {
+			if (j+1)%5 == 0 {
 				q = j + 1
 				break
 			}
@@ -96,7 +101,6 @@ func Generardot(w http.ResponseWriter, r *http.Request) {
 		cmd, _ := exec.Command(path, "-Tpng", "grafo"+strconv.Itoa(a)+".dot").Output()
 		mode := int(0777)
 		ioutil.WriteFile("grafo"+strconv.Itoa(a)+".png", cmd, os.FileMode(mode))
-		//para abrir la imagen
 		a++
 	}
 }
@@ -106,10 +110,14 @@ func Generardot(w http.ResponseWriter, r *http.Request) {
 //arreglo de departamentos
 var depa []string
 
+//arreglo de indices
+var ind []string
+
 //Vector para Linealizar
 var Vector []Estructuras.Lista
 
 func Cargar(w http.ResponseWriter, r *http.Request) {
+	Vector = nil
 	lector, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		log.Fatal(err)
@@ -134,10 +142,20 @@ func Cargar(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
-	//alfabeto
-	let := 'A'
+	//Contar numero de indices
+	for i := 0; i < len(c.Datos); i++ {
+		existe := false
+		for _, a := range ind {
+			if c.Datos[i].Indice == a {
+				existe = true
+			}
+		}
+		if existe == false {
+			ind = append(ind, c.Datos[i].Indice)
+		}
+	}
 	//indices
-	for abc := 0; abc < 26; abc++ {
+	for _, let := range ind {
 		//departamentos
 		for _, dep := range depa {
 			//calificaciones
@@ -178,13 +196,16 @@ func Cargar(w http.ResponseWriter, r *http.Request) {
 						aux1 = aux1.Siguiente
 					}
 				}
-
+				ListaOrdenada.Indice = Lista.Indice
+				ListaOrdenada.Calificacion = Lista.Calificacion
+				ListaOrdenada.Categoria = Lista.Categoria
 				//se agrega la lista al Vector
 				Vector = append(Vector, *ListaOrdenada)
 			}
 		}
-		let++
 	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode("Datos Cargados")
 }
 
 //Busqueda de Posicion especifica
@@ -193,14 +214,13 @@ func BuscarPosicion(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	//fmt.Println(string(lector))
 	c := Estructuras.Objetivo{}
 	err = json.Unmarshal(lector, &c)
 	if err != nil {
 		log.Fatal(err)
 	}
-	Nombre := c.Nombre
 	Departamento := c.Departamento
+	Nombre := c.Nombre
 	Calificacion := c.Calificacion
 	for _, Lista := range Vector {
 		if Lista.Primero != nil {
@@ -209,7 +229,6 @@ func BuscarPosicion(w http.ResponseWriter, r *http.Request) {
 				//buscar en la lista
 				a := Lista.Buscar(Nombre, Calificacion)
 				if a.Nombre != "" {
-					fmt.Println("Encontrado")
 					w.Header().Set("Content-Type", "application/json")
 					json.NewEncoder(w).Encode(a)
 					return
@@ -227,24 +246,23 @@ func Eliminar(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	//fmt.Println(string(lector))
-	c := Estructuras.Objetivo{}
+	c := Estructuras.ObjetivoE{}
 	err = json.Unmarshal(lector, &c)
 	if err != nil {
 		log.Fatal(err)
 	}
 	Nombre := c.Nombre
-	Departamento := c.Departamento
+	Categoria := c.Categoria
 	Calificacion := c.Calificacion
 	cont := 0
 	for _, Lista := range Vector {
 		if Lista.Primero != nil {
 			//Si encuentra la categoria, y la calificacion
-			if Lista.Categoria == Departamento && Lista.Calificacion == Calificacion {
+			if Lista.Categoria == Categoria && Lista.Calificacion == Calificacion {
 				//buscar en la lista
 				if Lista.Eliminar(Nombre, Calificacion) == true {
-					fmt.Println("Encontrado")
-					fmt.Println(Lista.Primero)
+					w.Header().Set("Content-Type", "application/json")
+					json.NewEncoder(w).Encode("Eliminado")
 					Vector[cont] = Lista
 					return
 				}
@@ -252,7 +270,6 @@ func Eliminar(w http.ResponseWriter, r *http.Request) {
 		}
 		cont++
 	}
-	fmt.Println("No encontrado")
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode("No encontrado")
 }
@@ -282,25 +299,21 @@ func Buscarenvector(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(i)
 	}
-	//w.Header().Set("Content-Type", "application/json")
-	//json.NewEncoder(w).Encode(Vector[obj])
 }
 
 func GuardarJson(w http.ResponseWriter, r *http.Request) {
 	Data := new(Estructuras.Data1)
 	var ListaPrincipal []Estructuras.Principal1
-	let := 'A'
-	for c := 0; c < 26; c++ {
+	for let := 0; let < len(ind); let++ {
 		Principal := new(Estructuras.Principal1)
-		Principal.Indice = string(let)
+		Principal.Indice = string(ind[let])
 		var vector []Estructuras.Dep1
-		////////////////////////////////////////////////////////////////////////7
 		for b := 0; b < len(depa); b++ {
 			Departamento := new(Estructuras.Dep1)
 			Departamento.Nombre = depa[b]
 			var ListaTiendas []Estructuras.Tienda1
 			for a := 0; a < 5; a++ {
-				indice := c*5*len(depa) + (b * 5) + a
+				indice := let*5*len(depa) + (b * 5) + a
 				//atributos de las tiendas
 				aux := Vector[indice].Primero
 				for aux != nil {
@@ -318,7 +331,6 @@ func GuardarJson(w http.ResponseWriter, r *http.Request) {
 			Departamento.Tiendas = ListaTiendas
 			vector = append(vector, *Departamento)
 		}
-		////////////////////////////////////////////////////////////////////////
 		conviene := false
 		for _, o := range vector {
 			if o.Tiendas != nil {
@@ -329,11 +341,11 @@ func GuardarJson(w http.ResponseWriter, r *http.Request) {
 			Principal.Departamentos = vector
 			ListaPrincipal = append(ListaPrincipal, *Principal)
 		}
-
-		let++
 	}
 	Data.Datos = ListaPrincipal
 	cadenaJson, err := json.Marshal(Data)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(Data)
 	if err != nil {
 		fmt.Printf("Error: %v", err)
 	} else {
@@ -349,7 +361,7 @@ func GuardarJson(w http.ResponseWriter, r *http.Request) {
 }
 
 func indexRoute(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "201909103")
+	fmt.Fprintf(w, "William Alejandro Borrayo Alarcon_201909103")
 }
 
 func main() {
@@ -358,8 +370,8 @@ func main() {
 	router.HandleFunc("/cargartienda", Cargar).Methods("POST")
 	router.HandleFunc("/getArreglo", Generardot).Methods("GET")
 	router.HandleFunc("/TiendaEspecifica", BuscarPosicion).Methods("POST")
-	router.HandleFunc("/id:/{id}", Buscarenvector).Methods("GET")
-	router.HandleFunc("/Eliminar", Eliminar).Methods("POST")
+	router.HandleFunc("/id/{id}", Buscarenvector).Methods("GET")
+	router.HandleFunc("/Eliminar", Eliminar).Methods("DELETE")
 	router.HandleFunc("/Guardar", GuardarJson).Methods("POST")
 	log.Fatal(http.ListenAndServe(":3000", router))
 }

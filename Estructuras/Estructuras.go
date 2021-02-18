@@ -1,10 +1,5 @@
 package Estructuras
 
-import (
-	"fmt"
-	"strconv"
-)
-
 /////////////////////////////////////////////////////////////////////                   ESTRUCTURAS ORDENADAS
 type Data struct {
 	Datos []*Principal `json:"Datos"`
@@ -32,8 +27,14 @@ type Tienda struct {
 
 //////////////////////////////////////////////////////////////////////////					para buscary/o eliminar
 type Objetivo struct {
-	Nombre       string `json:"Nombre"`
 	Departamento string `json:"Departamento"`
+	Nombre       string `json:"Nombre"`
+	Calificacion int    `json:"Calificacion"`
+}
+
+type ObjetivoE struct {
+	Nombre       string `json:"Nombre"`
+	Categoria    string `json:"Categoria"`
 	Calificacion int    `json:"Calificacion"`
 }
 
@@ -108,7 +109,6 @@ func (Lista *Lista) Ordenar() []string {
 	var j int
 	var aux string
 	n := len(vector)
-	fmt.Println("vectores de entrada: ", vector)
 	for i := 1; i < n; i++ {
 		j = i
 		aux = vector[i]
@@ -119,7 +119,6 @@ func (Lista *Lista) Ordenar() []string {
 		}
 		vector[j] = aux
 	}
-	fmt.Println("vector ordenado: ", vector)
 	return vector
 }
 
@@ -127,20 +126,15 @@ func (Lista *Lista) Eliminar(Nombre string, Calificacion int) bool {
 	aux := Lista.Primero
 	for aux != nil {
 		if aux.Nombre == Nombre && aux.Calificacion == Calificacion {
-			fmt.Println(Nombre)
 			if Lista.Tamanio == 1 {
 				Lista.Primero = nil
 				Lista.Tamanio--
 				return true
 			}
 			if aux == Lista.Primero {
-				fmt.Println("Primero: " + Lista.Primero.Nombre)
 				Lista.Primero = aux.Siguiente
-				fmt.Println("Siguiente: " + aux.Siguiente.Nombre)
 				aux.Siguiente = nil
-				fmt.Println("Primero: " + Lista.Primero.Nombre)
 				Lista.Primero.Anterior = nil
-				fmt.Println("Primero: " + Lista.Primero.Nombre)
 				Lista.Tamanio--
 				return true
 			} else if aux == Lista.Ultimo {
@@ -170,14 +164,9 @@ func (Lista *Lista) Buscar(Nombre string, Calificacion int) Salida {
 			Salida.Descripcion = aux.Descripcion
 			Salida.Contacto = aux.Contacto
 			Salida.Calificacion = aux.Calificacion
-			fmt.Println("Nombre: " + aux.Nombre)
-			fmt.Println("Descripcion: " + aux.Descripcion)
-			fmt.Println("Contacto: " + aux.Contacto)
-			fmt.Println("Calificacion: " + strconv.Itoa(aux.Calificacion))
 			return *Salida
 		}
 		aux = aux.Siguiente
 	}
-	fmt.Println("No existe en esta lista")
 	return *Salida
 }
