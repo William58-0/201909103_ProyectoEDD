@@ -166,15 +166,15 @@ func Cargar(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	//indices
-	for _, let := range ind {
+	for let := 0; let < len(ind); let++ {
 		//departamentos
-		for _, dep := range depa {
+		for dep := 0; dep < len(depa); dep++ {
 			//calificaciones
 			for calif := 1; calif <= 5; calif++ {
 				//se crea la lista con las caracteristicas correspondientes
 				Lista := new(Estructuras.Lista)
-				Lista.Indice = string(let)
-				Lista.Categoria = dep
+				Lista.Indice = ind[let]
+				Lista.Categoria = depa[dep]
 				Lista.Calificacion = calif
 				//recorrer datos del json para comparar
 				for i := 0; i < len(c.Datos); i++ {
@@ -184,12 +184,13 @@ func Cargar(w http.ResponseWriter, r *http.Request) {
 							sec := prim.Departamentos[j]
 							terc := sec.Tiendas[k]
 							//si una tienda cargada desde el json cumple con las caracteristicas, se agrega a la lista
-							if Corregir(prim.Indice) == string(let) && Corregir(sec.Nombre) == dep && terc.Calificacion == calif {
+							if Corregir(prim.Indice) == ind[let] && Corregir(sec.Nombre) == depa[dep] && terc.Calificacion == calif {
 								Lista.Insertar(Corregir(terc.Nombre), terc.Descripcion, terc.Contacto, terc.Calificacion)
 							}
 						}
 					}
 				}
+				Vector = append(Vector, *Lista)
 				//si la lista queda vacia:
 				if Lista.Tamanio == 0 {
 					Lista.Primero = nil
@@ -211,7 +212,10 @@ func Cargar(w http.ResponseWriter, r *http.Request) {
 				ListaOrdenada.Calificacion = Lista.Calificacion
 				ListaOrdenada.Categoria = Lista.Categoria
 				//se agrega la lista al Vector
-				Vector = append(Vector, *ListaOrdenada)
+				///FORMULA ROW MAJOR
+				//( i * TamColum + j ) * TamProf + k
+				indice := (let*len(depa)+dep)*5 + (calif - 1)
+				Vector[indice] = *ListaOrdenada
 			}
 		}
 	}
