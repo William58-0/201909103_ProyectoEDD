@@ -78,7 +78,8 @@ func Generardot(w http.ResponseWriter, r *http.Request) {
 						strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador-1) + "->" +
 						strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "\n" + //nodo anterior->nodo actual
 						//se crea nuevo nodo
-						strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "[label=\"Nombre: " + aux.Nombre +
+						strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "[label=\"Nombre: " +
+						aux.Nombre +
 						" \\n Contacto: " + aux.Contacto + " \\n Calificacion: " + tipoCalif(aux.Calificacion) + "\", fillcolor=\"yellowgreen:aquamarine\"];\n"
 					contador++
 					aux = aux.Siguiente
@@ -103,11 +104,20 @@ func Generardot(w http.ResponseWriter, r *http.Request) {
 		ioutil.WriteFile("grafo"+strconv.Itoa(a)+".png", cmd, os.FileMode(mode))
 		a++
 	}
+	//para abrir la imagen
+	os.Open("grafo0.png")
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode("Imagenes creadas")
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////      FUNCIONES
+
+func Corregir(palabra string) string {
+	PrimeraLetra := strings.ToUpper(string(palabra[0]))
+	Siguiente := strings.TrimLeft(palabra, string(palabra[0]))
+	Nueva := PrimeraLetra + Siguiente
+	return Nueva
+}
 
 //arreglo de departamentos
 var depa []string
@@ -124,7 +134,6 @@ func Cargar(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	//fmt.Println(string(lector))
 	c := Estructuras.Data{}
 	err = json.Unmarshal(lector, &c)
 	if err != nil {
@@ -135,12 +144,12 @@ func Cargar(w http.ResponseWriter, r *http.Request) {
 		for j := 0; j < len(c.Datos[i].Departamentos); j++ {
 			existe := false
 			for _, a := range depa {
-				if c.Datos[i].Departamentos[j].Nombre == a {
+				if Corregir(c.Datos[i].Departamentos[j].Nombre) == a {
 					existe = true
 				}
 			}
 			if existe == false {
-				depa = append(depa, c.Datos[i].Departamentos[j].Nombre)
+				depa = append(depa, Corregir(c.Datos[i].Departamentos[j].Nombre))
 			}
 		}
 	}
@@ -148,12 +157,12 @@ func Cargar(w http.ResponseWriter, r *http.Request) {
 	for i := 0; i < len(c.Datos); i++ {
 		existe := false
 		for _, a := range ind {
-			if c.Datos[i].Indice == a {
+			if Corregir(c.Datos[i].Indice) == a {
 				existe = true
 			}
 		}
 		if existe == false {
-			ind = append(ind, c.Datos[i].Indice)
+			ind = append(ind, Corregir(c.Datos[i].Indice))
 		}
 	}
 	//indices
@@ -175,8 +184,8 @@ func Cargar(w http.ResponseWriter, r *http.Request) {
 							sec := prim.Departamentos[j]
 							terc := sec.Tiendas[k]
 							//si una tienda cargada desde el json cumple con las caracteristicas, se agrega a la lista
-							if prim.Indice == string(let) && sec.Nombre == dep && terc.Calificacion == calif {
-								Lista.Insertar(terc.Nombre, terc.Descripcion, terc.Contacto, terc.Calificacion)
+							if Corregir(prim.Indice) == string(let) && Corregir(sec.Nombre) == dep && terc.Calificacion == calif {
+								Lista.Insertar(Corregir(terc.Nombre), terc.Descripcion, terc.Contacto, terc.Calificacion)
 							}
 						}
 					}
@@ -237,7 +246,6 @@ func BuscarPosicion(w http.ResponseWriter, r *http.Request) {
 	//( i * TamColum + j ) * TamProf + k
 	for i := 0; i < len(ind); i++ {
 		indice := (i*len(depa)+j)*5 + (Calificacion - 1)
-		fmt.Println(indice)
 		if Vector[indice].Categoria == Departamento {
 			aux := Vector[indice].Primero
 			for aux != nil {
@@ -284,7 +292,6 @@ func Eliminar(w http.ResponseWriter, r *http.Request) {
 	//( i * TamColum + j ) * TamProf + k
 	for i := 0; i < len(ind); i++ {
 		indice := (i*len(depa)+j)*5 + (Calificacion - 1)
-		fmt.Println(indice)
 		if Vector[indice].Categoria == Categoria {
 			Lista := Vector[indice]
 			if Lista.Eliminar(Nombre, Calificacion) == true {
@@ -350,6 +357,7 @@ func GuardarJson(w http.ResponseWriter, r *http.Request) {
 			Departamento.Nombre = depa[b]
 			var ListaTiendas []Estructuras.Tienda1
 			for a := 0; a < 5; a++ {
+				/// FORMULA ROW MAJOR
 				indice := let*5*len(depa) + (b * 5) + a
 				//atributos de las tiendas
 				aux := Vector[indice].Primero
