@@ -122,44 +122,46 @@ func (Lista *Lista) Ordenar() []string {
 	return vector
 }
 
-func (Lista *Lista) Eliminar(Nombre string, Calificacion int) bool {
+func (Lista *Lista) Eliminar(Nombre string, Calificacion int) int {
 	aux := Lista.Primero
+	contador := 1
 	for aux != nil {
 		if aux.Nombre == Nombre && aux.Calificacion == Calificacion {
 			if Lista.Tamanio == 1 {
 				Lista.Primero = nil
 				Lista.Tamanio--
-				return true
+				return contador
 			}
 			if aux == Lista.Primero {
 				Lista.Primero = aux.Siguiente
 				aux.Siguiente = nil
 				Lista.Primero.Anterior = nil
 				Lista.Tamanio--
-				return true
+				return contador
 			} else if aux == Lista.Ultimo {
 				Lista.Ultimo = aux.Anterior
 				aux.Anterior = nil
 				Lista.Ultimo.Siguiente = nil
 				Lista.Tamanio--
-				return true
+				return contador
 			} else {
 				aux.Anterior.Siguiente = aux.Siguiente
 				aux.Siguiente.Anterior = aux.Anterior
 				Lista.Tamanio--
-				return true
+				return contador
 			}
 		}
 		aux = aux.Siguiente
+		contador++
 	}
-	return false
+	return 0
 }
 
-func (Lista *Lista) Buscar(Nombre string, Calificacion int) Salida {
+func (Lista *Lista) Buscar(Nombre string) Salida {
 	Salida := new(Salida)
 	aux := Lista.Primero
 	for aux != nil {
-		if aux.Nombre == Nombre && aux.Calificacion == Calificacion {
+		if aux.Nombre == Nombre {
 			Salida.Nombre = aux.Nombre
 			Salida.Descripcion = aux.Descripcion
 			Salida.Contacto = aux.Contacto

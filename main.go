@@ -240,7 +240,7 @@ func BuscarPosicion(w http.ResponseWriter, r *http.Request) {
 	j := 0
 	///encontrar numero de departamento
 	for q := 0; q < len(depa); q++ {
-		if depa[j] == Departamento {
+		if depa[q] == Departamento {
 			j = q
 			break
 		}
@@ -287,7 +287,7 @@ func Eliminar(w http.ResponseWriter, r *http.Request) {
 	j := 0
 	///encontrar numero de departamento
 	for q := 0; q < len(depa); q++ {
-		if depa[j] == Categoria {
+		if depa[q] == Categoria {
 			j = q
 			break
 		}
@@ -298,9 +298,11 @@ func Eliminar(w http.ResponseWriter, r *http.Request) {
 		indice := (i*len(depa)+j)*5 + (Calificacion - 1)
 		if Vector[indice].Categoria == Categoria {
 			Lista := Vector[indice]
-			if Lista.Eliminar(Nombre, Calificacion) == true {
+			y := Lista.Eliminar(Nombre, Calificacion)
+			if y != 0 {
 				w.Header().Set("Content-Type", "application/json")
-				json.NewEncoder(w).Encode("Eliminado")
+				cad := strconv.Itoa(i) + ", " + strconv.Itoa(j) + ", " + strconv.Itoa(Calificacion-1) + ", " + strconv.Itoa(y) + " : Eliminado"
+				json.NewEncoder(w).Encode(cad)
 				Vector[indice] = Lista
 				return
 			}
@@ -316,9 +318,6 @@ func Buscarenvector(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
-	if obj > len(Vector) {
-
-	}
 	///encontrar numero de departamento
 	for i := 0; i < len(ind); i++ {
 		for j := 0; j < len(depa); j++ {
@@ -329,7 +328,7 @@ func Buscarenvector(w http.ResponseWriter, r *http.Request) {
 				if indice == obj {
 					Salida := new(Estructuras.Salida)
 					aux := Vector[indice].Primero
-					if Vector[indice].Tamanio == 0 {
+					if Vector[indice].Tamanio == 0 || Vector[indice].Primero == nil {
 						w.Header().Set("Content-Type", "application/json")
 						json.NewEncoder(w).Encode("No hay tiendas en este indice")
 						return
@@ -343,10 +342,13 @@ func Buscarenvector(w http.ResponseWriter, r *http.Request) {
 						json.NewEncoder(w).Encode(Salida)
 						aux = aux.Siguiente
 					}
+					return
 				}
 			}
 		}
 	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode("No hay tiendas en este indice")
 }
 
 func GuardarJson(w http.ResponseWriter, r *http.Request) {
