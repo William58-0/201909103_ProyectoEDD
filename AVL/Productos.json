@@ -1,0 +1,91 @@
+{
+    "Inventarios": [{
+            "Tienda": "Samsung",
+            "Departamento": "Tecnologia",
+            "Calificacion": 3,
+            "Productos": [{
+                    "Nombre": "s8",
+                    "Codigo": 1234,
+                    "Descripcion": "El smartphone del futuro",
+                    "Precio": 2500.00,
+                    "Cantidad": 25,
+                    "Imagen":"https://i.blogs.es/7a4489/galaxy-s8-4/450_1000.jpg"
+                },
+                {
+                    "Nombre": "s9",
+                    "Codigo": 1233,
+                    "Descripcion": "El smartphone del futuro mejorado",
+                    "Precio": 5500.00,
+                    "Cantidad": 10,
+                    "Imagen":"https://static.kemikcdn.com/2019/01/griss.jpg"
+                }
+            ]
+        },
+        {
+            "Tienda": "Huawei",
+            "Departamento": "Tecnologia",
+            "Calificacion": 4,
+            "Productos": [{
+                    "Nombre": "P40 Pro",
+                    "Codigo": 1222,
+                    "Descripcion": "Sobresale en todas Sus areas",
+                    "Precio": 5500.00,
+                    "Cantidad": 15,
+                    "Imagen":"https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2020/01/estos-seran-colores-camaras-huawei-p40-p40-pro-1846245.jpg?itok=SE-h-ICj"
+                },
+                {
+                    "Nombre": "Mate 40 Pro",
+                    "Codigo": 1232,
+                    "Descripcion": "Son ahora mas eficientes energicamente",
+                    "Precio": 7500.00,
+                    "Cantidad": 10,
+                    "Imagen":"https://files.gsmchoice.com/phones/lenovo-p90-pro/lenovo-p90-pro-17.jpg"
+                }
+            ]
+        },
+        {
+            "Tienda": "Intelaf",
+            "Departamento": "Tecnologia",
+            "Calificacion": 5,
+            "Productos": [{
+                    "Nombre": "Razer Huntsman mini",
+                    "Codigo": 4222,
+                    "Descripcion": "Teclado OptoMecanico con switches purple",
+                    "Precio": 810.00,
+                    "Cantidad": 15,
+                    "Imagen":"https://techaeris.com/wp-content/uploads/2020/07/Razer-Huntsman-Mini-review.jpg"
+                },
+                {
+                    "Nombre": "Logitech G G915TKL",
+                    "Codigo": 4232,
+                    "Descripcion": "Juega en la siguiente dimension con los nuevos skitches reducidos para una mejor comodidad",
+                    "Precio": 1844.00,
+                    "Cantidad": 10,
+                    "Imagen":"https://static.kemikcdn.com/2020/02/G502X1.jpg"
+                }
+            ]
+        },
+        {
+            "Tienda": "Nike",
+            "Departamento": "Deporte",
+            "Calificacion": 4,
+            "Productos": [{
+                    "Nombre": "Nike SB",
+                    "Codigo": 2234,
+                    "Descripcion": "Comodos y ergonomicos para una mejor estabilidad de los deportistas",
+                    "Precio": 1500.00,
+                    "Cantidad": 35,
+                    "Imagen":"https://tecvolucion.com/wp-content/uploads/2019/01/Sp19_BB_Nike_Adapt_20181218_NIKE0538_Detail5_rectangle_1600.jpg"
+                },
+                {
+                    "Nombre": "Air Jordan",
+                    "Codigo": 2313,
+                    "Descripcion": "El mejor estilo y comodidad, tanto para basketbolistas como de uso casual",
+                    "Precio": 1300.00,
+                    "Cantidad": 50,
+                    "Imagen":"https://images.mediotiempo.com/TAGSYH6AgmeIR2gKHucF5vK8lDs=/0x530/uploads/media/2020/05/05/air-jordan-vi-fabricados-mj.jpg"
+                }
+            ]
+        }
+    ]
+}

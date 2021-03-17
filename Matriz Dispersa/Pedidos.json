@@ -1,0 +1,37 @@
+{
+    "Pedidos": [{
+            "Fecha": "07-04-2017",
+            "Tienda": "Intelaf",
+            "Departamento": "Tecnologia",
+            "Calificacion": 1,
+            "Productos": [{
+                    "Codigo": 1234
+                },
+                {
+                    "Codigo": 1233
+                },
+                {
+                    "Codigo": 1222
+                }
+            ]
+        },
+        {
+            "Fecha": "07-04-2017",
+            "Tienda": "Zona Gamer",
+            "Departamento": "Videojuegos",
+            "Calificacion": 4,
+            "Productos": [{
+                "Codigo": 1234
+            }]
+        },
+        {
+            "Fecha": "01-04-2017",
+            "Tienda": "Artemis",
+            "Departamento": "Lecutra",
+            "Calificacion": 4,
+            "Productos": [{
+                "Codigo": 1222
+            }]
+        }
+    ]
+}

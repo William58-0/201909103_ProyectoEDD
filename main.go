@@ -15,6 +15,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
+//-------------------------------------------------------------------------------------------------------------GRAFO DE VECTOR
 func tipoCalif(calif int) string {
 	switch ej := calif; ej {
 	case 1:
@@ -78,8 +79,7 @@ func Generardot(w http.ResponseWriter, r *http.Request) {
 						strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador-1) + "->" +
 						strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "\n" + //nodo anterior->nodo actual
 						//se crea nuevo nodo
-						strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "[label=\"Nombre: " +
-						aux.Nombre +
+						strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "[label=\"Nombre: " + aux.Nombre +
 						" \\n Contacto: " + aux.Contacto + " \\n Calificacion: " + tipoCalif(aux.Calificacion) + "\", fillcolor=\"yellowgreen:aquamarine\"];\n"
 					contador++
 					aux = aux.Siguiente
@@ -104,20 +104,9 @@ func Generardot(w http.ResponseWriter, r *http.Request) {
 		ioutil.WriteFile("grafo"+strconv.Itoa(a)+".png", cmd, os.FileMode(mode))
 		a++
 	}
-	//para abrir la imagen
-	os.Open("grafo0.png")
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode("Imagenes creadas")
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////      FUNCIONES
-
-func Corregir(palabra string) string {
-	PrimeraLetra := strings.ToUpper(string(palabra[0]))
-	Siguiente := strings.TrimLeft(palabra, string(palabra[0]))
-	Nueva := PrimeraLetra + Siguiente
-	return Nueva
-}
+//--------------------------------------------------------------------------------------------------------------------      FUNCIONES
 
 //arreglo de departamentos
 var depa []string
@@ -128,12 +117,16 @@ var ind []string
 //Vector para Linealizar
 var Vector []Estructuras.Lista
 
+//cargar y linealizar las tiendas
 func Cargar(w http.ResponseWriter, r *http.Request) {
+	var ListaTiendas []Estructuras.Tienda1
+	Todo := new(Estructuras.Todo)
 	Vector = nil
 	lector, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
+	//fmt.Println(string(lector))
 	c := Estructuras.Data{}
 	err = json.Unmarshal(lector, &c)
 	if err != nil {
@@ -144,12 +137,12 @@ func Cargar(w http.ResponseWriter, r *http.Request) {
 		for j := 0; j < len(c.Datos[i].Departamentos); j++ {
 			existe := false
 			for _, a := range depa {
-				if Corregir(c.Datos[i].Departamentos[j].Nombre) == a {
+				if c.Datos[i].Departamentos[j].Nombre == a {
 					existe = true
 				}
 			}
 			if existe == false {
-				depa = append(depa, Corregir(c.Datos[i].Departamentos[j].Nombre))
+				depa = append(depa, c.Datos[i].Departamentos[j].Nombre)
 			}
 		}
 	}
@@ -157,24 +150,24 @@ func Cargar(w http.ResponseWriter, r *http.Request) {
 	for i := 0; i < len(c.Datos); i++ {
 		existe := false
 		for _, a := range ind {
-			if Corregir(c.Datos[i].Indice) == a {
+			if c.Datos[i].Indice == a {
 				existe = true
 			}
 		}
 		if existe == false {
-			ind = append(ind, Corregir(c.Datos[i].Indice))
+			ind = append(ind, c.Datos[i].Indice)
 		}
 	}
 	//indices
-	for let := 0; let < len(ind); let++ {
+	for _, let := range ind {
 		//departamentos
-		for dep := 0; dep < len(depa); dep++ {
+		for _, dep := range depa {
 			//calificaciones
 			for calif := 1; calif <= 5; calif++ {
 				//se crea la lista con las caracteristicas correspondientes
 				Lista := new(Estructuras.Lista)
-				Lista.Indice = ind[let]
-				Lista.Categoria = depa[dep]
+				Lista.Indice = string(let)
+				Lista.Categoria = dep
 				Lista.Calificacion = calif
 				//recorrer datos del json para comparar
 				for i := 0; i < len(c.Datos); i++ {
@@ -183,14 +176,131 @@ func Cargar(w http.ResponseWriter, r *http.Request) {
 							prim := c.Datos[i]
 							sec := prim.Departamentos[j]
 							terc := sec.Tiendas[k]
+							terc.Departamento = dep
 							//si una tienda cargada desde el json cumple con las caracteristicas, se agrega a la lista
-							if Corregir(prim.Indice) == ind[let] && Corregir(sec.Nombre) == depa[dep] && terc.Calificacion == calif {
-								Lista.Insertar(Corregir(terc.Nombre), terc.Descripcion, terc.Contacto, terc.Calificacion)
+							if prim.Indice == string(let) && sec.Nombre == dep && terc.Calificacion == calif {
+								Lista.Insertar(terc.Nombre, terc.Descripcion, terc.Contacto, terc.Calificacion, terc.Departamento, terc.Logo)
 							}
 						}
 					}
 				}
-				Vector = append(Vector, *Lista)
+				//si la lista queda vacia:
+				if Lista.Tamanio == 0 {
+					Lista.Primero = nil
+					Lista.Ultimo = nil
+				}
+				//Se ordena la lista
+				Nombres := Lista.Ordenar()
+				ListaOrdenada := new(Estructuras.Lista)
+				for _, o := range Nombres {
+					aux1 := Lista.Primero
+					for aux1 != nil {
+						if aux1.Nombre == o {
+							ListaOrdenada.Insertar(aux1.Nombre, aux1.Descripcion, aux1.Contacto, aux1.Calificacion, aux1.Departamento, aux1.Logo)
+							Tienda1 := new(Estructuras.Tienda1)
+							Tienda1.Nombre = aux1.Nombre
+							Tienda1.Descripcion = aux1.Descripcion
+							Tienda1.Contacto = aux1.Contacto
+							Tienda1.Calificacion = aux1.Calificacion
+							Tienda1.Departamento = aux1.Departamento
+							Tienda1.Logo = aux1.Logo
+							if Tienda1 != nil {
+								ListaTiendas = append(ListaTiendas, *Tienda1)
+							}
+						}
+						aux1 = aux1.Siguiente
+					}
+				}
+				ListaOrdenada.Indice = Lista.Indice
+				ListaOrdenada.Calificacion = Lista.Calificacion
+				ListaOrdenada.Categoria = Lista.Categoria
+				//se agrega la lista al Vector
+				Vector = append(Vector, *ListaOrdenada)
+			}
+		}
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode("Datos Cargados")
+	//crear json de tiendas
+	Todo.Tiendas = ListaTiendas
+	cadenaJson, err := json.Marshal(Todo)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(Todo)
+	if err != nil {
+		fmt.Printf("Error: %v", err)
+	} else {
+		//se escribe el archivo json
+		b := []byte(cadenaJson)
+		err := ioutil.WriteFile("tiendas.json", b, 0644)
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode("Se guardó json")
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+}
+
+/*
+func Cargar(w http.ResponseWriter, r *http.Request) {
+	Vector = nil
+	lector, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	Todo := new(Estructuras.Todo)
+	var Depn []Estructuras.Dep
+	//fmt.Println(string(lector))
+	c := Estructuras.Data{}
+	err = json.Unmarshal(lector, &c)
+	if err != nil {
+		log.Fatal(err)
+	}
+	//Contar numero de departamentos
+	for i := 0; i < len(c.Datos); i++ {
+		for j := 0; j < len(c.Datos[i].Departamentos); j++ {
+			existe := false
+			for _, a := range depa {
+				if c.Datos[i].Departamentos[j].Nombre == a {
+					existe = true
+				}
+			}
+			if existe == false {
+				depa = append(depa, c.Datos[i].Departamentos[j].Nombre)
+			}
+		}
+	}
+	//Contar numero de indices
+	for i := 0; i < len(c.Datos); i++ {
+		existe := false
+		for _, a := range ind {
+			if c.Datos[i].Indice == a {
+				existe = true
+			}
+		}
+		if existe == false {
+			ind = append(ind, c.Datos[i].Indice)
+		}
+	}
+	//indices
+	for _, let := range ind {
+		//departamentos
+		for _, dep := range depa {
+			//calificaciones
+			for calif := 1; calif <= 5; calif++ {
+				//recorrer datos del json para comparar
+				for i := 0; i < len(c.Datos); i++ {
+					for j := 0; j < len(c.Datos[i].Departamentos); j++ {
+						for k := 0; k < len(c.Datos[i].Departamentos[j].Tiendas); k++ {
+							prim := c.Datos[i]
+							sec := prim.Departamentos[j]
+							terc := sec.Tiendas[k]
+							//si una tienda cargada desde el json cumple con las caracteristicas, se agrega a la lista
+							if prim.Indice == string(let) && sec.Nombre == dep && terc.Calificacion == calif {
+								Lista.Insertar(terc.Nombre, terc.Descripcion, terc.Contacto, terc.Calificacion)
+							}
+						}
+					}
+				}
 				//si la lista queda vacia:
 				if Lista.Tamanio == 0 {
 					Lista.Primero = nil
@@ -212,16 +322,14 @@ func Cargar(w http.ResponseWriter, r *http.Request) {
 				ListaOrdenada.Calificacion = Lista.Calificacion
 				ListaOrdenada.Categoria = Lista.Categoria
 				//se agrega la lista al Vector
-				///FORMULA ROW MAJOR
-				//( i * TamColum + j ) * TamProf + k
-				indice := (let*len(depa)+dep)*5 + (calif - 1)
-				Vector[indice] = *ListaOrdenada
+				Vector = append(Vector, *ListaOrdenada)
 			}
 		}
 	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode("Datos Cargados")
 }
+*/
 
 //Busqueda de Posicion especifica
 func BuscarPosicion(w http.ResponseWriter, r *http.Request) {
@@ -237,32 +345,17 @@ func BuscarPosicion(w http.ResponseWriter, r *http.Request) {
 	Departamento := c.Departamento
 	Nombre := c.Nombre
 	Calificacion := c.Calificacion
-	j := 0
-	///encontrar numero de departamento
-	for q := 0; q < len(depa); q++ {
-		if depa[q] == Departamento {
-			j = q
-			break
-		}
-	}
-	Salida := new(Estructuras.Salida)
-	///FORMULA ROW MAJOR
-	//( i * TamColum + j ) * TamProf + k
-	for i := 0; i < len(ind); i++ {
-		indice := (i*len(depa)+j)*5 + (Calificacion - 1)
-		if Vector[indice].Categoria == Departamento {
-			aux := Vector[indice].Primero
-			for aux != nil {
-				if aux.Nombre == Nombre && aux.Calificacion == Calificacion {
+	for _, Lista := range Vector {
+		if Lista.Primero != nil {
+			//Si encuentra la categoria, y la calificacion
+			if Lista.Categoria == Departamento && Lista.Calificacion == Calificacion {
+				//buscar en la lista
+				a := Lista.Buscar(Nombre, Calificacion)
+				if a.Nombre != "" {
 					w.Header().Set("Content-Type", "application/json")
-					Salida.Nombre = aux.Nombre
-					Salida.Descripcion = aux.Descripcion
-					Salida.Contacto = aux.Contacto
-					Salida.Calificacion = aux.Calificacion
-					json.NewEncoder(w).Encode(Salida)
+					json.NewEncoder(w).Encode(a)
 					return
 				}
-				aux = aux.Siguiente
 			}
 		}
 	}
@@ -284,29 +377,21 @@ func Eliminar(w http.ResponseWriter, r *http.Request) {
 	Nombre := c.Nombre
 	Categoria := c.Categoria
 	Calificacion := c.Calificacion
-	j := 0
-	///encontrar numero de departamento
-	for q := 0; q < len(depa); q++ {
-		if depa[q] == Categoria {
-			j = q
-			break
-		}
-	}
-	///FORMULA ROW MAJOR
-	//( i * TamColum + j ) * TamProf + k
-	for i := 0; i < len(ind); i++ {
-		indice := (i*len(depa)+j)*5 + (Calificacion - 1)
-		if Vector[indice].Categoria == Categoria {
-			Lista := Vector[indice]
-			y := Lista.Eliminar(Nombre, Calificacion)
-			if y != 0 {
-				w.Header().Set("Content-Type", "application/json")
-				cad := strconv.Itoa(i) + ", " + strconv.Itoa(j) + ", " + strconv.Itoa(Calificacion-1) + ", " + strconv.Itoa(y) + " : Eliminado"
-				json.NewEncoder(w).Encode(cad)
-				Vector[indice] = Lista
-				return
+	cont := 0
+	for _, Lista := range Vector {
+		if Lista.Primero != nil {
+			//Si encuentra la categoria, y la calificacion
+			if Lista.Categoria == Categoria && Lista.Calificacion == Calificacion {
+				//buscar en la lista
+				if Lista.Eliminar(Nombre, Calificacion) == true {
+					w.Header().Set("Content-Type", "application/json")
+					json.NewEncoder(w).Encode("Eliminado")
+					Vector[cont] = Lista
+					return
+				}
 			}
 		}
+		cont++
 	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode("No encontrado")
@@ -318,37 +403,25 @@ func Buscarenvector(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
-	///encontrar numero de departamento
-	for i := 0; i < len(ind); i++ {
-		for j := 0; j < len(depa); j++ {
-			for k := 0; k < 5; k++ {
-				///FORMULA ROW MAJOR
-				///( i * TamColum + j ) * TamProf + k
-				indice := (i*len(depa)+j)*5 + k
-				if indice == obj {
-					Salida := new(Estructuras.Salida)
-					aux := Vector[indice].Primero
-					if Vector[indice].Tamanio == 0 || Vector[indice].Primero == nil {
-						w.Header().Set("Content-Type", "application/json")
-						json.NewEncoder(w).Encode("No hay tiendas en este indice")
-						return
-					}
-					for aux != nil {
-						w.Header().Set("Content-Type", "application/json")
-						Salida.Nombre = aux.Nombre
-						Salida.Descripcion = aux.Descripcion
-						Salida.Contacto = aux.Contacto
-						Salida.Calificacion = aux.Calificacion
-						json.NewEncoder(w).Encode(Salida)
-						aux = aux.Siguiente
-					}
-					return
-				}
-			}
-		}
+	var lista []Estructuras.Salida
+	aux := Vector[obj].Primero
+	for aux != nil {
+		a := new(Estructuras.Salida)
+		a.Nombre = aux.Nombre
+		a.Descripcion = aux.Descripcion
+		a.Contacto = aux.Contacto
+		a.Calificacion = aux.Calificacion
+		lista = append(lista, *a)
+		aux = aux.Siguiente
 	}
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode("No hay tiendas en este indice")
+	if len(lista) == 0 {
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode("No hay tiendas en este indice")
+	}
+	for _, i := range lista {
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(i)
+	}
 }
 
 func GuardarJson(w http.ResponseWriter, r *http.Request) {
@@ -363,7 +436,6 @@ func GuardarJson(w http.ResponseWriter, r *http.Request) {
 			Departamento.Nombre = depa[b]
 			var ListaTiendas []Estructuras.Tienda1
 			for a := 0; a < 5; a++ {
-				/// FORMULA ROW MAJOR
 				indice := let*5*len(depa) + (b * 5) + a
 				//atributos de las tiendas
 				aux := Vector[indice].Primero
@@ -395,6 +467,8 @@ func GuardarJson(w http.ResponseWriter, r *http.Request) {
 	}
 	Data.Datos = ListaPrincipal
 	cadenaJson, err := json.Marshal(Data)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(Data)
 	if err != nil {
 		fmt.Printf("Error: %v", err)
 	} else {

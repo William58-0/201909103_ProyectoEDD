@@ -1,6 +1,6 @@
 package Estructuras
 
-/////////////////////////////////////////////////////////////////////                   ESTRUCTURAS ORDENADAS
+//-----------------------------------------------------------------------------------                  ESTRUCTURAS ORDENADAS
 type Data struct {
 	Datos []*Principal `json:"Datos"`
 }
@@ -21,11 +21,18 @@ type Tienda struct {
 	Descripcion  string `json:"Descripcion"`
 	Contacto     string `json:"Contacto"`
 	Calificacion int    `json:"Calificacion"`
+	Logo         string `json:"Logo"`
+	Departamento string
 	Siguiente    *Tienda
 	Anterior     *Tienda
 }
 
-//////////////////////////////////////////////////////////////////////////					para buscary/o eliminar
+//---------------------------------------------------------------------------------------     		para cargar tiendas en react
+type Todo struct {
+	Tiendas []Tienda1 `json:"Tienda"`
+}
+
+//----------------------------------------------------------------------------------------					para buscary/o eliminar
 type Objetivo struct {
 	Departamento string `json:"Departamento"`
 	Nombre       string `json:"Nombre"`
@@ -45,7 +52,7 @@ type Salida struct {
 	Calificacion int
 }
 
-//////////////////////////////////////////////////////////////////////////					para generar json
+//---------------------------------------------------------------------------------------------				para generar json
 type Data1 struct {
 	Datos []Principal1
 }
@@ -60,15 +67,16 @@ type Dep1 struct {
 	Tiendas []Tienda1
 }
 
-//un sinonimo de nodo
 type Tienda1 struct {
 	Nombre       string
 	Descripcion  string
 	Contacto     string
 	Calificacion int
+	Departamento string
+	Logo         string
 }
 
-/////////////////////////////////////////////////////////////////////////                 LISTA
+//-------------------------------------------------------------------------------------------                 LISTA
 
 //lista doblemente enlazada
 type Lista struct {
@@ -80,12 +88,14 @@ type Lista struct {
 	Ultimo       *Tienda
 }
 
-func (Lista *Lista) Insertar(Nombre string, Descripcion string, Contacto string, Calificacion int) {
+func (Lista *Lista) Insertar(Nombre string, Descripcion string, Contacto string, Calificacion int, Departamento string, Logo string) {
 	nuevo := new(Tienda)
 	nuevo.Nombre = Nombre
 	nuevo.Descripcion = Descripcion
 	nuevo.Contacto = Contacto
 	nuevo.Calificacion = Calificacion
+	nuevo.Departamento = Departamento
+	nuevo.Logo = Logo
 	if Lista.Primero == nil {
 		Lista.Primero = nuevo
 		Lista.Ultimo = nuevo
@@ -122,46 +132,44 @@ func (Lista *Lista) Ordenar() []string {
 	return vector
 }
 
-func (Lista *Lista) Eliminar(Nombre string, Calificacion int) int {
+func (Lista *Lista) Eliminar(Nombre string, Calificacion int) bool {
 	aux := Lista.Primero
-	contador := 1
 	for aux != nil {
 		if aux.Nombre == Nombre && aux.Calificacion == Calificacion {
 			if Lista.Tamanio == 1 {
 				Lista.Primero = nil
 				Lista.Tamanio--
-				return contador
+				return true
 			}
 			if aux == Lista.Primero {
 				Lista.Primero = aux.Siguiente
 				aux.Siguiente = nil
 				Lista.Primero.Anterior = nil
 				Lista.Tamanio--
-				return contador
+				return true
 			} else if aux == Lista.Ultimo {
 				Lista.Ultimo = aux.Anterior
 				aux.Anterior = nil
 				Lista.Ultimo.Siguiente = nil
 				Lista.Tamanio--
-				return contador
+				return true
 			} else {
 				aux.Anterior.Siguiente = aux.Siguiente
 				aux.Siguiente.Anterior = aux.Anterior
 				Lista.Tamanio--
-				return contador
+				return true
 			}
 		}
 		aux = aux.Siguiente
-		contador++
 	}
-	return 0
+	return false
 }
 
-func (Lista *Lista) Buscar(Nombre string) Salida {
+func (Lista *Lista) Buscar(Nombre string, Calificacion int) Salida {
 	Salida := new(Salida)
 	aux := Lista.Primero
 	for aux != nil {
-		if aux.Nombre == Nombre {
+		if aux.Nombre == Nombre && aux.Calificacion == Calificacion {
 			Salida.Nombre = aux.Nombre
 			Salida.Descripcion = aux.Descripcion
 			Salida.Contacto = aux.Contacto

@@ -1,0 +1,85 @@
+digraph {
+
+rankdir = TB;
+node [shape=rectangle, height=0.5, width=0.5];
+graph[ nodesep = 0.5];
+
+//raiz
+node0 [label="0"];
+//eje horizontales
+node01 [label="01"];
+node02 [label="02"];
+node03 [label="03"];
+node04 [label="04"];
+node06 [label="06"];
+node07 [label="07"];
+node08 [label="08"];
+
+//eje vertical
+nodeDep1 [label="Dep1"];
+nodeDep2 [label="Dep2"];
+nodeDep3 [label="Dep3"];
+nodeDep4 [label="Dep4"];
+nodeDep6 [label="Dep6"];
+nodeDep9 [label="Dep9"];
+nodeDep10 [label="Dep10"];
+
+//valores
+node01Dep4 [label="01\nDep"];
+node02Dep6 [label="02\nDep6"];
+node06Dep3 [label="06\nDep3"];
+node04Dep1 [label="04\nDep1"];
+node07Dep9 [label="07\nDep9"];
+node03Dep2 [label="03\nDep2"];
+node08Dep10 [label="08\nDep10"];
+node08Dep6 [label="08\nDep6"];
+
+//se unen los horizontales y sus valores
+node0 -> node01[ dir=both];
+node01 -> node02[dir=both];
+node01 -> node01Dep4[dir=both];
+node02 -> node03[dir=both];
+node02 -> node02Dep6[dir=both];
+node03 -> node04[dir=both];
+node03 -> node03Dep2[dir=both];
+node04 -> node06[dir=both];
+node04 -> node04Dep1[dir=both];
+node06 -> node07[dir=both];
+node06 -> node06Dep3[dir=both];
+node07 -> node08[dir=both];
+node07 -> node07Dep9[dir=both];
+node08Dep6 -> node08Dep10[dir=both];
+node08 -> node08Dep6[dir=both];
+
+
+//se unen los verticales y sus valores
+node0 -> nodeDep1[dir=both];
+nodeDep1 -> nodeDep2[dir=both];
+nodeDep1 -> node04Dep1[constraint=false, dir=both];
+nodeDep2 -> nodeDep3[dir=both];
+nodeDep2 -> node03Dep2[constraint=false, dir=both];
+nodeDep3 -> nodeDep4[dir=both];
+nodeDep3 -> node06Dep3[constraint=false, dir=both];
+nodeDep4 -> nodeDep6[dir=both];
+nodeDep4 -> node01Dep4[constraint=false, dir=both];
+nodeDep6 -> nodeDep9[dir=both];
+nodeDep6 -> node02Dep6[constraint=false, dir=both];
+nodeDep9 -> nodeDep10[dir=both];
+nodeDep9 -> node07Dep9[constraint=false, dir=both];
+nodeDep10 -> node08Dep10[constraint=false, dir=both];
+node02Dep6 -> node08Dep6[constraint=false, dir=both];
+
+//solo horizontales ? \O/
+{ rank=same; node0; node01; node02; node03; node04; node06; node07; node08; }
+{ rank=same; nodeDep1; node04Dep1;}
+{ rank=same; nodeDep2; node03Dep2;}
+{ rank=same; nodeDep3; node06Dep3;}
+{ rank=same; nodeDep4; node01Dep4; }
+{ rank=same; nodeDep6; node02Dep6; }
+{ rank=same; nodeDep9; node07Dep9;}
+{ rank=same; nodeDep6; node08Dep6; }
+{ rank=same; nodeDep6; node08Dep6; }
+{ rank=same; nodeDep10; node08Dep10; }
+
+
+}

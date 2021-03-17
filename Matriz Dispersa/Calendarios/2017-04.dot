@@ -1,0 +1,31 @@
+digraph {
+rankdir = BT;
+node [shape=rectangle, height=0.5, width=0.5];
+graph[ nodesep = 0.5];
+{ rank=same; nodo0; nodo01;}
+ { rank=same; nodo01; nodo07;}
+ { rank=same; nodoTecnologia; nodo07Tecnologia;}
+ { rank=same; nodoVideojuegos; nodo07Videojuegos;}
+ { rank=same; nodoLecutra; nodo01Lecutra;}
+ nodo0 [label="0"]
+nodo01 [label="01"]
+nodo01->nodo0 [constraint=false; dir=both]
+nodo07 [label="07"]
+nodo07->nodo01 [constraint=false; dir=both]
+nodoLecutra [label="Lecutra"]
+nodoLecutra->nodo0 dir=both
+nodoTecnologia [label="Tecnologia"]
+nodoTecnologia->nodoLecutra dir=both
+nodoVideojuegos [label="Videojuegos"]
+nodoVideojuegos->nodoTecnologia dir=both
+nodo07Tecnologia [label="3" shape=circle]
+nodo07Tecnologia->nodo07 dir=both
+nodo07Tecnologia->nodoTecnologia [constraint=false; dir=both]
+nodo07Videojuegos [label="1" shape=circle]
+nodo07Videojuegos->nodo07Tecnologia dir=both
+nodo07Videojuegos->nodoVideojuegos [constraint=false; dir=both]
+nodo01Lecutra [label="1" shape=circle]
+nodo01Lecutra->nodo01 dir=both
+nodo01Lecutra->nodoLecutra [constraint=false; dir=both]
+{ rank=same; nodo01; nodo07; }
+ }
