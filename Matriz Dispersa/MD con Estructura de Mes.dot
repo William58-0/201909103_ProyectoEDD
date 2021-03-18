@@ -1,14 +1,15 @@
 digraph {
-nodesep = 0.5
-node [shape=rectangle style=filled ];
 rankdir = BT;
-subgraph{
-    node [shape = record,height=.1];
-    node0
+compound=true
+nodesep = 0.5
+node [shape=rectangle style=filled];
+subgraph cluster0{
+    rankdir=UD
+    NodoEstructura2
+    nodoMes [label="Agosto"]
 }
 
-
-subgraph{
+subgraph cluster1{
 { rank=same; nodoMD; nodo01;}
  { rank=same; nodo01; nodo07;}
  { rank=same; nodoTecnologia; nodo07Tecnologia;}
@@ -36,4 +37,6 @@ nodo01Lecutra->nodo01 [dir=both]
 nodoLecutra->nodo01Lecutra [constraint=false; dir=both]
 { rank=same; nodoMD; nodo01; nodo07; }
 }
+
+nodoMes->nodoMD [lhead=cluster1];
  }

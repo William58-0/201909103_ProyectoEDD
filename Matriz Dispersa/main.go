@@ -243,6 +243,7 @@ func leer() {
 	}
 	//Enlistar solo Productos
 	for i := 0; i < len(c.Pedidos); i++ {
+		//fmt.Println(strconv.Itoa(i))
 		for j := 0; j < len(c.Pedidos[i].Productos); j++ {
 			Produc := c.Pedidos[i].Productos[j]
 			Producto := new(Producto)
@@ -323,7 +324,8 @@ func Estructurar() {
 			var departamentos []string
 			existeDep := false
 			nodo0 := new(NODO)
-			nodo0.Nombre = "0"
+			nodo0.Nombre = "MD"
+			nodo0.Tipo = "Dia"
 			auxM.Nodos = append(auxM.Nodos, *nodo0)
 			for i := 0; i < len(auxM.Productos); i++ {
 				for j := 0; j < len(dias); j++ {
@@ -460,26 +462,34 @@ func Estructurar() {
 				a := strings.ReplaceAll(auxM.Nodos[i].Nombre, " ", "_")
 				//si es un nodo con cola
 				if auxM.Nodos[i].Cola.Tamanio != 0 {
-					cadena += "nodo" + a + " [label=\"" + strconv.Itoa(auxM.Nodos[i].Cola.Tamanio) + "\" shape=circle]\n"
+					cadena += "nodo" + a + " [label=\"" + strconv.Itoa(auxM.Nodos[i].Cola.Tamanio) + "\" shape=circle fillcolor=lightgoldenrod]\n"
 				} else {
-					cadena += "nodo" + a + " [label=\"" + auxM.Nodos[i].Nombre + "\"]\n"
+					cadena += "nodo" + a + " [label=\"" + auxM.Nodos[i].Nombre + "\" fillcolor=aquamarine]\n"
 				}
 				if auxM.Nodos[i].Arriba != nil {
 					b := strings.ReplaceAll(auxM.Nodos[i].Arriba.Nombre, " ", "_")
-					cadena += "nodo" + a + "->nodo" + b + " dir=both\n"
+					cadena += "nodo" + a + "->nodo" + b + " [dir=both]\n"
 				}
 				if auxM.Nodos[i].Abajo != nil {
 					b := strings.ReplaceAll(auxM.Nodos[i].Abajo.Nombre, " ", "_")
-					cadena += "nodo" + a + "->nodo" + b + " dir=both\n"
+					cadena += "nodo" + a + "->nodo" + b + " [dir=both]\n"
 				}
 				if auxM.Nodos[i].Derecha != nil {
 					b := strings.ReplaceAll(auxM.Nodos[i].Derecha.Nombre, " ", "_")
-					cadena += "nodo" + a + "->nodo" + b + " [constraint=false; dir=both]\n"
+					if auxM.Nodos[i].Derecha.Tipo != "Dia" {
+						cadena += "nodo" + b + "->nodo" + a + " [constraint=false; dir=both]\n"
+					} else {
+						cadena += "nodo" + b + "->nodo" + a + "  [dir=both]\n"
+					}
 					cadena1 += "{ rank=same; " + "nodo" + a + "; nodo" + b + "; }\n"
 				}
 				if auxM.Nodos[i].Izquierda != nil {
 					b := strings.ReplaceAll(auxM.Nodos[i].Izquierda.Nombre, " ", "_")
-					cadena += "nodo" + a + "->nodo" + b + " [constraint=false; dir=both]\n"
+					if auxM.Nodos[i].Izquierda.Tipo != "Dia" {
+						cadena += "nodo" + b + "->nodo" + a + " [constraint=false; dir=both]\n"
+					} else {
+						cadena += "nodo" + b + "->nodo" + a + " [dir=both]\n"
+					}
 					cadena1 += "{ rank=same; " + "nodo" + b + "; nodo" + a + ";}\n "
 				}
 				if auxM.Nodos[i].Tipo == "Dia" {
@@ -487,7 +497,7 @@ func Estructurar() {
 				}
 			}
 			rankdir += "}"
-			cadena = "digraph {\nrankdir = BT;\nnode [shape=rectangle, height=0.5, width=0.5];\ngraph[ nodesep = 0.5];\n" +
+			cadena = "digraph {\nrankdir = BT;\nnode [shape=rectangle style=filled];\ngraph[ nodesep = 0.5];\n" +
 				cadena1 + cadena + rankdir + "\n }"
 			//se escribe el archivo dot
 			b := []byte(cadena)
@@ -505,6 +515,7 @@ func Estructurar() {
 		}
 		auxA = auxA.Siguiente
 	}
+
 }
 
 func main() {
