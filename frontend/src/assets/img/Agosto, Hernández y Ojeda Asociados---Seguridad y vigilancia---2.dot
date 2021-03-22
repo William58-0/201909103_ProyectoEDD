@@ -1,0 +1,21 @@
+digraph G{
+node [shape=circle style=filled];
+"0xc0000062e0"[label="Inteligente Hormigón Ratón
+441" fillcolor=aquamarine];
+"0xc0000062e0" -> "0xc00017d0c0";
+"0xc0000062e0" -> "0xc00017d0c8";
+"0xc00017d0c0"[label="Genérica Cotton Ensalada
+439" fillcolor=aquamarine];
+"0xc00017d0c0" -> "0xc00017d030";
+"0xc00017d0c0" -> "0xc00017d038";
+"0xc00017d030"[label="Gorgeous Acero Pelota
+438" fillcolor=aquamarine];
+"0xc00017d038"[label="Hecho a mano Acero Computadora
+440" fillcolor=aquamarine];
+"0xc00017d0c8"[label="Sin marca Caucho Toallas
+442" fillcolor=aquamarine];
+"0xc00017d0c8" -> "0xc00017cfa8";
+"0xc00017cfa8"[label="Increíble Frozen Toallas
+443" fillcolor=aquamarine];
+
+}

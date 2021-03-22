@@ -1,7 +1,0 @@
-digraph G{
-node [shape=circle];
-"0xc0000d6168"[label="2234"];
-"0xc0000d6168" -> "0xc0000f46b0";
-"0xc0000f46b0"[label="2313"];
-
-}

@@ -1,0 +1,27 @@
+<br>
+<div class="card" style="background-color: #216da3; color:white">
+  <div class="card-body" >
+    <h1 class="text-center">
+      Carrito
+    </h1>
+    <table class="table table-sm table-hover">
+      <tbody class="tblbody">
+        <tr *ngFor="let prod of Productos">
+          <td>{{prod.Nombre}}</td>
+          <td>{{prod.Descripcion}}</td>
+          <td>
+            <a class="btn btn-danger text-white" (click)="Devolver(prod)">
+                <i class="fas fa-trash-alt"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<br>
+<div class="Pagar">
+  <button class="btn btn-success">
+    Generar Pedido
+  </button>
+</div>

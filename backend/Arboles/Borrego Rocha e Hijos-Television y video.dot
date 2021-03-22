@@ -1,0 +1,21 @@
+digraph G{
+node [shape=circle style=filled];
+"0xc0000060b0"[label="60" fillcolor=aquamarine];
+"0xc0000060b0" -> "0xc000052c40";
+"0xc0000060b0" -> "0xc000052c48";
+"0xc000052c40"[label="57" fillcolor=aquamarine];
+"0xc000052c40" -> "0xc000052bb0";
+"0xc000052c40" -> "0xc000052bb8";
+"0xc000052bb0"[label="56" fillcolor=aquamarine];
+"0xc000052bb0" -> "0xc000052d60";
+"0xc000052d60"[label="55" fillcolor=aquamarine];
+"0xc000052bb8"[label="58" fillcolor=aquamarine];
+"0xc000052bb8" -> "0xc000052f18";
+"0xc000052f18"[label="59" fillcolor=aquamarine];
+"0xc000052c48"[label="62" fillcolor=aquamarine];
+"0xc000052c48" -> "0xc000052cd0";
+"0xc000052c48" -> "0xc000052cd8";
+"0xc000052cd0"[label="61" fillcolor=aquamarine];
+"0xc000052cd8"[label="63" fillcolor=aquamarine];
+
+}

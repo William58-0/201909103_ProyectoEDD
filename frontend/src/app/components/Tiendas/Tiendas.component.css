@@ -1,0 +1,48 @@
+.horizontal {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap:wrap;
+}
+
+p {
+    display: inline-block;
+    flex-grow: 1;
+    height:100px;    
+    width: calc(100% * (1/4) - 10px - 1px);
+}
+
+.imagen{
+    margin-top: 1%;
+    height: 120px;
+    width: 120px;
+    margin-bottom: 1%;
+}
+
+.Tienda{
+    color:white;
+    padding:1%;
+    text-align:center;
+    margin: 2%;
+}
+
+.Producto{
+    color:white;
+    margin: 2%;
+    background-color: green;
+    width: 25%;
+}
+
+.Back{
+    background-color: rgb(31, 177, 31);
+    padding:1%;
+    border-radius: 2;
+}
+
+.div{
+    text-align: center;
+}
+
+.Regresar{
+    text-align: left;
+    margin-left: 2%;
+}

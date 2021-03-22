@@ -1,0 +1,12 @@
+digraph grafo{
+fontname="Verdana" color=red fontsize=22;
+node [shape=record fontsize=8 fontname="Verdana" style=filled];
+edge [color="blue"]
+subgraph cluster{
+label = "Vector";
+bgcolor="yellow:dodgerblue"
+Vector[label="<15>Posicion: 16\n Indice: B\n Categoria: Sensores\n Calificacion: 1|<16>Posicion: 17\n Indice: B\n Categoria: Sensores\n Calificacion: 2|<17>Posicion: 18\n Indice: B\n Categoria: Sensores\n Calificacion: 3|<18>Posicion: 19\n Indice: B\n Categoria: Sensores\n Calificacion: 4|<19>Posicion: 20\n Indice: B\n Categoria: Sensores\n Calificacion: 5",width=20, fillcolor="aquamarine:violet"];
+}
+1511[label="Nombre: Briones Pineda S.A. \n Contacto: 918-764-088 \n Calificacion: Regular (1)", fillcolor="yellowgreen:aquamarine"];
+Vector:15->1511[color=red]
+}
