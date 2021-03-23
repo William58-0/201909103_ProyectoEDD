@@ -26,10 +26,11 @@ p {
 }
 
 .Producto{
-    color:white;
+    color:black;
     margin: 2%;
-    background-color: green;
+    background-color: rgb(132, 179, 194);
     width: 25%;
+    border-radius: 2%;
 }
 
 .Back{

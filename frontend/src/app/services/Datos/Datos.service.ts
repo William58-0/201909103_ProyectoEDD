@@ -10,7 +10,16 @@ export class DatosService {
   
   constructor(private http: HttpClient) { }
 
-  cargartiendas():Observable<any>{
+  LoadTiendas(data):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post<any>(baseURL + 'LoadTiendas', data, httpOptions);
+  }
+
+  GetTiendas():Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -19,13 +28,40 @@ export class DatosService {
     return this.http.get<any>(baseURL + 'GetTiendas', httpOptions);
   }
 
-  getinv(Busqueda):Observable<any>{
+  LoadInventario(data):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
     };
-    return this.http.post<any>(baseURL + 'GetProd', Busqueda, httpOptions);
+    return this.http.post<any>(baseURL + 'LoadInventario', data, httpOptions);
+  }
+
+  GetInventario(Busqueda):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post<any>(baseURL + 'GetInventario', Busqueda, httpOptions);
+  }
+
+  LoadPedidos(data):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post<any>(baseURL + 'LoadPedidos', data, httpOptions);
+  }
+
+  GetPedidos():Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.get<any>(baseURL + 'GetPedidos', httpOptions);
   }
 
   Comprar(Producto):Observable<any>{
@@ -53,6 +89,13 @@ export class DatosService {
       }),
     };
     return this.http.get<any>(baseURL + 'CargarCarro', httpOptions);
+  }
+
+
+
+
+  mandarInventarios(json: string):Observable<any>{
+    return this.http.post<any>('http://localhost:3000/cargarInventarios',json)
   }
 
 }

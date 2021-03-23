@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { TiendasComponent } from './components/Tiendas/Tiendas.component';
 import { CarritoComponent } from './components/Carrito/Carrito.component';
+import { AdministrarComponent } from './components/Administrar/Administrar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InicioComponent,
     TiendasComponent,
-    CarritoComponent
+    CarritoComponent,
+    AdministrarComponent
   ],
   imports: [
     BrowserModule,

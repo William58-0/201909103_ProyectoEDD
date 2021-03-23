@@ -1,12 +1,43 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Cargar Archivos</h5>
+        </div>
+        <div class="modal-body">
+            <div class="input-group">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputGroupFile01"
+                        aria-describedby="inputGroupFileAddon01" (change)="LoadTiendas($event)">
+                    <label class="custom-file-label" for="inputGroupFile01" id="choosedFile" accept=".json">Cargar
+                        Tiendas</label>
+                </div>
+            </div>
+        </div>
 
-  <ng-container>
-    <div>
-      <input type="file" >
-      <input type="file"  multiple="multiple">
-      <input type="file"  multiple="multiple">
+        <div class="modal-body">
+            <div class="input-group">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputGroupFile01"
+                        aria-describedby="inputGroupFileAddon01" (change)="LoadInventario($event)">
+                    <label class="custom-file-label" for="inputGroupFile01" id="choosedFile" accept=".json">Cargar
+                        Inventarios</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <div class="input-group">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputGroupFile01"
+                        aria-describedby="inputGroupFileAddon01" (change)="LoadPedidos($event)">
+                    <label class="custom-file-label" for="inputGroupFile01" id="choosedFile" accept=".json">Cargar
+                        Pedidos</label>
+                </div>
+            </div>
+        </div>
+        
     </div>
-    <div>
-    </div>
-  </ng-container>
 
 
+
+</div>

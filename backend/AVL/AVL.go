@@ -3,7 +3,6 @@ package AVL
 import (
 	"encoding/json"
 	"fmt"
-	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -73,9 +72,9 @@ type Buscar struct {
 var Todo1 Todo
 var Mostrar1 Mostrar
 
-func Leer() {
+func Leer(w http.ResponseWriter, r *http.Request) {
 	var Produc []Producto1
-	lector, err := ioutil.ReadFile("Productos.json")
+	lector, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -373,10 +372,6 @@ func Recorrer_Arbol(actual **Producto, acum *string) {
 }
 
 func filtrar(Tienda string, Departamento string, Calificacion int) Mostrar {
-	if Todo1.Productos == nil {
-		Leer()
-		fmt.Println("Se lee por primera vez")
-	}
 	var nn []Producto1
 	for i := 0; i < len(Todo1.Productos); i++ {
 		Producto := Todo1.Productos[i]
@@ -389,7 +384,7 @@ func filtrar(Tienda string, Departamento string, Calificacion int) Mostrar {
 }
 
 //POST registra un nuevo curso aprobado
-func GetProd(w http.ResponseWriter, r *http.Request) {
+func GetInventario(w http.ResponseWriter, r *http.Request) {
 	//var cursos[] NodoLista
 	var buscar *Buscar
 	//leemos el body de la petición
@@ -404,30 +399,6 @@ func GetProd(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(buscado)
 }
 
-func GetArbol(w http.ResponseWriter, r *http.Request) {
-	var arbol string
-	//leemos el body de la petición
-	reqBody, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		fmt.Fprintf(w, "Datos Inválidos")
-	}
-	//tomamos los valores del body y los colocamos en una variable de struct de Nodo
-	json.Unmarshal(reqBody, &arbol)
-	fmt.Println("buscando arbol")
-	fmt.Println(arbol)
-	nombre := arbol
-	ruta := "../frontend/src/assets/img/" + nombre + ".png"
-	//abrimos la imagen
-	img, err3 := os.Open(ruta)
-	if err3 != nil {
-		log.Fatal(err3) // perhaps handle this nicer
-	}
-	defer img.Close()
-	//devolvemos como respuesta la imagen
-	w.Header().Set("Content-Type", "image/png")
-	io.Copy(w, img)
-}
-
 func existeError(err error) bool {
 	if err != nil {
 		fmt.Println(err.Error())
@@ -438,15 +409,3 @@ func existeError(err error) bool {
 func indexRoute(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "William Alejandro Borrayo Alarcon_201909103")
 }
-
-/*
-func main() {
-	Leer()
-	router := mux.NewRouter().StrictSlash(true)
-	router.HandleFunc("/", indexRoute)
-	router.HandleFunc("/probar", GetProductos).Methods("GET")
-
-	log.Fatal(http.ListenAndServe(":3000", handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(router)))
-
-}
-*/

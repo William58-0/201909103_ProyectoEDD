@@ -1,0 +1,16 @@
+digraph {
+rankdir = BT;
+node [shape=rectangle style=filled];
+graph[ nodesep = 0.5];
+{ rank=same; nodoMatriz_D; nodo19;}
+ { rank=same; nodoSeguridad_y_vigilancia; nodo19Seguridad_y_vigilancia;}
+ nodoMatriz_D [label="Matriz_D" fillcolor=aquamarine]
+nodo19 [label="19" fillcolor=aquamarine]
+nodoMatriz_D->nodo19 [dir=both]
+nodoSeguridad_y_vigilancia [label="Seguridad y vigilancia" fillcolor=aquamarine]
+nodoSeguridad_y_vigilancia->nodoMatriz_D [dir=both]
+nodo19Seguridad_y_vigilancia [label="8" shape=circle fillcolor=lightgoldenrod]
+nodo19Seguridad_y_vigilancia->nodo19 [dir=both]
+nodoSeguridad_y_vigilancia->nodo19Seguridad_y_vigilancia [constraint=false; dir=both]
+{ rank=same; nodoMatriz_D; nodo19; }
+ }

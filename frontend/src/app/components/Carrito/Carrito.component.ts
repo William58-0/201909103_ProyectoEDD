@@ -41,13 +41,10 @@ export class CarritoComponent implements OnInit {
 
  removeItemFromArr ( arr, item ) {
     var i = arr.indexOf( item );
- 
     if ( i !== -1 ) {
         arr.splice( i, 1 );
     }
 }
-
-
 
   cargar() {
     this.DatosService.CargarCarro().subscribe((dataList: any) => {
@@ -65,8 +62,5 @@ export class CarritoComponent implements OnInit {
     this.mostrarMensajeError = false
   }
 
-  mensaje(carnet) {
-    console.log("carnet " + carnet)
-  }
 
 }

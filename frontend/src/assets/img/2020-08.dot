@@ -1,0 +1,23 @@
+digraph {
+rankdir = BT;
+node [shape=rectangle style=filled];
+graph[ nodesep = 0.5];
+{ rank=same; nodoMatriz_D; nodo13;}
+ { rank=same; nodo13; nodo31;}
+ { rank=same; nodoTelevision_y_video; nodo13Television_y_video;}
+ { rank=same; nodo13Television_y_video; nodo31Television_y_video;}
+ nodoMatriz_D [label="Matriz_D" fillcolor=aquamarine]
+nodo13 [label="13" fillcolor=aquamarine]
+nodoMatriz_D->nodo13 [dir=both]
+nodo31 [label="31" fillcolor=aquamarine]
+nodo13->nodo31 [dir=both]
+nodoTelevision_y_video [label="Television y video" fillcolor=aquamarine]
+nodoTelevision_y_video->nodoMatriz_D [dir=both]
+nodo13Television_y_video [label="6" shape=circle fillcolor=lightgoldenrod]
+nodo13Television_y_video->nodo13 [dir=both]
+nodoTelevision_y_video->nodo13Television_y_video [constraint=false; dir=both]
+nodo31Television_y_video [label="8" shape=circle fillcolor=lightgoldenrod]
+nodo31Television_y_video->nodo31 [dir=both]
+nodo13Television_y_video->nodo31Television_y_video [constraint=false; dir=both]
+{ rank=same; nodoMatriz_D; nodo13; nodo31; }
+ }
