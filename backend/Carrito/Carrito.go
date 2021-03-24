@@ -6,8 +6,10 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strconv"
+	"time"
 
 	"../AVL"
+	"../MatrizDispersa"
 )
 
 var Carrito []AVL.Producto1
@@ -23,15 +25,15 @@ func RestarProducto(w http.ResponseWriter, r *http.Request) {
 	}
 	//tomamos los valores del body y los colocamos en una variable de struct de Nodo
 	json.Unmarshal(reqBody, &prod)
-	Productos := AVL.Todo1.Productos
-	for i := 0; i < len(Productos); i++ {
-		if prod.Nombre == Productos[i].Nombre && prod.Codigo == Productos[i].Codigo &&
-			prod.Descripcion == Productos[i].Descripcion && prod.Precio == Productos[i].Precio &&
-			prod.Imagen == Productos[i].Imagen && prod.Tienda == Productos[i].Tienda &&
-			prod.Departamento == Productos[i].Departamento && prod.Calificacion == Productos[i].Calificacion {
-			fmt.Println("Nombre: " + prod.Nombre)
-			fmt.Println("Cantidad de productos antes: " + strconv.Itoa(prod.Cantidad))
-			if prod.Cantidad > 0 {
+	if prod.Cantidad > 0 {
+		Productos := AVL.Todo1.Productos
+		for i := 0; i < len(Productos); i++ {
+			if prod.Nombre == Productos[i].Nombre && prod.Codigo == Productos[i].Codigo &&
+				prod.Tienda == Productos[i].Tienda && prod.Departamento == Productos[i].Departamento &&
+				prod.Calificacion == Productos[i].Calificacion {
+				fmt.Println("Nombre: " + prod.Nombre)
+				fmt.Println("Cantidad de productos antes: " + strconv.Itoa(prod.Cantidad))
+
 				Productos[i].Cantidad--
 				prod.Cantidad--
 				Carrito = append(Carrito, *prod)
@@ -54,6 +56,21 @@ func RestarProducto(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func Eliminar(Arr []AVL.Producto1, prod *AVL.Producto1) {
+	Eliminado := false
+	var nuevo []AVL.Producto1
+	for i := 0; i < len(Arr); i++ {
+		if Arr[i].Nombre == prod.Nombre && Arr[i].Tienda == prod.Tienda &&
+			Arr[i].Departamento == prod.Departamento && !Eliminado {
+			Eliminado = true
+		} else {
+			nuevo = append(nuevo, Arr[i])
+		}
+	}
+	Carrito = nuevo
+	Todo.Productos = Carrito
+}
+
 func SumarProducto(w http.ResponseWriter, r *http.Request) {
 	var prod *AVL.Producto1
 	//leemos el body de la petición
@@ -63,24 +80,24 @@ func SumarProducto(w http.ResponseWriter, r *http.Request) {
 	}
 	//tomamos los valores del body y los colocamos en una variable de struct de Nodo
 	json.Unmarshal(reqBody, &prod)
+	//if prod.Cantidad > 0 {
 	Productos := AVL.Todo1.Productos
 	for i := 0; i < len(Productos); i++ {
 		if prod.Nombre == Productos[i].Nombre && prod.Codigo == Productos[i].Codigo &&
-			prod.Descripcion == Productos[i].Descripcion && prod.Precio == Productos[i].Precio &&
-			prod.Imagen == Productos[i].Imagen && prod.Tienda == Productos[i].Tienda &&
-			prod.Departamento == Productos[i].Departamento && prod.Calificacion == Productos[i].Calificacion {
+			prod.Tienda == Productos[i].Tienda && prod.Departamento == Productos[i].Departamento &&
+			prod.Calificacion == Productos[i].Calificacion {
 			fmt.Println("Nombre: " + prod.Nombre)
 			fmt.Println("Cantidad de productos antes: " + strconv.Itoa(prod.Cantidad))
-			if prod.Cantidad > 0 {
-				Productos[i].Cantidad++
-				prod.Cantidad++
-				Carrito = append(Carrito[:i], Carrito[i+1:]...)
-				Todo.Productos = Carrito
-				fmt.Println("Cantidad de productos luego: " + strconv.Itoa(Productos[i].Cantidad))
-				break
-			}
+
+			Productos[i].Cantidad++
+			prod.Cantidad++
+			Eliminar(Carrito, prod)
+			fmt.Println("Cantidad de productos luego: " + strconv.Itoa(Productos[i].Cantidad))
+			break
+
 		}
 	}
+	//}
 	fmt.Println("Comprobar Todo")
 	for i := 0; i < len(Todo.Productos); i++ {
 		fmt.Println(Todo.Productos[i].Nombre)
@@ -92,6 +109,30 @@ func SumarProducto(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(Carrito[i].Nombre)
 		fmt.Println(Carrito[i].Codigo)
 	}
+}
+
+func GenerarPedido(w http.ResponseWriter, r *http.Request) {
+	var productos []*MatrizDispersa.Producto
+	reqBody, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		fmt.Fprintf(w, "Datos Inválidos")
+	}
+	//tomamos los valores del body y los colocamos en una variable de struct de Nodo
+	json.Unmarshal(reqBody, &productos)
+	fmt.Println("El nuevo pedido: ")
+	for i := 0; i < len(productos); i++ {
+		fmt.Println(productos[i].Nombre)
+		fmt.Println(productos[i].Codigo)
+		t := time.Now()
+		fecha := fmt.Sprintf("%d-%02d-%02d",
+			t.Day(), t.Month(), t.Year())
+		productos[i].Fecha = fecha
+		fmt.Println(productos[i].Fecha)
+		MatrizDispersa.Productos = append(MatrizDispersa.Productos, *productos[i])
+	}
+	Carrito = nil
+	Todo.Productos = Carrito
+	MatrizDispersa.Actualizar()
 }
 
 func GetCarrito(w http.ResponseWriter, r *http.Request) {

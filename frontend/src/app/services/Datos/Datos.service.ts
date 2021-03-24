@@ -46,13 +46,22 @@ export class DatosService {
     return this.http.post<any>(baseURL + 'GetInventario', Busqueda, httpOptions);
   }
 
-  LoadPedidos(data):Observable<any>{
+  LoadFechas(data):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
     };
-    return this.http.post<any>(baseURL + 'LoadPedidos', data, httpOptions);
+    return this.http.post<any>(baseURL + 'LoadFechas', data, httpOptions);
+  }
+
+  GetFechas():Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.get<any>(baseURL + 'GetFechas', httpOptions);
   }
 
   GetPedidos():Observable<any>{
@@ -91,11 +100,13 @@ export class DatosService {
     return this.http.get<any>(baseURL + 'CargarCarro', httpOptions);
   }
 
-
-
-
-  mandarInventarios(json: string):Observable<any>{
-    return this.http.post<any>('http://localhost:3000/cargarInventarios',json)
+  GenerarPedido(Productos):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post<any>(baseURL + 'GenerarPedido', Productos, httpOptions);
   }
 
 }

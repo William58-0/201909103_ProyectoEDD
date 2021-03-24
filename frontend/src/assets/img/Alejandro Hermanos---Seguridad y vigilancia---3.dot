@@ -1,0 +1,24 @@
+digraph G{
+node [shape=circle style=filled];
+"0xc0000d6208"[label="Artesanal Fresco Mesa
+979" fillcolor=aquamarine];
+"0xc0000d6208" -> "0xc00011ea00";
+"0xc0000d6208" -> "0xc00011ea08";
+"0xc00011ea00"[label="Elegante Hormigón Tocino
+977" fillcolor=aquamarine];
+"0xc00011ea00" -> "0xc00011ebb0";
+"0xc00011ea00" -> "0xc00011ebb8";
+"0xc00011ebb0"[label="Hecho a mano Madera Ratón
+976" fillcolor=aquamarine];
+"0xc00011ebb8"[label="Inteligente Soft Tocino
+978" fillcolor=aquamarine];
+"0xc00011ea08"[label="Elegante Acero Bike
+981" fillcolor=aquamarine];
+"0xc00011ea08" -> "0xc00011ec40";
+"0xc00011ea08" -> "0xc00011ec48";
+"0xc00011ec40"[label="Genérica Metal Camisa
+980" fillcolor=aquamarine];
+"0xc00011ec48"[label="Pequeño Frozen Bike
+982" fillcolor=aquamarine];
+
+}

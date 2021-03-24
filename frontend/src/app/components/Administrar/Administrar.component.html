@@ -7,38 +7,113 @@
       </button>
     </div>
     <div style="margin: auto;">
-      <button class="btn btn-info">
+      <button class="btn btn-info" (click)="Apedidos()">
         <i>Pedidos</i>
       </button>
     </div>
-    <div style="margin: auto;">
-      <button class="btn btn-info">
-        <i>Árbol de años</i>
-      </button>
+<!--
+    <div class="col">
+      <div class="form-group"><label for="email"><strong>Fecha</strong></label>
+        <select class="form-control form-select" [(ngModel)]="Fecha" name="Fecha" (click)="changeCalendar(Fecha)">
+          
+          <option *ngFor="let valor of Fechas" [value]="valor" (click)="changeCalendar(valor)">{{valor}}</option>
+        </select>
+      </div>
     </div>
+    {{Fecha}}
+  -->
   </div>
+
 </nav>
 
 
-<div id="wrapper" >
+<div id="wrapper">
   <ng-container *ngIf="Estado==='Calendarios'">
-  <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" style="float:left">
-    <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-            <div class="sidebar-brand-text mx-3"><span>Calendarios</span></div>
-        </a>    
+    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
+      style="float:left">
+      <div class="container-fluid d-flex flex-column p-0"><a
+          class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+          <div class="sidebar-brand-text mx-3"><span>Calendarios</span></div>
+        </a>
         <ul class="navbar-nav text-light" id="accordionSidebar" *ngFor="let date of Fechas">
-            <li class="nav-item" ><a class="nav-link" style="color:white" (click)="change(date)"><i class="fas fa-calendar-alt"></i><span>{{ToMes(date)}} {{ToYear(date)}}</span></a></li>
+          <li class="nav-item"><a class="nav-link" style="color:white" (click)="changeCalendar(date)"><i
+                class="fas fa-calendar-alt"></i><span>{{ToMes(date)}} {{ToYear(date)}}</span></a></li>
         </ul>
-    </div>
-  </nav>
-  <div class="d-flex flex-column" id="content-wrapper">
+      </div>
+    </nav>
+    <div class="d-flex flex-column" id="content-wrapper">
       <div id="content">
         <h1>Pedidos del mes de {{ToMes(Calendario)}} {{ToYear(Calendario)}}</h1>
         <img class="img-fluid" src="assets/img/{{Calendario}}.png">
       </div>
+      <form style="margin: auto; background-color: #4884af; margin-top: 2%; padding: 2%; border-radius: 2%; color:white">
+        <h1>Pedidos del Mes</h1>
+        <table class="table table-sm table-hover" style="border-radius: 2%;">
+          <tbody class="tblbody">
+            <th>Codigo</th> <th>Fecha</th> <th>Tienda</th> <th>Departamento</th> <th>Calificacion</th>
+            <tr *ngFor="let prod of Mostrar">
+              <td style="text-align: center;">{{prod.Codigo}}</td>
+              <td style="text-align: center;">{{prod.Fecha}}</td>
+              <td style="text-align: center;">{{prod.Tienda}}</td>
+              <td style="text-align: center;">{{prod.Departamento}}</td>
+              <td style="text-align: center;">{{prod.Calificacion}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
       <br>
       <br>
-  </div>
-</ng-container>
-</div>
+    </div>
+  </ng-container>
 
+  <ng-container *ngIf="Estado==='Pedidos'">
+
+    <form style="margin: auto; background-color: #4884af; margin-top: 2%; padding: 2%; border-radius: 2%; color:white">
+      <h1>Pedidos (Productos)</h1>
+      <div class="form-row">
+        <div class="col">
+          <div class="form-group"><label for="email"><strong>Fecha</strong></label>
+            <select class="form-control form-select" [(ngModel)]="Fecha" name="Fecha" (click)="changeDate(Fecha,Tienda,Departamento)">
+              <option [value]="valor">Cualquiera</option>
+              <option *ngFor="let valor of Fechas" [value]="valor" (click)="changeCalendar(valor)">{{valor}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form-group"><label for="email"><strong>Tienda</strong></label>
+            <select class="form-control form-select" [(ngModel)]="Tienda" name="Tienda" (click)="changeDate(Fecha,Tienda,Departamento)">
+              <option [value]="valor">Cualquiera</option>
+              <option *ngFor="let valor of Tiendas" [value]="valor" (click)="changeCalendar(valor)">{{valor}}</option>
+            </select>
+          </div>
+        </div>
+
+    <div class="col">
+      <div class="form-group"><label for="email"><strong>Departamento</strong></label>
+        <select class="form-control form-select" [(ngModel)]="Departamento" name="Departamento" (click)="changeDate(Fecha,Tienda,Departamento)">
+          <option [value]="valor">Cualquiera</option>
+          <option *ngFor="let valor of Departamentos" [value]="valor" (click)="changeCalendar(valor)">{{valor}}</option>
+        </select>
+      </div>
+    </div>
+
+      </div>
+      <table class="table table-sm table-hover">
+        <tbody class="tblbody">
+          <th>Codigo</th><th>Nombre</th><th>Tienda</th><th>Departamento</th>
+          <tr *ngFor="let prod of MostrarP">
+            <td style="text-align: center;">{{prod.Codigo}}</td>
+            <td style="text-align: center;">{{prod.Nombre}}</td>
+            <td style="text-align: center;">{{prod.Tienda}}</td>
+            <td style="text-align: center;">{{prod.Departamento}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+
+
+  </ng-container>
+
+
+</div>

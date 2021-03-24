@@ -60,7 +60,7 @@ export class CargarComponent implements OnInit {
       console.log(data)
     }
     reader.readAsText(this.FilePedidos)
-    this.DatosService.LoadPedidos(this.FilePedidos).subscribe(() => {
+    this.DatosService.LoadFechas(this.FilePedidos).subscribe(() => {
     }, (err) => {
       console.log("no se pudo cargar")
     })

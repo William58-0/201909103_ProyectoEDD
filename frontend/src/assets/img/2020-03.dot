@@ -9,7 +9,7 @@ nodo21 [label="21" fillcolor=aquamarine]
 nodoMatriz_D->nodo21 [dir=both]
 nodoTelevision_y_video [label="Television y video" fillcolor=aquamarine]
 nodoTelevision_y_video->nodoMatriz_D [dir=both]
-nodo21Television_y_video [label="6" shape=circle fillcolor=lightgoldenrod]
+nodo21Television_y_video [label="3" shape=circle fillcolor=lightgoldenrod]
 nodo21Television_y_video->nodo21 [dir=both]
 nodoTelevision_y_video->nodo21Television_y_video [constraint=false; dir=both]
 { rank=same; nodoMatriz_D; nodo21; }

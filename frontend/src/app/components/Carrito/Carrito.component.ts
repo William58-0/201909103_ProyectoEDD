@@ -9,10 +9,7 @@ import { Producto } from "../../models/Producto/Producto";
 })
 export class CarritoComponent implements OnInit {
 
-  Productos: Producto[]=[]
-  mostrarMensajeError = false
-  mostrarMensaje = false
-  mensajeError = ''
+  Productos: Producto[] = []
 
   constructor(private DatosService: DatosService) {
     this.DatosService.CargarCarro().subscribe((dataList: any) => {
@@ -20,47 +17,66 @@ export class CarritoComponent implements OnInit {
       console.log(dataList)
       console.log(this.Productos[0])
     }, (err) => {
-      this.mostrarMensajeError = true
-      this.mensajeError = 'No se pudo guardar el curso aprobado'
+      console.log("error")
     })
   }
 
   ngOnInit(): void {
   }
 
-  Devolver(Producto:Producto){
-    this.DatosService.Devolver(Producto).subscribe((res:any)=>{
-      this.mostrarMensaje=true
-        Producto.Cantidad++
-      this.removeItemFromArr(this.Productos,Producto)
-    }, (err)=>{
-      this.mostrarMensajeError=true
-      this.mensajeError='No se pudo guardar el curso aprobado'
-    })
-  }
-
- removeItemFromArr ( arr, item ) {
-    var i = arr.indexOf( item );
-    if ( i !== -1 ) {
-        arr.splice( i, 1 );
-    }
-}
-
-  cargar() {
-    this.DatosService.CargarCarro().subscribe((dataList: any) => {
-      this.Productos = dataList.Productos
-      console.log(dataList)
-      console.log(this.Productos[0].Nombre)
+  Devolver(Producto: Producto) {
+    this.DatosService.Devolver(Producto).subscribe((res: any) => {
+      Producto.Cantidad++
+      this.Productos=this.removeItemFromArr(this.Productos, Producto)
     }, (err) => {
-      this.mostrarMensajeError = true
-      this.mensajeError = 'No se pudo cargar la lista de tiendas'
+      console.log("Error")
     })
   }
 
-  desactivarMensaje() {
-    this.mostrarMensaje = false
-    this.mostrarMensajeError = false
+  removeItemFromArr(arr: Producto[], item: Producto) {
+    var Eliminado = false
+    var nuevo:Producto[]=[]
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].Nombre === item.Nombre && arr[i].Tienda === item.Tienda &&
+         arr[i].Departamento === item.Departamento && !Eliminado) {
+          Eliminado=true
+      }else{
+        nuevo.push(arr[i])
+      }
+    }
+    return nuevo
+  }
+  
+/*
+  removeItemFromArr(arr: Producto[], item: Producto){
+    var i = arr.indexOf(item);
+    if (i !== -1) {
+      arr.splice(i, 1);
+    }
+  }
+*/
+  GenerarPedido(Productos: Producto[]) {
+    this.DatosService.GenerarPedido(Productos).subscribe((res: any) => {
+      this.Productos = null
+    }, (err) => {
+      console.log("Error")
+    })
   }
 
+  Fecha() {
+    var actual = Date.now()
+    var date: Date = new Date(actual)
+    //let date: Date = new Date;
+    var day: string = date.getDay().toString()
+    var month: string = date.getMonth().toString()
+    if (day.length == 1) {
+      day = "0" + day
+    }
+    if (month.length == 1) {
+      month = "0" + month
+    }
+    var fecha = day + "-" + month + "-" + date.getFullYear.toString
+    console.log(fecha)
+  }
 
 }

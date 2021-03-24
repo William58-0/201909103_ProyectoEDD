@@ -238,10 +238,10 @@ func Cargar(w http.ResponseWriter, r *http.Request) {
 }
 
 func Load(w http.ResponseWriter, r *http.Request) {
+	AVL.Todo1.Productos = nil
+	MatrizDispersa.Todo1.Fechas = nil
+	MatrizDispersa.Pedd1.Productos = nil
 	var ListaTiendas []Estructuras.Tienda1
-	Vector = nil
-	//reqBody, err := ioutil.ReadAll(r.Body)
-	//fmt.Println(string(reqBody))
 	lector, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		log.Fatal(err)
@@ -324,6 +324,7 @@ func Load(w http.ResponseWriter, r *http.Request) {
 							Tienda1.Logo = aux1.Logo
 							if Tienda1 != nil {
 								ListaTiendas = append(ListaTiendas, *Tienda1)
+								fmt.Println("Se agrega tienda")
 								//Tiendas = append(Tiendas, *Tienda1)
 							}
 						}
@@ -333,8 +334,10 @@ func Load(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
+	fmt.Println("Tiendas Cargadas")
 	//crear json de tiendas
 	Todo.Tiendas = ListaTiendas
+	AVL.Tiendas = ListaTiendas
 }
 
 //Busqueda de Posicion especifica
@@ -509,11 +512,13 @@ func main() {
 	router.HandleFunc("/GetTiendas", GetTiendas).Methods("GET")
 	router.HandleFunc("/LoadInventario", AVL.Leer).Methods("POST")
 	router.HandleFunc("/GetInventario", AVL.GetInventario).Methods("POST")
-	router.HandleFunc("/LoadPedidos", MatrizDispersa.Leer).Methods("POST")
-	router.HandleFunc("/GetPedidos", MatrizDispersa.GetFechas).Methods("GET")
+	router.HandleFunc("/LoadFechas", MatrizDispersa.Leer).Methods("POST")
+	router.HandleFunc("/GetFechas", MatrizDispersa.GetFechas).Methods("GET")
+	router.HandleFunc("/GetPedidos", MatrizDispersa.GetPedidos).Methods("GET")
 	router.HandleFunc("/Comprar", Carrito.RestarProducto).Methods("POST")
 	router.HandleFunc("/Devolver", Carrito.SumarProducto).Methods("POST")
 	router.HandleFunc("/CargarCarro", Carrito.GetCarrito).Methods("GET")
+	router.HandleFunc("/GenerarPedido", Carrito.GenerarPedido).Methods("POST")
 
 	log.Fatal(http.ListenAndServe(":3000", handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(router)))
 }

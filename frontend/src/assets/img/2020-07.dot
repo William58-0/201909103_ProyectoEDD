@@ -9,7 +9,7 @@ nodo31 [label="31" fillcolor=aquamarine]
 nodoMatriz_D->nodo31 [dir=both]
 nodoSeguridad_y_vigilancia [label="Seguridad y vigilancia" fillcolor=aquamarine]
 nodoSeguridad_y_vigilancia->nodoMatriz_D [dir=both]
-nodo31Seguridad_y_vigilancia [label="6" shape=circle fillcolor=lightgoldenrod]
+nodo31Seguridad_y_vigilancia [label="3" shape=circle fillcolor=lightgoldenrod]
 nodo31Seguridad_y_vigilancia->nodo31 [dir=both]
 nodoSeguridad_y_vigilancia->nodo31Seguridad_y_vigilancia [constraint=false; dir=both]
 { rank=same; nodoMatriz_D; nodo31; }

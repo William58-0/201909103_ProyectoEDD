@@ -11,7 +11,7 @@
           <td>{{prod.Descripcion}}</td>
           <td>
             <a class="btn btn-danger text-white" (click)="Devolver(prod)">
-                <i class="fas fa-trash-alt"></i>
+                Devolver
             </a>
           </td>
         </tr>
@@ -21,7 +21,10 @@
 </div>
 <br>
 <div class="Pagar">
-  <button class="btn btn-success">
+  <button class="btn btn-success" (click)="GenerarPedido(Productos)">
     Generar Pedido
+  </button>
+  <button class="btn btn-success" (click)="Fecha()">
+   Fecha
   </button>
 </div>

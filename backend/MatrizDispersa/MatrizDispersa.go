@@ -10,6 +10,8 @@ import (
 	"os/exec"
 	"strconv"
 	"strings"
+
+	"../AVL"
 )
 
 //-------------------------------------------------------------------------------------------------------------------------ESTRUCTURAS
@@ -32,11 +34,12 @@ type Producto struct {
 	Descripcion string `json:"Descripcion"`
 	Precio      string `json:"Precio"`
 	Cantidad    int    `json:"Cantidad"`
+	Imagen      string `json:"Imagen"`
 	//estos son extras
-	Fecha        string
-	Tienda       string
-	Departamento string
-	Calificacion int
+	Fecha        string `json:"Fecha"`
+	Tienda       string `json:"Tienda"`
+	Departamento string `json:"Departamento"`
+	Calificacion int    `json:"Calificacion"`
 }
 
 //--------------------------------------------------------------------------------------------			OBJETOS
@@ -117,14 +120,16 @@ func OrdenarVec(vector []string) []string {
 	}
 	//se crean las estructuras
 	//se crea la lista de años
-	anio := ""
-	ListaA := new(ListaA)
-	for i := 0; i < len(vector); i++ {
-		if strings.Split(vector[i], "-")[0] != anio {
-			anio = strings.Split(vector[i], "-")[0]
-			ListaA.InsertarA(anio)
+	/*
+		anio := ""
+		ListaA := new(ListaA)
+		for i := 0; i < len(vector); i++ {
+			if strings.Split(vector[i], "-")[0] != anio {
+				anio = strings.Split(vector[i], "-")[0]
+				ListaA.InsertarA(anio)
+			}
 		}
-	}
+	*/
 	return vector
 }
 
@@ -227,9 +232,15 @@ type Todo struct {
 	Fechas []string `json:"Fechas"`
 }
 
+type Pedd struct {
+	Productos []Producto `json:"Productos"`
+}
+
 var Todo1 Todo
+var Pedd1 Pedd
 
 var Leido bool
+var Inicial []Producto
 
 func Leer(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Leer")
@@ -248,34 +259,69 @@ func Leer(w http.ResponseWriter, r *http.Request) {
 	for i := 0; i < len(c.Pedidos); i++ {
 		//fmt.Println(strconv.Itoa(i))
 		for j := 0; j < len(c.Pedidos[i].Productos); j++ {
-			Produc := c.Pedidos[i].Productos[j]
-			Producto := new(Producto)
-			Producto.Nombre = Produc.Nombre
-			Producto.Codigo = Produc.Codigo
-			Producto.Descripcion = Produc.Descripcion
-			Producto.Precio = Produc.Precio
-			Producto.Cantidad = Produc.Cantidad
-			Producto.Fecha = c.Pedidos[i].Fecha
-			Producto.Tienda = c.Pedidos[i].Tienda
-			Producto.Departamento = c.Pedidos[i].Departamento
-			Producto.Calificacion = c.Pedidos[i].Calificacion
-			Productos = append(Productos, *Producto)
-			//agregar el mes a Meses[]
-			mes := strings.Split(c.Pedidos[i].Fecha, "-")[2] + "-" + strings.Split(c.Pedidos[i].Fecha, "-")[1]
-			existe := false
-			for k := 0; k < len(Meses); k++ {
-				if Meses[k] == mes {
-					existe = true
+			//Produc := c.Pedidos[i].Productos[j]
+			if !AVL.ExisteProducto(c.Pedidos[i].Productos[j].Codigo) {
+				j++
+			} else {
+				Produc := AVL.GetProducto(c.Pedidos[i].Productos[j].Codigo)
+				Producto := new(Producto)
+				Producto.Nombre = Produc.Nombre
+				Producto.Codigo = Produc.Codigo
+				Producto.Descripcion = Produc.Descripcion
+				Producto.Precio = strconv.FormatFloat(Produc.Precio, 'g', 1, 64)
+				Producto.Cantidad = Produc.Cantidad
+				Producto.Imagen = Produc.Imagen
+				Producto.Fecha = c.Pedidos[i].Fecha
+				Producto.Tienda = c.Pedidos[i].Tienda
+				Producto.Departamento = c.Pedidos[i].Departamento
+				Producto.Calificacion = c.Pedidos[i].Calificacion
+				Productos = append(Productos, *Producto)
+				//agregar el mes a Meses[]
+				mes := strings.Split(c.Pedidos[i].Fecha, "-")[2] + "-" + strings.Split(c.Pedidos[i].Fecha, "-")[1]
+				existe := false
+				for k := 0; k < len(Meses); k++ {
+					if Meses[k] == mes {
+						existe = true
+					}
+				}
+				if !existe {
+					Meses = append(Meses, mes)
 				}
 			}
-			if !existe {
-				Meses = append(Meses, mes)
+		}
+	}
+	Inicial = Productos
+	//se ordenan los Meses
+	Meses = OrdenarVec(Meses)
+	Todo1.Fechas = Meses
+	Pedd1.Productos = Productos
+	if !Leido {
+		Estructurar()
+	}
+}
+
+func Actualizar() {
+	fmt.Println("Actualizar")
+	Leido = false
+	Meses = nil
+	//Enlistar solo Productos
+	for i := 0; i < len(Productos); i++ {
+		//agregar el mes a Meses[]
+		mes := strings.Split(Productos[i].Fecha, "-")[2] + "-" + strings.Split(Productos[i].Fecha, "-")[1]
+		existe := false
+		for k := 0; k < len(Meses); k++ {
+			if Meses[k] == mes {
+				existe = true
 			}
+		}
+		if !existe {
+			Meses = append(Meses, mes)
 		}
 	}
 	//se ordenan los Meses
 	Meses = OrdenarVec(Meses)
 	Todo1.Fechas = Meses
+	Pedd1.Productos = Productos
 	if !Leido {
 		Estructurar()
 	}
@@ -530,4 +576,9 @@ func Estructurar() {
 func GetFechas(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(Todo1)
+}
+
+func GetPedidos(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(Pedd1)
 }

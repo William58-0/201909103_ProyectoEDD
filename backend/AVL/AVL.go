@@ -9,6 +9,8 @@ import (
 	"os"
 	"os/exec"
 	"strconv"
+
+	"../Estructuras"
 )
 
 //-------------------------------------------------------------------------Para leer el json
@@ -72,6 +74,39 @@ type Buscar struct {
 var Todo1 Todo
 var Mostrar1 Mostrar
 
+func ExisteProducto(Codigo int) bool {
+	for i := 0; i < len(Todo1.Productos); i++ {
+		Producto := Todo1.Productos[i]
+		if Producto.Codigo == Codigo {
+			return true
+		}
+	}
+	return false
+}
+
+func GetProducto(Codigo int) Producto1 {
+	Prod := new(Producto1)
+	for i := 0; i < len(Todo1.Productos); i++ {
+		Producto := Todo1.Productos[i]
+		if Producto.Codigo == Codigo {
+			return Producto
+		}
+	}
+	return *Prod
+}
+
+var Tiendas []Estructuras.Tienda1
+
+func ExisteTienda(Nombre string, Departamento string, Calificacion int) bool {
+	for i := 0; i < len(Tiendas); i++ {
+		Tienda := Tiendas[i]
+		if Tienda.Nombre == Nombre && Tienda.Departamento == Departamento && Tienda.Calificacion == Calificacion {
+			return true
+		}
+	}
+	return false
+}
+
 func Leer(w http.ResponseWriter, r *http.Request) {
 	var Produc []Producto1
 	lector, err := ioutil.ReadAll(r.Body)
@@ -85,26 +120,30 @@ func Leer(w http.ResponseWriter, r *http.Request) {
 	}
 	for i := 0; i < len(c.Inventarios); i++ {
 		arbol := New_ABB()
-		for j := 0; j < len(c.Inventarios[i].Productos); j++ {
-			Producto := c.Inventarios[i].Productos[j]
-			Producto.Tienda = c.Inventarios[i].Tienda
-			Producto.Departamento = c.Inventarios[i].Departamento
-			Producto.Calificacion = c.Inventarios[i].Calificacion
-			P := new(Producto1)
-			P.Nombre = Producto.Nombre
-			P.Codigo = Producto.Codigo
-			P.Descripcion = Producto.Descripcion
-			P.Precio = Producto.Precio
-			P.Cantidad = Producto.Cantidad
-			P.Imagen = Producto.Imagen
-			P.Tienda = c.Inventarios[i].Tienda
-			P.Departamento = c.Inventarios[i].Departamento
-			P.Calificacion = c.Inventarios[i].Calificacion
-			Insertar(arbol, Producto.Nombre, Producto.Codigo, Producto.Descripcion, Producto.Precio, Producto.Cantidad, Producto.Imagen, Producto.Tienda, Producto.Departamento, Producto.Calificacion)
-			Produc = append(Produc, *P)
+		if !ExisteTienda(c.Inventarios[i].Tienda, c.Inventarios[i].Departamento, c.Inventarios[i].Calificacion) {
+			i++
+		} else {
+			for j := 0; j < len(c.Inventarios[i].Productos); j++ {
+				Producto := c.Inventarios[i].Productos[j]
+				Producto.Tienda = c.Inventarios[i].Tienda
+				Producto.Departamento = c.Inventarios[i].Departamento
+				Producto.Calificacion = c.Inventarios[i].Calificacion
+				P := new(Producto1)
+				P.Nombre = Producto.Nombre
+				P.Codigo = Producto.Codigo
+				P.Descripcion = Producto.Descripcion
+				P.Precio = Producto.Precio
+				P.Cantidad = Producto.Cantidad
+				P.Imagen = Producto.Imagen
+				P.Tienda = c.Inventarios[i].Tienda
+				P.Departamento = c.Inventarios[i].Departamento
+				P.Calificacion = c.Inventarios[i].Calificacion
+				Insertar(arbol, Producto.Nombre, Producto.Codigo, Producto.Descripcion, Producto.Precio, Producto.Cantidad, Producto.Imagen, Producto.Tienda, Producto.Departamento, Producto.Calificacion)
+				Produc = append(Produc, *P)
+			}
+			fmt.Println(strconv.Itoa(i) + " Generando grafo")
+			Generar_Grafo(arbol, c.Inventarios[i].Tienda+"---"+c.Inventarios[i].Departamento+"---"+strconv.Itoa(c.Inventarios[i].Calificacion))
 		}
-		fmt.Println("Generando grafo")
-		Generar_Grafo(arbol, c.Inventarios[i].Tienda+"---"+c.Inventarios[i].Departamento+"---"+strconv.Itoa(c.Inventarios[i].Calificacion))
 	}
 	Todo1.Productos = Produc
 }
