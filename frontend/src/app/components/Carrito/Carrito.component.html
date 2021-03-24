@@ -6,7 +6,9 @@
     </h1>
     <table class="table table-sm table-hover">
       <tbody class="tblbody">
+        <th>Codigo</th><th>Nombre</th><th>Descripcion</th><th></th>
         <tr *ngFor="let prod of Productos">
+          <td>{{prod.Codigo}}</td>
           <td>{{prod.Nombre}}</td>
           <td>{{prod.Descripcion}}</td>
           <td>
@@ -23,8 +25,5 @@
 <div class="Pagar">
   <button class="btn btn-success" (click)="GenerarPedido(Productos)">
     Generar Pedido
-  </button>
-  <button class="btn btn-success" (click)="Fecha()">
-   Fecha
   </button>
 </div>

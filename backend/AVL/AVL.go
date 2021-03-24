@@ -357,8 +357,10 @@ func RotIzq(local_Raiz **Producto) {
 func Generar_Grafo(arbol *ABB, nombre string) {
 	cadena := "digraph G{\nnode [shape=circle style=filled];\n"
 	acum := ""
-	if arbol.Raiz != nil {
+	if arbol.Raiz != nil && nombre != "arbolAnios" {
 		Recorrer_Arbol(&arbol.Raiz, &acum)
+	} else {
+		Recorrer_Arbol1(&arbol.Raiz, &acum)
 	}
 	cadena += acum + "\n}\n"
 	path := "../frontend/src/assets/img/" + nombre + ".dot"
@@ -407,6 +409,24 @@ func Recorrer_Arbol(actual **Producto, acum *string) {
 		}
 		Recorrer_Arbol(&(*actual).Izq, acum)
 		Recorrer_Arbol(&(*actual).Der, acum)
+	}
+}
+
+func Recorrer_Arbol1(actual **Producto, acum *string) {
+	if *actual != nil {
+		//fmt.Println("Nombre: " + (*actual).Nombre + " Codigo: " + strconv.Itoa((*actual).Codigo))
+		//Producto ACTUAL
+		*acum += "\"" + fmt.Sprint(&(*actual)) + "\"[label=\"" + (*actual).Nombre + "\n" + "\" fillcolor=aquamarine];\n"
+		//HIZQ
+		if (*actual).Izq != nil {
+			*acum += "\"" + fmt.Sprint(&(*actual)) + "\" -> \"" + fmt.Sprint(&(*actual).Izq) + "\";\n"
+		}
+		//HDER
+		if (*actual).Der != nil {
+			*acum += "\"" + fmt.Sprint(&(*actual)) + "\" -> \"" + fmt.Sprint(&(*actual).Der) + "\";\n"
+		}
+		Recorrer_Arbol1(&(*actual).Izq, acum)
+		Recorrer_Arbol1(&(*actual).Der, acum)
 	}
 }
 

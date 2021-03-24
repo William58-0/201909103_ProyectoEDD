@@ -366,6 +366,8 @@ func Estructurar() {
 		}
 		aux2 = aux2.Siguiente
 	}
+	//Arbol de años
+	ListaA.Arbol()
 	//se crean los nodos generales de cada matriz
 	auxA := ListaA.Primero
 	//if !Leido {
@@ -571,6 +573,20 @@ func Estructurar() {
 		}
 	}
 	//}
+}
+
+func (ListaA *ListaA) Arbol() {
+	auxA := ListaA.Primero
+	arbol := AVL.New_ABB()
+	for auxA != nil {
+		a, err := strconv.Atoi(auxA.Anio)
+		if err != nil {
+		}
+		AVL.Insertar(arbol, auxA.Anio, a, "", 0.0, 0, "", "", "", 0)
+		auxA = auxA.Siguiente
+	}
+	fmt.Println("Generando arbol de años")
+	AVL.Generar_Grafo(arbol, "arbolAnios")
 }
 
 func GetFechas(w http.ResponseWriter, r *http.Request) {

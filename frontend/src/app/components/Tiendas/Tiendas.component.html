@@ -1,17 +1,19 @@
 <ng-container *ngIf="Estado==='Tiendas'">
+  <h1 style="color:white">Tiendas</h1>
   <div class="row">
     <ng-container *ngFor="let tienda of Tiendas">
       <div class="Producto">
         <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center" style="color:white">
-          {{tienda.Nombre}}
+          {{tienda.Nombre}}<br>
           <button class="btn btn-info" (click)="INV(tienda)">
             <i>Entrar</i>
           </button>
         </div>
         <img class="imagen" [src]="tienda.Logo">
         <div class="card-body">
-          {{tienda.Descripcion}}<br><br>
-          Calificacion: {{tienda.Calificacion}}
+          Departamento: {{tienda.Departamento}}<br>
+          Descripcion: {{tienda.Descripcion}}<br>
+          Calificación: {{tienda.Calificacion}}
         </div>
       </div>
     </ng-container>
@@ -25,6 +27,8 @@
       Regresar
     </button>
   </div>
+  <h1 style="color:white">{{Tienda}}</h1>
+  <h2 style="color:white">Departamento: {{Departamento}}</h2>
   <div class="row">
     <ng-container *ngFor="let producto of Productos">
       <div class="Producto">
@@ -36,15 +40,16 @@
         </div>
         <img class="imagen" [src]="producto.Imagen">
         <div class="card-body">
+          Código: {{producto.Codigo}}<br>
           {{producto.Descripcion}}<br><br>
           Cantidad: {{producto.Cantidad}}
         </div>
       </div>
     </ng-container>
   </div>
-<div style="color: white">
+<h2 style="color: white">
 Arbol AVL
-</div>
+</h2>
 <img class="img-fluid" src="../../../assets/img/{{Arbol}}">
 </ng-container>
 

@@ -15,7 +15,7 @@ export class CarritoComponent implements OnInit {
     this.DatosService.CargarCarro().subscribe((dataList: any) => {
       this.Productos = dataList.Productos
       console.log(dataList)
-      console.log(this.Productos[0])
+      //console.log(this.Productos[0])>
     }, (err) => {
       console.log("error")
     })
@@ -32,7 +32,7 @@ export class CarritoComponent implements OnInit {
       console.log("Error")
     })
   }
-
+/*
   removeItemFromArr(arr: Producto[], item: Producto) {
     var Eliminado = false
     var nuevo:Producto[]=[]
@@ -46,37 +46,22 @@ export class CarritoComponent implements OnInit {
     }
     return nuevo
   }
-  
-/*
+  */
+
   removeItemFromArr(arr: Producto[], item: Producto){
     var i = arr.indexOf(item);
     if (i !== -1) {
       arr.splice(i, 1);
     }
+    return arr
   }
-*/
+
   GenerarPedido(Productos: Producto[]) {
     this.DatosService.GenerarPedido(Productos).subscribe((res: any) => {
       this.Productos = null
     }, (err) => {
       console.log("Error")
     })
-  }
-
-  Fecha() {
-    var actual = Date.now()
-    var date: Date = new Date(actual)
-    //let date: Date = new Date;
-    var day: string = date.getDay().toString()
-    var month: string = date.getMonth().toString()
-    if (day.length == 1) {
-      day = "0" + day
-    }
-    if (month.length == 1) {
-      month = "0" + month
-    }
-    var fecha = day + "-" + month + "-" + date.getFullYear.toString
-    console.log(fecha)
   }
 
 }
