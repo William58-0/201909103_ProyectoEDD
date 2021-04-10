@@ -1,0 +1,209 @@
+{
+    "Pedidos": [
+        {
+            "Fecha": "19-05-2019",
+            "Tienda": "Alejandro Hermanos",
+            "Departamento": "Seguridad y vigilancia",
+            "Calificacion": 3,
+            "Productos": [
+                {
+                    "Codigo": 979
+                },
+                {
+                    "Codigo": 981
+                },
+                {
+                    "Codigo": 977
+                },
+                {
+                    "Codigo": 977
+                }
+            ]
+        },
+        {
+            "Fecha": "21-03-2020",
+            "Tienda": "Borrego Rocha e Hijos",
+            "Departamento": "Television y video",
+            "Calificacion": 2,
+            "Productos": [
+                {
+                    "Codigo": 62
+                },
+                {
+                    "Codigo": 55
+                },
+                {
+                    "Codigo": 59
+                }
+            ]
+        },
+        {
+            "Fecha": "05-01-2019",
+            "Tienda": "Baca y Viera",
+            "Departamento": "Seguridad y vigilancia",
+            "Calificacion": 4,
+            "Productos": [
+                {
+                    "Codigo": 297
+                },
+                {
+                    "Codigo": 296
+                },
+                {
+                    "Codigo": 299
+                }
+            ]
+        },
+        {
+            "Fecha": "13-11-2018",
+            "Tienda": "Baca y Viera",
+            "Departamento": "Seguridad y vigilancia",
+            "Calificacion": 4,
+            "Productos": [
+                {
+                    "Codigo": 298
+                },
+                {
+                    "Codigo": 297
+                },
+                {
+                    "Codigo": 296
+                },
+                {
+                    "Codigo": 298
+                }
+            ]
+        },
+        {
+            "Fecha": "30-11-2018",
+            "Tienda": "Borrego Rocha e Hijos",
+            "Departamento": "Television y video",
+            "Calificacion": 2,
+            "Productos": [
+                {
+                    "Codigo": 57
+                },
+                {
+                    "Codigo": 60
+                },
+                {
+                    "Codigo": 55
+                },
+                {
+                    "Codigo": 57
+                }
+            ]
+        },
+        {
+            "Fecha": "21-07-2018",
+            "Tienda": "Agosto, Hernández y Ojeda Asociados",
+            "Departamento": "Television y video",
+            "Calificacion": 1,
+            "Productos": [
+                {
+                    "Codigo": 849
+                },
+                {
+                    "Codigo": 851
+                },
+                {
+                    "Codigo": 854
+                }
+            ]
+        },
+        {
+            "Fecha": "13-08-2020",
+            "Tienda": "Agosto, Hernández y Ojeda Asociados",
+            "Departamento": "Television y video",
+            "Calificacion": 1,
+            "Productos": [
+                {
+                    "Codigo": 849
+                },
+                {
+                    "Codigo": 853
+                },
+                {
+                    "Codigo": 853
+                }
+            ]
+        },
+        {
+            "Fecha": "31-08-2020",
+            "Tienda": "Borrego Rocha e Hijos",
+            "Departamento": "Television y video",
+            "Calificacion": 2,
+            "Productos": [
+                {
+                    "Codigo": 56
+                },
+                {
+                    "Codigo": 59
+                },
+                {
+                    "Codigo": 63
+                },
+                {
+                    "Codigo": 57
+                }
+            ]
+        },
+        {
+            "Fecha": "16-10-2019",
+            "Tienda": "Alvarez Loya S.A.",
+            "Departamento": "Seguridad y vigilancia",
+            "Calificacion": 2,
+            "Productos": [
+                {
+                    "Codigo": 785
+                },
+                {
+                    "Codigo": 781
+                },
+                {
+                    "Codigo": 784
+                },
+                {
+                    "Codigo": 782
+                }
+            ]
+        },
+        {
+            "Fecha": "23-05-2018",
+            "Tienda": "Agosto, Hernández y Ojeda Asociados",
+            "Departamento": "Television y video",
+            "Calificacion": 1,
+            "Productos": [
+                {
+                    "Codigo": 854
+                },
+                {
+                    "Codigo": 850
+                },
+                {
+                    "Codigo": 853
+                },
+                {
+                    "Codigo": 854
+                }
+            ]
+        },
+        {
+            "Fecha": "31-07-2020",
+            "Tienda": "Agosto, Hernández y Ojeda Asociados",
+            "Departamento": "Seguridad y vigilancia",
+            "Calificacion": 2,
+            "Productos": [
+                {
+                    "Codigo": 443
+                },
+                {
+                    "Codigo": 441
+                },
+                {
+                    "Codigo": 438
+                }
+            ]
+        }
+    ]
+}

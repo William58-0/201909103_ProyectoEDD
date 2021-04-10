@@ -1,0 +1,30 @@
+digraph G{
+node [shape=circle style=filled];
+"0xc0000060d0"[label="Fantástico Plástico Presidente
+60" fillcolor=aquamarine];
+"0xc0000060d0" -> "0xc0001f2d60";
+"0xc0000060d0" -> "0xc0001f2d68";
+"0xc0001f2d60"[label="Sin marca Caucho Tuna
+57" fillcolor=aquamarine];
+"0xc0001f2d60" -> "0xc0001f2cd0";
+"0xc0001f2d60" -> "0xc0001f2cd8";
+"0xc0001f2cd0"[label="Inteligente Fresco Pantalones
+56" fillcolor=aquamarine];
+"0xc0001f2cd0" -> "0xc0001f2e80";
+"0xc0001f2e80"[label="Genérica Hormigón Tuna
+55" fillcolor=aquamarine];
+"0xc0001f2cd8"[label="Gorgeous Granito Tuna
+58" fillcolor=aquamarine];
+"0xc0001f2cd8" -> "0xc0001f3038";
+"0xc0001f3038"[label="Refinado Plástico Jabón
+59" fillcolor=aquamarine];
+"0xc0001f2d68"[label="Sabrosa Granito Pelota
+62" fillcolor=aquamarine];
+"0xc0001f2d68" -> "0xc0001f2df0";
+"0xc0001f2d68" -> "0xc0001f2df8";
+"0xc0001f2df0"[label="Fantástico Caucho Pescado
+61" fillcolor=aquamarine];
+"0xc0001f2df8"[label="Pequeño Madera Teclado
+63" fillcolor=aquamarine];
+
+}

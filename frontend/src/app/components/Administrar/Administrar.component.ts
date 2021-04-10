@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DatosService } from "../../services/Datos/Datos.service";
 import { Producto } from "../../models/Producto/Producto";
+import { Usuario } from "../../models/Usuario/Usuario";
 
 @Component({
   selector: 'app-Administrar',
@@ -17,9 +19,14 @@ export class AdministrarComponent implements OnInit {
   Calendario: string
   Arbol: string;
   Estado: string;
+  Usuario:Usuario;
+  Nombre:string;
+  Clave:string;
+  Valido:boolean;
 
-
-  constructor(private DatosService: DatosService) {
+  constructor(private DatosService: DatosService,
+    private route: ActivatedRoute,
+    private router: Router) {
     this.DatosService.GetFechas().subscribe((dataList: any) => {
       this.Fechas = dataList.Fechas
       console.log(dataList)
@@ -53,6 +60,10 @@ export class AdministrarComponent implements OnInit {
 
   Aarbol() {
     this.Estado = "Arbol"
+  }
+
+  Aarbolcuentas() {
+    this.Estado = "ArbolCuentas"
   }
 
   ToMes(date: string) {
@@ -94,6 +105,22 @@ export class AdministrarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.GetUsuario(this.route.snapshot.paramMap.get('Dpi'))
+  }
+
+  GetUsuario(Dpi) {
+    var Busqueda = {
+      Dpi: Dpi
+    }
+    this.DatosService.GetUsuario(Busqueda).subscribe(data => {
+      this.Usuario = data;
+      console.log(data)
+      this.Nombre=data.Nombre;
+      this.Valido=false
+    },
+      error => {
+        console.log(error);
+      });
   }
 
   Filtrar(Productos: Producto[]) {
@@ -104,6 +131,10 @@ export class AdministrarComponent implements OnInit {
       }
     }
     return nuevo
+  }
+
+  ADatosCuentas(){
+    window.location.href="/Cargar/"+this.Usuario.Dpi
   }
 
 }

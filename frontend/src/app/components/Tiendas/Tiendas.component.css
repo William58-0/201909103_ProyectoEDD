@@ -28,3 +28,12 @@
     text-align: left;
     margin-left: 2%;
 }
+
+.tblbody{
+    background-color: rgb(132, 179, 194);
+}
+
+.Pagar{
+    text-align: right;
+    margin-right: 2%;
+}

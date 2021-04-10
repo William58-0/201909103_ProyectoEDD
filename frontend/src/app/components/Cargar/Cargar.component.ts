@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DatosService } from "../../services/Datos/Datos.service";
-import { Tienda } from "../../models/Tienda/Tienda";
+import { Usuario } from "../../models/Usuario/Usuario";
 
 @Component({
   selector: 'app-Cargar',
@@ -9,22 +10,45 @@ import { Tienda } from "../../models/Tienda/Tienda";
 })
 export class CargarComponent implements OnInit {
 
-  Tiendas: Tienda[]=[]
   FileTiendas:File
   FileInventario:File
   FilePedidos:File
+  FileUsuarios:File
+  Usuario:Usuario;
+  Nombre:string;
+  Estado:string
+  NuevoUsuario:Usuario
 
-  constructor(private DatosService: DatosService) {
+  constructor(private DatosService: DatosService,
+    private route: ActivatedRoute,
+    private router: Router) {   
+      this.Estado="Cargar"
 
+  }
+
+  ngOnInit(): void {
+    this.GetUsuario(this.route.snapshot.paramMap.get('Dpi'))
+  }
+
+  GetUsuario(Dpi) {
+    var Busqueda = {
+      Dpi: Dpi
+    }
+    this.DatosService.GetUsuario(Busqueda).subscribe(data => {
+      this.Usuario = data;
+      console.log(data)
+      this.Nombre=data.Nombre
+    },
+      error => {
+        console.log(error);
+      });
   }
 
   LoadTiendas(event: any){
     this.FileTiendas =event.target.files[0];
     const reader=new FileReader();
-    var data1
     reader.onload=(e)=>{
       const data =reader.result!.toString().trim();
-      data1=data
       console.log(data)
     }
     reader.readAsText(this.FileTiendas)
@@ -37,10 +61,8 @@ export class CargarComponent implements OnInit {
   LoadInventario(event: any){
     this.FileInventario =event.target.files[0];
     const reader=new FileReader();
-    var data1
     reader.onload=(e)=>{
       const data =reader.result!.toString().trim();
-      data1=data
       console.log(data)
     }
     reader.readAsText(this.FileInventario)
@@ -53,10 +75,8 @@ export class CargarComponent implements OnInit {
   LoadPedidos(event: any){
     this.FilePedidos =event.target.files[0];
     const reader=new FileReader();
-    var data1
     reader.onload=(e)=>{
       const data =reader.result!.toString().trim();
-      data1=data
       console.log(data)
     }
     reader.readAsText(this.FilePedidos)
@@ -66,9 +86,32 @@ export class CargarComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
+  LoadUsuarios(event: any){
+    this.FileUsuarios =event.target.files[0];
+    const reader=new FileReader();
+    reader.onload=(e)=>{
+      const data =reader.result!.toString().trim();
+      console.log(data)
+    }
+    reader.readAsText(this.FileUsuarios)
+    this.DatosService.LoadUsuarios(this.FileUsuarios).subscribe(() => {
+    }, (err) => {
+      console.log("no se pudo cargar")
+    })
   }
 
+  ACuentas(){
+    this.NuevoUsuario.Dpi=null
+    this.NuevoUsuario.Nombre=null
+    this.NuevoUsuario.Correo=null
+    this.NuevoUsuario.Password=null
+    this.NuevoUsuario.Cuenta="Admin"
+    this.Estado="Cuentas"
+  }
+
+  AReportes(){
+    window.location.href="/Administrar/"+this.Usuario.Dpi
+  }
 
 }
 

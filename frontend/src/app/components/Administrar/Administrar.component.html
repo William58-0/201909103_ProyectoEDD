@@ -1,23 +1,30 @@
-<nav class="navbar navbar-expand-lg navbar-light" style="color:white">
-  <!--Ejemplo de boton a la izquierda-->
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #216da3; color:white">
+  <!--<a class="navbar-brand" routerLink="/" class="fas fa-home" style="color:white; font-size: large;"> Inicio</a>-->
+  <a class="fas fa-home" style="color:white; font-size: large;">{{Nombre}} </a>
   <div class="collapse navbar-collapse" id="navbarNav">
-    <div style="margin: auto;">
-      <button class="btn btn-info" (click)="Acalendarios()">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item"><a class="nav-link" (click)="ADatosCuentas()" style="color:white"><i
+            class="fas fa-user-circle"></i><span> Datos/Cuentas</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="/" style="color:white"><i class="fas fa-user-circle"></i><span>
+            Salir</span></a></li>
+    </ul>
+  </div>
+</nav>
+
+<nav class="navbar navbar-expand-lg navbar-light" style="color:white">
+  <div class="collapse navbar-collapse" id="navbarNav">
+      <button class="btn btn-info" (click)="Acalendarios()" style="margin: auto;">
         <i>Calendarios</i>
       </button>
-    </div>
-
-    <div style="margin: auto;">
-      <button class="btn btn-info" (click)="Apedidos()">
+      <button class="btn btn-info" (click)="Apedidos()" style="margin: auto;">
         <i>Pedidos</i>
       </button>
-    </div>
-
-    <div style="margin: auto;">
-      <button class="btn btn-info" (click)="Aarbol()">
+      <button class="btn btn-info" (click)="Aarbol()" style="margin: auto;">
         <i>Arbol Años</i>
       </button>
-    </div>
+      <button class="btn btn-info" (click)="Aarbolcuentas()" style="margin: auto;">
+        <i>Arbol de Cuentas</i>
+      </button>
   </div>
 </nav>
 
@@ -92,6 +99,28 @@
       <h1>Árbol de años</h1>
       <img src="assets/img/arbolAnios.png">
     </form>
+  </ng-container>
+
+  <ng-container *ngIf="Estado==='ArbolCuentas'">
+    <form style="margin: auto; background-color: #4884af; margin-top: 2%; padding: 2%; border-radius: 2%; color:white">
+      <h1>Árbol de Cuentas Sin Cifrado</h1>
+      <img src="assets/img/ArbolCuentasSin.png">
+      <div class="form-group" style="text-align: left;">
+        Introduzca clave maestra:
+        <input type="password" name="callback_0" data-validator-event="keyup" class="form-control input-lg"
+          placeholder="Clave" [(ngModel)]="Clave">
+      </div>
+      <button class="btn btn-success" (click)="Valido=true" style="margin-left: 2%;">
+        <i>Aceptar</i>
+      </button>
+      <ng-container *ngIf="Valido===true">
+        <h1>Árbol de Cuentas Cifrado</h1>
+        <img src="assets/img/ArbolCuentasCif.png">
+        <h1>Árbol de Cuentas con Cifrado Sensible</h1>
+        <img src="assets/img/ArbolCuentasCifSen.png">
+      </ng-container>
+    </form>
+
   </ng-container>
 
 </div>

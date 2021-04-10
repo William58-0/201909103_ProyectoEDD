@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DatosService } from "../../services/Datos/Datos.service";
 import { Producto } from "../../models/Producto/Producto";
+import { Usuario } from "../../models/Usuario/Usuario";
 
 @Component({
   selector: 'app-Carrito',
@@ -10,8 +12,11 @@ import { Producto } from "../../models/Producto/Producto";
 export class CarritoComponent implements OnInit {
 
   Productos: Producto[] = []
+  Usuario:Usuario;
 
-  constructor(private DatosService: DatosService) {
+  constructor(private DatosService: DatosService,
+    private route: ActivatedRoute,
+    private router: Router) {
     this.DatosService.CargarCarro().subscribe((dataList: any) => {
       this.Productos = dataList.Productos
       console.log(dataList)
@@ -22,6 +27,27 @@ export class CarritoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.GetUsuario(this.route.snapshot.paramMap.get('Dpi'))
+  }
+
+  GetUsuario(Dpi) {
+    var Busqueda = {
+      Dpi: Dpi
+    }
+    this.DatosService.GetUsuario(Busqueda).subscribe(Usuario => {
+      this.Usuario = Usuario;
+      console.log(Usuario)
+      /*
+      if (data.Usuario != null) {
+
+      } else {
+        alert("No existe usuario")
+      }
+      */
+    },
+      error => {
+        console.log(error);
+      });
   }
 
   Devolver(Producto: Producto) {
@@ -62,6 +88,10 @@ export class CarritoComponent implements OnInit {
     }, (err) => {
       console.log("Error")
     })
+  }
+
+  ATiendas(){
+    window.location.href="/Tiendas/"+this.Usuario.Dpi
   }
 
 }

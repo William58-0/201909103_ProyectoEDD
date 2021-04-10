@@ -453,6 +453,7 @@ func GetInventario(w http.ResponseWriter, r *http.Request) {
 	}
 	//tomamos los valores del body y los colocamos en una variable de struct de Nodo
 	json.Unmarshal(reqBody, &buscar)
+	fmt.Println(buscar.Calificacion)
 	buscado := filtrar(buscar.Tienda, buscar.Departamento, buscar.Calificacion)
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(buscado)

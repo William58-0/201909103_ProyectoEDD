@@ -1,0 +1,18 @@
+{
+    "Usuarios": [
+        {
+            "Dpi": 29910061000,
+            "Nombre": "Marvin",
+            "Correo": "marvintop2apex@guatemala.com",
+            "Password": "Yaiza123",
+            "Cuenta": "Admin"
+        },
+        {
+            "Dpi": 110223078923,
+            "Nombre": "Marvin2",
+            "Correo": "edd@ingenieria.usac.edu.gt",
+            "Password": "hola123",
+            "Cuenta": "Usuario"
+        }
+    ]
+}

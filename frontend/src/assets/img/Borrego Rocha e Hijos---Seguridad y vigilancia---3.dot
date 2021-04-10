@@ -1,0 +1,21 @@
+digraph G{
+node [shape=circle style=filled];
+"0xc000006038"[label="Licencia Granito Ratón
+323" fillcolor=aquamarine];
+"0xc000006038" -> "0xc0001f2850";
+"0xc000006038" -> "0xc0001f2858";
+"0xc0001f2850"[label="Fantástico Fresco Embutidos
+322" fillcolor=aquamarine];
+"0xc0001f2850" -> "0xc0001f26a0";
+"0xc0001f26a0"[label="Sin marca Granito Toallas
+321" fillcolor=aquamarine];
+"0xc0001f2858"[label="Práctica Plástico Ratón
+325" fillcolor=aquamarine];
+"0xc0001f2858" -> "0xc0001f2580";
+"0xc0001f2858" -> "0xc0001f2588";
+"0xc0001f2580"[label="Ergonómico Fresco Ratón
+324" fillcolor=aquamarine];
+"0xc0001f2588"[label="Elegante Hormigón Zapatos
+326" fillcolor=aquamarine];
+
+}

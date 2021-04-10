@@ -5,25 +5,27 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { InicioComponent } from './components/inicio/inicio.component';
 import { TiendasComponent } from './components/Tiendas/Tiendas.component';
-import { CarritoComponent } from './components/Carrito/Carrito.component';
 import { AdministrarComponent } from './components/Administrar/Administrar.component';
+import { LoginComponent } from './components/Login/Login.component';
+import { CargarComponent } from './components/Cargar/Cargar.component';
+import { CarritoComponent } from './components/Carrito/Carrito.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    InicioComponent,
     TiendasComponent,
+    CargarComponent,
     CarritoComponent,
-    AdministrarComponent
+    AdministrarComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,18 @@
+digraph G{
+node [shape=circle style=filled];
+"0xc000006088"[label="Práctica Fresco Zapatos
+298" fillcolor=aquamarine];
+"0xc000006088" -> "0xc0001f2a90";
+"0xc000006088" -> "0xc0001f2a98";
+"0xc0001f2a90"[label="Sin marca Caucho Ensalada
+296" fillcolor=aquamarine];
+"0xc0001f2a90" -> "0xc0001f2970";
+"0xc0001f2a90" -> "0xc0001f2978";
+"0xc0001f2970"[label="Práctica Granito Embutidos
+295" fillcolor=aquamarine];
+"0xc0001f2978"[label="Sin marca Plástico Tuna
+297" fillcolor=aquamarine];
+"0xc0001f2a98"[label="Genérica Metal Mesa
+299" fillcolor=aquamarine];
+
+}

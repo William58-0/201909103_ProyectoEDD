@@ -1,0 +1,24 @@
+<div style="background:url('assets/img/Fondo.jpg');background-size:cover;">
+    <br><br><br><br>
+    <ng-container *ngIf="Estado==='Login'">
+        <br><br><br>
+        <h1 style="color:white;">Iniciar Sesión</h1><br><br>
+        <form class="form login col-sm-4" style="margin: auto;">
+            <div class="form-group">
+                <input type="text" name="callback_0" data-validator="required" required=""
+                    data-validator-event="keyup" class="form-control input-lg"
+                    placeholder="DPI" autofocus="" [(ngModel)]="Dpi">
+            </div>
+            <div class="form-group">
+                <input type="password" name="callback_1" class="form-control input-lg" placeholder="Contraseña" value=""
+                    data-validator="required" required="" data-validator-event="keyup" [(ngModel)]="Password">
+            </div><br>
+            <div class="form-group">
+                <input value="Iniciar Sesión"
+                    class="btn btn-lg btn-block btn-uppercase btn-primary" (click)="IniciarSesion()">
+            </div>
+        </form>
+        <br><br><br><br><br><br><br>
+    </ng-container>
+
+</div>

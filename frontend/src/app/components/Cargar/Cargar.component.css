@@ -1,0 +1,31 @@
+.imagen{
+    margin-top: 1%;
+    height: 120px;
+    width: 120px;
+    margin-bottom: 1%;
+}
+
+.Tienda{
+    color:white;
+    padding:1%;
+    text-align:center;
+    margin: 2%;
+}
+
+.Producto{
+    text-align: left;
+    color:black;
+    margin: 2%;
+    background-color: rgb(132, 179, 194);
+    width: 25%;
+    border-radius: 2%;
+}
+
+.div{
+    text-align: center;
+}
+
+.Regresar{
+    text-align: left;
+    margin-left: 2%;
+}

@@ -12,6 +12,7 @@ import (
 	"strings"
 
 	"./AVL"
+	"./ArbolB"
 	"./Carrito"
 	"./Estructuras"
 	"./MatrizDispersa"
@@ -500,6 +501,11 @@ func main() {
 	//Load() //para cargar las tiendas
 	//MatrizDispersa.Leer()
 	router := mux.NewRouter().StrictSlash(true)
+	arbol := ArbolB.NewArbol(5)
+	ArbolB.Administrador(arbol)
+	arbol.Graficar("Sin")
+	arbol.Graficar("Cif")
+	arbol.Graficar("CifSen")
 	router.HandleFunc("/", indexRoute)
 	router.HandleFunc("/cargartienda", Cargar).Methods("POST")
 	router.HandleFunc("/getArreglo", Generardot).Methods("GET")
@@ -519,6 +525,12 @@ func main() {
 	router.HandleFunc("/Devolver", Carrito.SumarProducto).Methods("POST")
 	router.HandleFunc("/CargarCarro", Carrito.GetCarrito).Methods("GET")
 	router.HandleFunc("/GenerarPedido", Carrito.GenerarPedido).Methods("POST")
+	//------------------------------------------------------------------FASE 3
+	router.HandleFunc("/LoadUsuarios", ArbolB.Cargar).Methods("POST")
+	router.HandleFunc("/IniciarSesion", ArbolB.IniciarSesion).Methods("POST")
+	router.HandleFunc("/GetUsuario", ArbolB.GetUsuario).Methods("POST")
+	router.HandleFunc("/Registrar", ArbolB.Registrar).Methods("POST")
+	router.HandleFunc("/Eliminar", ArbolB.Eliminar).Methods("POST")
 
 	log.Fatal(http.ListenAndServe(":3000", handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(router)))
 }

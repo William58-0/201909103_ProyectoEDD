@@ -109,4 +109,48 @@ export class DatosService {
     return this.http.post<any>(baseURL + 'GenerarPedido', Productos, httpOptions);
   }
 
+  LoadUsuarios(data):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post<any>(baseURL + 'LoadUsuarios', data, httpOptions);
+  }
+
+  IniciarSesion(user):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post<any>(baseURL + 'IniciarSesion', user, httpOptions);
+  }
+
+  GetUsuario(data):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post<any>(baseURL + 'GetUsuario', data, httpOptions);
+  }
+
+  Registrar(Usuario):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post<any>(baseURL + 'Registrar', Usuario, httpOptions);
+  }
+
+  Eliminar(Usuario):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post<any>(baseURL + 'Eliminar', Usuario, httpOptions);
+  }
 }

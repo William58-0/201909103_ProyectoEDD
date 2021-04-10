@@ -1,19 +1,32 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #216da3; color:white">
+  <a class="navbar-brand" routerLink="/" class="fas fa-home" style="color:white; font-size: large;"> Inicio</a>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item"><a class="nav-link" (click)="ATiendas()" style="color:white"><i class="fas fa-box"></i><span>
+            Seguir Comporando</span></a></li>
+    </ul>
+  </div>
+</nav>
+
 <br>
 <div class="card" style="background-color: #216da3; color:white">
-  <div class="card-body" >
+  <div class="card-body">
     <h1 class="text-center">
       Carrito
     </h1>
     <table class="table table-sm table-hover">
       <tbody class="tblbody">
-        <th>Codigo</th><th>Nombre</th><th>Descripcion</th><th></th>
+        <th>Codigo</th>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+        <th></th>
         <tr *ngFor="let prod of Productos">
           <td>{{prod.Codigo}}</td>
           <td>{{prod.Nombre}}</td>
           <td>{{prod.Descripcion}}</td>
           <td>
             <a class="btn btn-danger text-white" (click)="Devolver(prod)">
-                Devolver
+              Devolver
             </a>
           </td>
         </tr>
@@ -26,4 +39,6 @@
   <button class="btn btn-success" (click)="GenerarPedido(Productos)">
     Generar Pedido
   </button>
+  <br>
+  <br>
 </div>
