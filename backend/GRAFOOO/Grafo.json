@@ -1,0 +1,128 @@
+{
+    "Nodos": [
+        {
+            "Nombre": "Andromeda",
+            "Enlaces": [
+                {
+                    "Nombre": "La jirafa",
+                    "Distancia": 5
+                },
+                {
+                    "Nombre": "La maquina neumatica",
+                    "Distancia": 10
+                },
+                {
+                    "Nombre": "El ave del paraiso",
+                    "Distancia": 8
+                },
+                {
+                    "Nombre": "El cangrejo",
+                    "Distancia": 12
+                }
+            ]
+        },
+        {
+            "Nombre": "La maquina neumatica",
+            "Enlaces": [
+                {
+                    "Nombre": "La jirafa",
+                    "Distancia": 15
+                },
+                {
+                    "Nombre": "Acuario",
+                    "Distancia": 8
+                }
+            ]
+        },
+        {
+            "Nombre": "El ave del paraiso",
+            "Enlaces": [
+                {
+                    "Nombre": "El aguila",
+                    "Distancia": 5
+                }
+            ]
+        },
+        {
+            "Nombre": "Acuario",
+            "Enlaces": [
+                {
+                    "Nombre": "El altar",
+                    "Distancia": 7
+                }
+            ]
+        },
+        {
+            "Nombre": "El aguila",
+            "Enlaces": [
+                {
+                    "Nombre": "El carnero",
+                    "Distancia": 9
+                }
+            ]
+        },
+        {
+            "Nombre": "La jirafa",
+            "Enlaces": [
+                {
+                    "Nombre": "El cangrejo",
+                    "Distancia": 6
+                },
+                {
+                    "Nombre": "El cincel",
+                    "Distancia": 13
+                }
+            ]
+        },
+        {
+            "Nombre": "El cangrejo",
+            "Enlaces": [
+                {
+                    "Nombre": "El ave del paraiso",
+                    "Distancia": 13
+                },
+                {
+                    "Nombre": "El cincel",
+                    "Distancia": 10
+                },
+                {
+                    "Nombre": "El aguila",
+                    "Distancia": 15
+                }
+            ]
+        },
+        {
+            "Nombre": "El altar",
+            "Enlaces": [
+                {
+                    "Nombre": "La jirafa",
+                    "Distancia": 14
+                }
+            ]
+        },
+        {
+            "Nombre": "El carnero",
+            "Enlaces": [
+                {
+                    "Nombre": "El cangrejo",
+                    "Distancia": 3
+                }
+            ]
+        },
+        {
+            "Nombre": "El cincel",
+            "Enlaces": [
+                {
+                    "Nombre": "El altar",
+                    "Distancia": 5
+                },
+                {
+                    "Nombre": "El carnero",
+                    "Distancia": 2
+                }
+            ]
+        }
+    ],
+    "PosicionInicialRobot":"Andromeda",
+    "Entrega":"El cincel"
+}
