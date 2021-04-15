@@ -1,0 +1,12 @@
+digraph grafo{
+fontname="Verdana" color=red fontsize=22;
+node [shape=record fontsize=8 fontname="Verdana" style=filled];
+edge [color="blue"]
+subgraph cluster{
+label = "Vector";
+bgcolor="yellow:dodgerblue"
+Vector[label="<80>Posicion: 81\n Indice: D\n Categoria: Salud y Hogar\n Calificacion: 1|<81>Posicion: 82\n Indice: D\n Categoria: Salud y Hogar\n Calificacion: 2|<82>Posicion: 83\n Indice: D\n Categoria: Salud y Hogar\n Calificacion: 3|<83>Posicion: 84\n Indice: D\n Categoria: Salud y Hogar\n Calificacion: 4|<84>Posicion: 85\n Indice: D\n Categoria: Salud y Hogar\n Calificacion: 5",width=20, fillcolor="aquamarine:violet"];
+}
+8121[label="Nombre: Díaz S.L. \n Contacto: 902 943 003 \n Calificacion: Buena (2)", fillcolor="yellowgreen:aquamarine"];
+Vector:81->8121[color=red]
+}

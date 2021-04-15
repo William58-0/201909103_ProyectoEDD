@@ -1,0 +1,12 @@
+digraph grafo{
+fontname="Verdana" color=red fontsize=22;
+node [shape=record fontsize=8 fontname="Verdana" style=filled];
+edge [color="blue"]
+subgraph cluster{
+label = "Vector";
+bgcolor="yellow:dodgerblue"
+Vector[label="<65>Posicion: 66\n Indice: C\n Categoria: Monitores\n Calificacion: 1|<66>Posicion: 67\n Indice: C\n Categoria: Monitores\n Calificacion: 2|<67>Posicion: 68\n Indice: C\n Categoria: Monitores\n Calificacion: 3|<68>Posicion: 69\n Indice: C\n Categoria: Monitores\n Calificacion: 4|<69>Posicion: 70\n Indice: C\n Categoria: Monitores\n Calificacion: 5",width=20, fillcolor="aquamarine:violet"];
+}
+6951[label="Nombre: Cepeda y Corrales \n Contacto: 930450016 \n Calificacion: Magnifica (5)", fillcolor="yellowgreen:aquamarine"];
+Vector:69->6951[color=red]
+}

@@ -1,0 +1,12 @@
+digraph grafo{
+fontname="Verdana" color=red fontsize=22;
+node [shape=record fontsize=8 fontname="Verdana" style=filled];
+edge [color="blue"]
+subgraph cluster{
+label = "Vector";
+bgcolor="yellow:dodgerblue"
+Vector[label="<5>Posicion: 6\n Indice: A\n Categoria: Television y video\n Calificacion: 1|<6>Posicion: 7\n Indice: A\n Categoria: Television y video\n Calificacion: 2|<7>Posicion: 8\n Indice: A\n Categoria: Television y video\n Calificacion: 3|<8>Posicion: 9\n Indice: A\n Categoria: Television y video\n Calificacion: 4|<9>Posicion: 10\n Indice: A\n Categoria: Television y video\n Calificacion: 5",width=20, fillcolor="aquamarine:violet"];
+}
+511[label="Nombre: Agosto, Hernández y Ojeda Asociados \n Contacto: 984-358-180 \n Calificacion: Regular (1)", fillcolor="yellowgreen:aquamarine"];
+Vector:5->511[color=red]
+}

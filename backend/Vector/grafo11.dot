@@ -1,0 +1,16 @@
+digraph grafo{
+fontname="Verdana" color=red fontsize=22;
+node [shape=record fontsize=8 fontname="Verdana" style=filled];
+edge [color="blue"]
+subgraph cluster{
+label = "Vector";
+bgcolor="yellow:dodgerblue"
+Vector[label="<55>Posicion: 56\n Indice: C\n Categoria: Salud y Hogar\n Calificacion: 1|<56>Posicion: 57\n Indice: C\n Categoria: Salud y Hogar\n Calificacion: 2|<57>Posicion: 58\n Indice: C\n Categoria: Salud y Hogar\n Calificacion: 3|<58>Posicion: 59\n Indice: C\n Categoria: Salud y Hogar\n Calificacion: 4|<59>Posicion: 60\n Indice: C\n Categoria: Salud y Hogar\n Calificacion: 5",width=20, fillcolor="aquamarine:violet"];
+}
+5511[label="Nombre: Cepeda y Corrales \n Contacto: 945.263.111 \n Calificacion: Regular (1)", fillcolor="yellowgreen:aquamarine"];
+Vector:55->5511[color=red]
+5731[label="Nombre: Correa y Velásquez \n Contacto: 975-969-825 \n Calificacion: Muy Buena (3)", fillcolor="yellowgreen:aquamarine"];
+Vector:57->5731[color=red]
+5951[label="Nombre: Castañeda Fajardo S.A. \n Contacto: 975.389.453 \n Calificacion: Magnifica (5)", fillcolor="yellowgreen:aquamarine"];
+Vector:59->5951[color=red]
+}

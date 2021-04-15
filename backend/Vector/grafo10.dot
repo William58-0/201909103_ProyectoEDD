@@ -1,0 +1,14 @@
+digraph grafo{
+fontname="Verdana" color=red fontsize=22;
+node [shape=record fontsize=8 fontname="Verdana" style=filled];
+edge [color="blue"]
+subgraph cluster{
+label = "Vector";
+bgcolor="yellow:dodgerblue"
+Vector[label="<50>Posicion: 51\n Indice: C\n Categoria: Reproductores web\n Calificacion: 1|<51>Posicion: 52\n Indice: C\n Categoria: Reproductores web\n Calificacion: 2|<52>Posicion: 53\n Indice: C\n Categoria: Reproductores web\n Calificacion: 3|<53>Posicion: 54\n Indice: C\n Categoria: Reproductores web\n Calificacion: 4|<54>Posicion: 55\n Indice: C\n Categoria: Reproductores web\n Calificacion: 5",width=20, fillcolor="aquamarine:violet"];
+}
+5121[label="Nombre: Castañeda Fajardo S.A. \n Contacto: 969.415.109 \n Calificacion: Buena (2)", fillcolor="yellowgreen:aquamarine"];
+Vector:51->5121[color=red]
+5231[label="Nombre: Cepeda y Corrales \n Contacto: 943792048 \n Calificacion: Muy Buena (3)", fillcolor="yellowgreen:aquamarine"];
+Vector:52->5231[color=red]
+}

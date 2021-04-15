@@ -19,10 +19,21 @@ export class AdministrarComponent implements OnInit {
   Calendario: string
   Arbol: string;
   Estado: string;
-  Usuario:Usuario;
-  Nombre:string;
-  Clave:string;
-  Valido:boolean;
+  Usuario: Usuario;
+  Nombre: string;
+  Clave: string;
+  Valido: boolean;
+  //LLave de encriptacion
+  LLave: string = "tercerafaseeddfechadeentregaelsabadoantesdemedianoche"
+  //Para grafos
+  Grafo: string;
+  NumeroPaso: number;
+  TiposGrafo = ["Grafo Inicial", "Pasos", "Recorrido Completo"]
+  TipoGrafo = "Grafo Inicial"
+  Mensaje=""
+
+  NPaso:number=0
+
 
   constructor(private DatosService: DatosService,
     private route: ActivatedRoute,
@@ -32,6 +43,7 @@ export class AdministrarComponent implements OnInit {
       console.log(dataList)
       this.Calendario = this.Fechas[0]
       this.Estado = "Calendarios"
+      this.Valido = false
     }, (err) => {
       console.log('No se pudo cargar la lista de fechas')
     })
@@ -56,6 +68,11 @@ export class AdministrarComponent implements OnInit {
 
   Acalendarios() {
     this.Estado = "Calendarios"
+  }
+
+  Agrafos() {
+    this.Estado = "Grafos"
+    this.Grafo = "GrafoInicial"
   }
 
   Aarbol() {
@@ -115,12 +132,22 @@ export class AdministrarComponent implements OnInit {
     this.DatosService.GetUsuario(Busqueda).subscribe(data => {
       this.Usuario = data;
       console.log(data)
-      this.Nombre=data.Nombre;
-      this.Valido=false
+      this.Nombre = data.Nombre;
+      this.Valido = false
     },
       error => {
         console.log(error);
       });
+  }
+
+  VerificarLlave() {
+    if (this.Clave == "tercerafaseeddfechadeentregaelsa") {
+      this.Valido = true;
+    } else {
+      this.Valido = false;
+      alert("Clave Incorrecta")
+    }
+
   }
 
   Filtrar(Productos: Producto[]) {
@@ -133,8 +160,35 @@ export class AdministrarComponent implements OnInit {
     return nuevo
   }
 
-  ADatosCuentas(){
-    window.location.href="/Cargar/"+this.Usuario.Dpi
+  CambiarTipoGrafo(grafo: string) {
+    if (grafo == "Grafo Inicial") {
+      this.Grafo = "GrafoInicial"
+    }else if(grafo == "Pasos"){
+      this.Grafo="Paso"+this.NPaso
+    }else{
+      this.Grafo="RecorridoCompleto"
+    }
+
+  }
+
+  ADatosCuentas() {
+    window.location.href = "/Cargar/" + this.Usuario.Dpi
+  }
+
+  GenerarPedido(Productos: Producto[]) {
+    this.DatosService.GenerarPedido(Productos).subscribe((res: any) => {
+      this.Productos = null
+    }, (err) => {
+      console.log("Error")
+    })
+  }
+
+  Probar(Productos: Producto[]) {
+    this.DatosService.EnviarPedido(Productos).subscribe((res: any) => {
+      //this.Productos = null
+    }, (err) => {
+      console.log("Error")
+    })
   }
 
 }

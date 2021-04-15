@@ -1,0 +1,17 @@
+digraph grafo{
+fontname="Verdana" color=red fontsize=22;
+node [shape=record fontsize=8 fontname="Verdana" style=filled];
+edge [color="blue"]
+subgraph cluster{
+label = "Vector";
+bgcolor="yellow:dodgerblue"
+Vector[label="<0>Posicion: 1\n Indice: A\n Categoria: Seguridad y vigilancia\n Calificacion: 1|<1>Posicion: 2\n Indice: A\n Categoria: Seguridad y vigilancia\n Calificacion: 2|<2>Posicion: 3\n Indice: A\n Categoria: Seguridad y vigilancia\n Calificacion: 3|<3>Posicion: 4\n Indice: A\n Categoria: Seguridad y vigilancia\n Calificacion: 4|<4>Posicion: 5\n Indice: A\n Categoria: Seguridad y vigilancia\n Calificacion: 5",width=20, fillcolor="aquamarine:violet"];
+}
+121[label="Nombre: Agosto, Hernández y Ojeda Asociados \n Contacto: 971.360.770 \n Calificacion: Buena (2)", fillcolor="yellowgreen:aquamarine"];
+Vector:1->121[color=red]
+122->121
+121->122
+122[label="Nombre: Alvarez Loya S.A. \n Contacto: 989-906-912 \n Calificacion: Buena (2)", fillcolor="yellowgreen:aquamarine"];
+231[label="Nombre: Alejandro Hermanos \n Contacto: 972-956-393 \n Calificacion: Muy Buena (3)", fillcolor="yellowgreen:aquamarine"];
+Vector:2->231[color=red]
+}

@@ -1,0 +1,16 @@
+digraph grafo{
+fontname="Verdana" color=red fontsize=22;
+node [shape=record fontsize=8 fontname="Verdana" style=filled];
+edge [color="blue"]
+subgraph cluster{
+label = "Vector";
+bgcolor="yellow:dodgerblue"
+Vector[label="<20>Posicion: 21\n Indice: A\n Categoria: Tegnología\n Calificacion: 1|<21>Posicion: 22\n Indice: A\n Categoria: Tegnología\n Calificacion: 2|<22>Posicion: 23\n Indice: A\n Categoria: Tegnología\n Calificacion: 3|<23>Posicion: 24\n Indice: A\n Categoria: Tegnología\n Calificacion: 4|<24>Posicion: 25\n Indice: A\n Categoria: Tegnología\n Calificacion: 5",width=20, fillcolor="aquamarine:violet"];
+}
+2231[label="Nombre: Alvarez, Grijalva y Hernandes Asociados \n Contacto: 948 734 275 \n Calificacion: Muy Buena (3)", fillcolor="yellowgreen:aquamarine"];
+Vector:22->2231[color=red]
+2341[label="Nombre: Alcántar y Guevara \n Contacto: 963.613.400 \n Calificacion: Excelente (4)", fillcolor="yellowgreen:aquamarine"];
+Vector:23->2341[color=red]
+2451[label="Nombre: Abeyta, Menchaca y Delagarza Asociados \n Contacto: 974163546 \n Calificacion: Magnifica (5)", fillcolor="yellowgreen:aquamarine"];
+Vector:24->2451[color=red]
+}

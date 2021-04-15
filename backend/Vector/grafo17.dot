@@ -1,0 +1,20 @@
+digraph grafo{
+fontname="Verdana" color=red fontsize=22;
+node [shape=record fontsize=8 fontname="Verdana" style=filled];
+edge [color="blue"]
+subgraph cluster{
+label = "Vector";
+bgcolor="yellow:dodgerblue"
+Vector[label="<85>Posicion: 86\n Indice: D\n Categoria: Television y video\n Calificacion: 1|<86>Posicion: 87\n Indice: D\n Categoria: Television y video\n Calificacion: 2|<87>Posicion: 88\n Indice: D\n Categoria: Television y video\n Calificacion: 3|<88>Posicion: 89\n Indice: D\n Categoria: Television y video\n Calificacion: 4|<89>Posicion: 90\n Indice: D\n Categoria: Television y video\n Calificacion: 5",width=20, fillcolor="aquamarine:violet"];
+}
+8511[label="Nombre: Delgado, Rocha y Barrios Asociados \n Contacto: 957 175 136 \n Calificacion: Regular (1)", fillcolor="yellowgreen:aquamarine"];
+Vector:85->8511[color=red]
+8512->8511
+8511->8512
+8512[label="Nombre: Domínquez, Saldivar y Gastélum Asociados \n Contacto: 986863488 \n Calificacion: Regular (1)", fillcolor="yellowgreen:aquamarine"];
+8513->8512
+8512->8513
+8513[label="Nombre: Díaz S.L. \n Contacto: 966 367 443 \n Calificacion: Regular (1)", fillcolor="yellowgreen:aquamarine"];
+8731[label="Nombre: Díaz, Lemus y Ponce Asociados \n Contacto: 973 880 025 \n Calificacion: Muy Buena (3)", fillcolor="yellowgreen:aquamarine"];
+Vector:87->8731[color=red]
+}

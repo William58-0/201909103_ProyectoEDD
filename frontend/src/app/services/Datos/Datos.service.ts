@@ -118,6 +118,15 @@ export class DatosService {
     return this.http.post<any>(baseURL + 'LoadUsuarios', data, httpOptions);
   }
 
+  LoadGrafo(data):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post<any>(baseURL + 'GrafoInicial', data, httpOptions);
+  }
+
   IniciarSesion(user):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
@@ -153,4 +162,15 @@ export class DatosService {
     };
     return this.http.post<any>(baseURL + 'Eliminar', Usuario, httpOptions);
   }
+
+  EnviarPedido(Productos):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post<any>(baseURL + 'EnviarPedido', Productos, httpOptions);
+  }
+
+
 }

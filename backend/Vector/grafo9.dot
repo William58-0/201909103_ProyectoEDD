@@ -1,0 +1,12 @@
+digraph grafo{
+fontname="Verdana" color=red fontsize=22;
+node [shape=record fontsize=8 fontname="Verdana" style=filled];
+edge [color="blue"]
+subgraph cluster{
+label = "Vector";
+bgcolor="yellow:dodgerblue"
+Vector[label="<45>Posicion: 46\n Indice: B\n Categoria: Tegnología\n Calificacion: 1|<46>Posicion: 47\n Indice: B\n Categoria: Tegnología\n Calificacion: 2|<47>Posicion: 48\n Indice: B\n Categoria: Tegnología\n Calificacion: 3|<48>Posicion: 49\n Indice: B\n Categoria: Tegnología\n Calificacion: 4|<49>Posicion: 50\n Indice: B\n Categoria: Tegnología\n Calificacion: 5",width=20, fillcolor="aquamarine:violet"];
+}
+4511[label="Nombre: Burgos, Campos y Montemayor Asociados \n Contacto: 994-913-419 \n Calificacion: Regular (1)", fillcolor="yellowgreen:aquamarine"];
+Vector:45->4511[color=red]
+}

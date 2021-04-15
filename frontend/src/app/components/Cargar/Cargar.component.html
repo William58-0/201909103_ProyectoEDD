@@ -10,7 +10,6 @@
                 <li class="nav-item"><a class="nav-link" href="/" style="color:white"><i
                             class="fas fa-clipboard-check"></i><span> Salir</span></a></li>
             </ul>
-
         </div>
     </nav>
 
@@ -59,72 +58,18 @@
                     </div>
                 </div>
             </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile01"
+                            aria-describedby="inputGroupFileAddon01" (change)="LoadGrafo($event)">
+                        <label class="custom-file-label" for="inputGroupFile01" id="choosedFile" accept=".json">Cargar
+                            Grafo</label>
+                    </div>
+                </div>
+            </div>
 
         </div>
 
-    </div>
-</ng-container>
-
-<ng-container *ngIf="Estado==='Cuentas'">
-    <br>
-    <div class="Regresar">
-        <button class="btn btn-info" (click)="Regresar()">
-            Regresar
-        </button>
-    </div>
-    <br>
-    <div>
-        <div class="container" style="margin: auto; color:white;margin-left: 17%;">
-            <!-------------------------------------------------MI PERFIL------------------------------------------------->
-            <form class="form login col-sm-4" style="margin: auto; float:left">
-                <div class="page-header">
-                    <h1 class="text-center">Registrar un usuario</h1><br>
-                </div>
-                <div class="form-group" style="text-align: left;">
-                    DPI:
-                    <input type="text" name="callback_0" data-validator-event="keyup" class="form-control input-lg"
-                        placeholder="{{NuevoUsuario.Dpi}}" [(ngModel)]="NuevoUsuario.Dpi" readonly=true disabled="true">
-                </div>
-
-                <div class="form-group" style="text-align: left;">
-                    Nombre:
-                    <input type="text" name="callback_1" data-validator-event="keyup" class="form-control input-lg"
-                        placeholder="{{NuevoUsuario.Nombre}}" [(ngModel)]="NuevoUsuario.Nombre">
-                </div>
-
-                <div class="form-group" style="text-align: left;">
-                    Correo:
-                    <input type="text" name="callback_2" data-validator-event="keyup" class="form-control input-lg"
-                        placeholder="{{NuevoUsuario.Correo}}" [(ngModel)]="NuevoUsuario.Correo">
-                </div>
-
-                <div class="form-group" style="text-align: left;">
-                    Contraseña:
-                    <input type="text" name="callback_3" data-validator-event="keyup" class="form-control input-lg"
-                        placeholder="{{NuevoUsuario.Password}}" [(ngModel)]="NuevoUsuario.Password" type="password">
-                </div>
-                <div class="form-group">
-                    <input name="callback_2" type="submit" role="button" index="0" value="Registrar"
-                        class="btn btn-lg btn-block btn-uppercase btn-primary" (click)="Registrar()">
-                </div><br>
-            </form>
-
-            <!-------------------------------------------------OTRO PERFIL------------------------------------------------->
-            <form class="form login col-sm-4" style="margin: auto; float:left; margin-left: 8%;">
-                <div class="page-header">
-                    <h1 class="text-center">Eliminar esta Cuenta</h1><br>
-                </div>
-
-                <div class="form-group" style="text-align: left;">
-                    Introduzca su Contraseña:
-                    <input type="text" name="callback_0" data-validator-event="keyup" class="form-control input-lg"
-                        placeholder="Contraseña" [(ngModel)]="Usuario.Password" readonly=true>
-                </div>
-
-                <button class="btn btn-success" style="margin-left: 2%;" (click)="Buscar(OtroRegistro)">
-                    <i>Eliminar</i>
-                </button>
-            </form>
-        </div>
     </div>
 </ng-container>

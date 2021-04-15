@@ -3,7 +3,6 @@ package ArbolB
 import (
 	"crypto/aes"
 	"crypto/cipher"
-	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -522,7 +521,8 @@ func Registrar(w http.ResponseWriter, r *http.Request) {
 
 //-------------------------------------------------------------------------------------------------Cifrado
 func Encriptar(texto string) string {
-	key := []byte("tercerafaselaboratorioedd")
+	//key := []byte("keygopostmediumkeygopostmediumke")
+	key := []byte("tercerafaseeddfechadeentregaelsa")
 	plaintext := []byte(texto)
 	block, err := aes.NewCipher(key)
 	if err != nil {
@@ -537,8 +537,10 @@ func Encriptar(texto string) string {
 	return fmt.Sprintf("%x", ciphertext)
 }
 
+/*
 func Desencriptar(texto string) string {
-	key := []byte("tercerafaselaboratorioedd")
+	//key := []byte("keygopostmediumkeygopostmediumke")
+	key := []byte("tercerafaseeddfechadeentregaelsabadoantesdemedianoche")
 	ciphertext, _ := hex.DecodeString(texto)
 	nonce := []byte("gopostmedium")
 	block, err := aes.NewCipher(key)
@@ -555,6 +557,7 @@ func Desencriptar(texto string) string {
 	}
 	return string(plaintext)
 }
+*/
 
 //------------------------------------------------------------------------------------------------Graficar
 func graficar(actual *Nodo, cad *strings.Builder, arr map[string]*Nodo, padre *Nodo, pos int, modo string) {

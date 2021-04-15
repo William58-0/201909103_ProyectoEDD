@@ -51,15 +51,7 @@ export class TiendasComponent implements OnInit {
       this.Usuario = Usuario;
       console.log("Datos")
       console.log(Usuario.Dpi)
-      //this.Carro="/Carrito/"+this.Usuario.Dpi
-      /*
-      if (data.Usuario != null) {
-
-      } else {
-        alert("No existe usuario")
-      }
-      */
-    },
+        },
       error => {
         console.log(error);
       });
@@ -84,20 +76,14 @@ export class TiendasComponent implements OnInit {
     })
   }
 
-  Registrar(){
-    var NuevoUsuario:Usuario={
-      Dpi:this.NuevoDpi,
-      Nombre:this.NuevoNombre,
-      Correo:this.NuevoCorreo,
-      Password:this.NuevoPassword,
-      Cuenta:"Usuario"
-    }
-    this.DatosService.Registrar(NuevoUsuario).subscribe((res: any) => {
-
+  Comprar(Producto: Producto) {
+    this.DatosService.Comprar(Producto).subscribe(() => {
+      if (Producto.Cantidad > 0) {
+        Producto.Cantidad--
+      }
     }, (err) => {
       console.log("Ocurrio un error")
     })
-
   }
 
   Regresar() {
@@ -143,7 +129,7 @@ export class TiendasComponent implements OnInit {
         Cuenta:"Usuario"
       }
       this.DatosService.Eliminar(Usuario).subscribe(() => {
-        window.location.href="/Cargar/"+Usuario.Dpi
+        window.location.href="/"
       }, (err) => {
         console.log("Ocurrio un error")
       })

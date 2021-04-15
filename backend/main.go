@@ -15,6 +15,7 @@ import (
 	"./ArbolB"
 	"./Carrito"
 	"./Estructuras"
+	"./Grafos"
 	"./MatrizDispersa"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -36,12 +37,7 @@ func tipoCalif(calif int) string {
 	}
 }
 
-func Generardot(w http.ResponseWriter, r *http.Request) {
-	if len(Vector) == 0 {
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode("No hay datos cargados")
-		return
-	}
+func Graficar() {
 	a := 0
 	k := 0
 	q := 0
@@ -68,8 +64,6 @@ func Generardot(w http.ResponseWriter, r *http.Request) {
 				contador := 1
 				Lista := Vector[j]
 				aux := Lista.Primero
-				//primer nodo
-				//id del nodo=posicion en el Vector + calificacion + posicion en la lista
 				cadena = cadena + strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) +
 					"[label=\"Nombre: " + aux.Nombre + " \\n Contacto: " + aux.Contacto + " \\n Calificacion: " +
 					tipoCalif(aux.Calificacion) + "\", fillcolor=\"yellowgreen:aquamarine\"];\n" +
@@ -77,13 +71,11 @@ func Generardot(w http.ResponseWriter, r *http.Request) {
 					"[color=red]\n"
 				contador++
 				aux = aux.Siguiente
-				//el resto de nodos
 				for aux != nil {
 					cadena = cadena + strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "->" +
-						strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador-1) + "\n" + //nodo actual->nodo anterior
+						strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador-1) + "\n" +
 						strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador-1) + "->" +
-						strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "\n" + //nodo anterior->nodo actual
-						//se crea nuevo nodo
+						strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "\n" +
 						strconv.Itoa(j) + strconv.Itoa(aux.Calificacion) + strconv.Itoa(contador) + "[label=\"Nombre: " + aux.Nombre +
 						" \\n Contacto: " + aux.Contacto + " \\n Calificacion: " + tipoCalif(aux.Calificacion) + "\", fillcolor=\"yellowgreen:aquamarine\"];\n"
 					contador++
@@ -96,39 +88,39 @@ func Generardot(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		cadena = cadena + "}"
-		//se escribe el archivo dot
 		b := []byte(cadena)
-		err := ioutil.WriteFile("./Vector/grafo"+strconv.Itoa(a)+".dot", b, 0644)
+		err := ioutil.WriteFile("../frontend/src/assets/img/"+strconv.Itoa(a)+".dot", b, 0644)
 		if err != nil {
 			log.Fatal(err)
 		}
-		//se crea la imagen
 		path, _ := exec.LookPath("dot")
-		cmd, _ := exec.Command(path, "-Tpng", "./Vector/grafo"+strconv.Itoa(a)+".dot").Output()
+		cmd, _ := exec.Command(path, "-Tpng", "../frontend/src/assets/img/"+strconv.Itoa(a)+".dot").Output()
 		mode := int(0777)
-		ioutil.WriteFile("./Vector/grafo"+strconv.Itoa(a)+".png", cmd, os.FileMode(mode))
+		ioutil.WriteFile("../frontend/src/assets/img/Vector"+strconv.Itoa(a)+".png", cmd, os.FileMode(mode))
+		fmt.Println("Vector " + strconv.Itoa(a))
 		a++
 	}
 }
 
+func Generardot(w http.ResponseWriter, r *http.Request) {
+	if len(Vector) == 0 {
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode("No hay datos cargados")
+		return
+	} else {
+		Graficar()
+	}
+}
+
 //--------------------------------------------------------------------------------------------------------------------      FUNCIONES
-
-//arreglo de departamentos
 var depa []string
-
-//arreglo de indices
 var ind []string
-
-//Vector para Linealizar
 var Vector []Estructuras.Lista
-
-//var Tiendas []Estructuras.Tienda1
 
 type ListaTiendas struct {
 	ListaTiendas []Estructuras.Tienda1 `json:"ListaTiendas"`
 }
 
-//GET obtiene la lista de Tiendas
 func GetTiendas(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(Todo)
@@ -143,102 +135,9 @@ func Corregir(palabra string) string {
 
 var Todo Estructuras.Todo
 
+//-------------------------------------------------------------------------------------------------------------------------Matriz Linealizada
 func Cargar(w http.ResponseWriter, r *http.Request) {
 	Vector = nil
-	lector, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-	c := Estructuras.Data{}
-	err = json.Unmarshal(lector, &c)
-	if err != nil {
-		log.Fatal(err)
-	}
-	//Contar numero de departamentos
-	for i := 0; i < len(c.Datos); i++ {
-		for j := 0; j < len(c.Datos[i].Departamentos); j++ {
-			existe := false
-			for _, a := range depa {
-				if Corregir(c.Datos[i].Departamentos[j].Nombre) == a {
-					existe = true
-				}
-			}
-			if existe == false {
-				depa = append(depa, Corregir(c.Datos[i].Departamentos[j].Nombre))
-			}
-		}
-	}
-	//Contar numero de indices
-	for i := 0; i < len(c.Datos); i++ {
-		existe := false
-		for _, a := range ind {
-			if Corregir(c.Datos[i].Indice) == a {
-				existe = true
-			}
-		}
-		if existe == false {
-			ind = append(ind, Corregir(c.Datos[i].Indice))
-		}
-	}
-	//indices
-	for let := 0; let < len(ind); let++ {
-		//departamentos
-		for dep := 0; dep < len(depa); dep++ {
-			//calificaciones
-			for calif := 1; calif <= 5; calif++ {
-				//se crea la lista con las caracteristicas correspondientes
-				Lista := new(Estructuras.Lista)
-				Lista.Indice = ind[let]
-				Lista.Categoria = depa[dep]
-				Lista.Calificacion = calif
-				//recorrer datos del json para comparar
-				for i := 0; i < len(c.Datos); i++ {
-					for j := 0; j < len(c.Datos[i].Departamentos); j++ {
-						for k := 0; k < len(c.Datos[i].Departamentos[j].Tiendas); k++ {
-							prim := c.Datos[i]
-							sec := prim.Departamentos[j]
-							terc := sec.Tiendas[k]
-							//si una tienda cargada desde el json cumple con las caracteristicas, se agrega a la lista
-							if Corregir(prim.Indice) == ind[let] && Corregir(sec.Nombre) == depa[dep] && terc.Calificacion == calif {
-								Lista.Insertar(Corregir(terc.Nombre), terc.Descripcion, terc.Contacto, terc.Calificacion, sec.Nombre, "")
-							}
-						}
-					}
-				}
-				Vector = append(Vector, *Lista)
-				//si la lista queda vacia:
-				if Lista.Tamanio == 0 {
-					Lista.Primero = nil
-					Lista.Ultimo = nil
-				}
-				//Se ordena la lista
-				Nombres := Lista.Ordenar()
-				ListaOrdenada := new(Estructuras.Lista)
-				for _, o := range Nombres {
-					aux1 := Lista.Primero
-					for aux1 != nil {
-						if aux1.Nombre == o {
-							ListaOrdenada.Insertar(aux1.Nombre, aux1.Descripcion, aux1.Contacto, aux1.Calificacion, aux1.Departamento, aux1.Logo)
-						}
-						aux1 = aux1.Siguiente
-					}
-				}
-				ListaOrdenada.Indice = Lista.Indice
-				ListaOrdenada.Calificacion = Lista.Calificacion
-				ListaOrdenada.Categoria = Lista.Categoria
-				//se agrega la lista al Vector
-				///FORMULA ROW MAJOR
-				//( i * TamColum + j ) * TamProf + k
-				indice := (let*len(depa)+dep)*5 + (calif - 1)
-				Vector[indice] = *ListaOrdenada
-			}
-		}
-	}
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode("Datos Cargados")
-}
-
-func Load(w http.ResponseWriter, r *http.Request) {
 	AVL.Todo1.Productos = nil
 	MatrizDispersa.Todo1.Fechas = nil
 	MatrizDispersa.Pedd1.Productos = nil
@@ -247,71 +146,62 @@ func Load(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	//fmt.Println(string(lector))
 	c := Estructuras.Data{}
 	err = json.Unmarshal(lector, &c)
 	if err != nil {
 		log.Fatal(err)
 	}
-	//Contar numero de departamentos
 	for i := 0; i < len(c.Datos); i++ {
 		for j := 0; j < len(c.Datos[i].Departamentos); j++ {
 			existe := false
 			for _, a := range depa {
-				if c.Datos[i].Departamentos[j].Nombre == a {
+				if Corregir(c.Datos[i].Departamentos[j].Nombre) == a {
 					existe = true
 				}
 			}
 			if !existe {
-				depa = append(depa, c.Datos[i].Departamentos[j].Nombre)
+				depa = append(depa, Corregir(c.Datos[i].Departamentos[j].Nombre))
 			}
 		}
 	}
-	//Contar numero de indices
 	for i := 0; i < len(c.Datos); i++ {
 		existe := false
 		for _, a := range ind {
-			if c.Datos[i].Indice == a {
+			if Corregir(c.Datos[i].Indice) == a {
 				existe = true
 			}
 		}
 		if !existe {
-			ind = append(ind, c.Datos[i].Indice)
+			ind = append(ind, Corregir(c.Datos[i].Indice))
 		}
 	}
-	//indices
-	for _, let := range ind {
-		//departamentos
-		for _, dep := range depa {
-			//calificaciones
+	for let := 0; let < len(ind); let++ {
+		for dep := 0; dep < len(depa); dep++ {
 			for calif := 1; calif <= 5; calif++ {
-				//se crea la lista con las caracteristicas correspondientes
 				Lista := new(Estructuras.Lista)
-				Lista.Indice = string(let)
-				Lista.Categoria = dep
+				Lista.Indice = ind[let]
+				Lista.Categoria = depa[dep]
 				Lista.Calificacion = calif
-				//recorrer datos del json para comparar
 				for i := 0; i < len(c.Datos); i++ {
 					for j := 0; j < len(c.Datos[i].Departamentos); j++ {
 						for k := 0; k < len(c.Datos[i].Departamentos[j].Tiendas); k++ {
 							prim := c.Datos[i]
 							sec := prim.Departamentos[j]
 							terc := sec.Tiendas[k]
-							terc.Departamento = dep
-							//si una tienda cargada desde el json cumple con las caracteristicas, se agrega a la lista
-							if prim.Indice == string(let) && sec.Nombre == dep && terc.Calificacion == calif {
+							terc.Departamento = depa[dep]
+							if Corregir(prim.Indice) == ind[let] && Corregir(sec.Nombre) == depa[dep] && terc.Calificacion == calif {
 								Lista.Insertar(terc.Nombre, terc.Descripcion, terc.Contacto, terc.Calificacion, terc.Departamento, terc.Logo)
 							}
 						}
 					}
 				}
-				//si la lista queda vacia:
+				Vector = append(Vector, *Lista)
 				if Lista.Tamanio == 0 {
 					Lista.Primero = nil
 					Lista.Ultimo = nil
 				}
-				//Se ordena la lista
 				Nombres := Lista.Ordenar()
+				ListaOrdenada := new(Estructuras.Lista)
 				for _, o := range Nombres {
 					aux1 := Lista.Primero
 					for aux1 != nil {
@@ -325,23 +215,28 @@ func Load(w http.ResponseWriter, r *http.Request) {
 							Tienda1.Logo = aux1.Logo
 							if Tienda1 != nil {
 								ListaTiendas = append(ListaTiendas, *Tienda1)
-								fmt.Println("Se agrega tienda")
-								//Tiendas = append(Tiendas, *Tienda1)
+								ListaOrdenada.Insertar(aux1.Nombre, aux1.Descripcion, aux1.Contacto, aux1.Calificacion, aux1.Departamento, aux1.Logo)
 							}
 						}
 						aux1 = aux1.Siguiente
 					}
 				}
+				ListaOrdenada.Indice = Lista.Indice
+				ListaOrdenada.Calificacion = Lista.Calificacion
+				ListaOrdenada.Categoria = Lista.Categoria
+				indice := (let*len(depa)+dep)*5 + (calif - 1)
+				Vector[indice] = *ListaOrdenada
 			}
 		}
+		fmt.Println("Tiendas Cargadas")
+		Todo.Tiendas = ListaTiendas
+		AVL.Tiendas = ListaTiendas
 	}
-	fmt.Println("Tiendas Cargadas")
-	//crear json de tiendas
-	Todo.Tiendas = ListaTiendas
-	AVL.Tiendas = ListaTiendas
+	w.Header().Set("Content-Type", "application/json")
+	Graficar()
+	json.NewEncoder(w).Encode("Datos Cargados")
 }
 
-//Busqueda de Posicion especifica
 func BuscarPosicion(w http.ResponseWriter, r *http.Request) {
 	lector, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -357,9 +252,7 @@ func BuscarPosicion(w http.ResponseWriter, r *http.Request) {
 	Calificacion := c.Calificacion
 	for _, Lista := range Vector {
 		if Lista.Primero != nil {
-			//Si encuentra la categoria, y la calificacion
 			if Lista.Categoria == Departamento && Lista.Calificacion == Calificacion {
-				//buscar en la lista
 				a := Lista.Buscar(Nombre, Calificacion)
 				if a.Nombre != "" {
 					w.Header().Set("Content-Type", "application/json")
@@ -373,7 +266,6 @@ func BuscarPosicion(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode("No encontrado")
 }
 
-//Eliminar Registro
 func Eliminar(w http.ResponseWriter, r *http.Request) {
 	lector, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -390,9 +282,7 @@ func Eliminar(w http.ResponseWriter, r *http.Request) {
 	cont := 0
 	for _, Lista := range Vector {
 		if Lista.Primero != nil {
-			//Si encuentra la categoria, y la calificacion
 			if Lista.Categoria == Categoria && Lista.Calificacion == Calificacion {
-				//buscar en la lista
 				if Lista.Eliminar(Nombre, Calificacion) {
 					w.Header().Set("Content-Type", "application/json")
 					json.NewEncoder(w).Encode("Eliminado")
@@ -447,7 +337,6 @@ func GuardarJson(w http.ResponseWriter, r *http.Request) {
 			var ListaTiendas []Estructuras.Tienda1
 			for a := 0; a < 5; a++ {
 				indice := let*5*len(depa) + (b * 5) + a
-				//atributos de las tiendas
 				aux := Vector[indice].Primero
 				for aux != nil {
 					Tienda1 := new(Estructuras.Tienda1)
@@ -482,7 +371,6 @@ func GuardarJson(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Printf("Error: %v", err)
 	} else {
-		//se escribe el archivo json
 		b := []byte(cadenaJson)
 		err := ioutil.WriteFile("guardado.json", b, 0644)
 		w.Header().Set("Content-Type", "application/json")
@@ -506,6 +394,7 @@ func main() {
 	arbol.Graficar("Sin")
 	arbol.Graficar("Cif")
 	arbol.Graficar("CifSen")
+	//------------------------------------------------------------------FASE 1
 	router.HandleFunc("/", indexRoute)
 	router.HandleFunc("/cargartienda", Cargar).Methods("POST")
 	router.HandleFunc("/getArreglo", Generardot).Methods("GET")
@@ -514,7 +403,7 @@ func main() {
 	router.HandleFunc("/Eliminar", Eliminar).Methods("DELETE")
 	router.HandleFunc("/Guardar", GuardarJson).Methods("POST")
 	//------------------------------------------------------------------FASE 2
-	router.HandleFunc("/LoadTiendas", Load).Methods("POST")
+	router.HandleFunc("/LoadTiendas", Cargar).Methods("POST")
 	router.HandleFunc("/GetTiendas", GetTiendas).Methods("GET")
 	router.HandleFunc("/LoadInventario", AVL.Leer).Methods("POST")
 	router.HandleFunc("/GetInventario", AVL.GetInventario).Methods("POST")
@@ -531,6 +420,8 @@ func main() {
 	router.HandleFunc("/GetUsuario", ArbolB.GetUsuario).Methods("POST")
 	router.HandleFunc("/Registrar", ArbolB.Registrar).Methods("POST")
 	router.HandleFunc("/Eliminar", ArbolB.Eliminar).Methods("POST")
+	router.HandleFunc("/GrafoInicial", Grafos.GrafoInicial).Methods("POST")
+	router.HandleFunc("/EnviarPedido", Grafos.EnviarPedido).Methods("POST")
 
 	log.Fatal(http.ListenAndServe(":3000", handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(router)))
 }

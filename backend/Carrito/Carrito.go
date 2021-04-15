@@ -18,12 +18,10 @@ var Todo AVL.Todo
 
 func RestarProducto(w http.ResponseWriter, r *http.Request) {
 	var prod *AVL.Producto1
-	//leemos el body de la petición
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		fmt.Fprintf(w, "Datos Inválidos")
 	}
-	//tomamos los valores del body y los colocamos en una variable de struct de Nodo
 	json.Unmarshal(reqBody, &prod)
 	if prod.Cantidad > 0 {
 		Productos := AVL.Todo1.Productos
@@ -73,12 +71,10 @@ func Eliminar(Arr []AVL.Producto1, prod *AVL.Producto1) {
 
 func SumarProducto(w http.ResponseWriter, r *http.Request) {
 	var prod *AVL.Producto1
-	//leemos el body de la petición
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		fmt.Fprintf(w, "Datos Inválidos")
 	}
-	//tomamos los valores del body y los colocamos en una variable de struct de Nodo
 	json.Unmarshal(reqBody, &prod)
 	//if prod.Cantidad > 0 {
 	Productos := AVL.Todo1.Productos
@@ -117,7 +113,6 @@ func GenerarPedido(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Fprintf(w, "Datos Inválidos")
 	}
-	//tomamos los valores del body y los colocamos en una variable de struct de Nodo
 	json.Unmarshal(reqBody, &productos)
 	fmt.Println("El nuevo pedido: ")
 	for i := 0; i < len(productos); i++ {

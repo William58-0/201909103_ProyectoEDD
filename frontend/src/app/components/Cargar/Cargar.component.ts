@@ -14,6 +14,7 @@ export class CargarComponent implements OnInit {
   FileInventario:File
   FilePedidos:File
   FileUsuarios:File
+  FileGrafo:File
   Usuario:Usuario;
   Nombre:string;
   Estado:string
@@ -23,7 +24,6 @@ export class CargarComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router) {   
       this.Estado="Cargar"
-
   }
 
   ngOnInit(): void {
@@ -95,6 +95,20 @@ export class CargarComponent implements OnInit {
     }
     reader.readAsText(this.FileUsuarios)
     this.DatosService.LoadUsuarios(this.FileUsuarios).subscribe(() => {
+    }, (err) => {
+      console.log("no se pudo cargar")
+    })
+  }
+
+  LoadGrafo(event: any){
+    this.FileGrafo =event.target.files[0];
+    const reader=new FileReader();
+    reader.onload=(e)=>{
+      const data =reader.result!.toString().trim();
+      console.log(data)
+    }
+    reader.readAsText(this.FileGrafo)
+    this.DatosService.LoadGrafo(this.FileGrafo).subscribe(() => {
     }, (err) => {
       console.log("no se pudo cargar")
     })

@@ -1,0 +1,22 @@
+digraph grafo{
+fontname="Verdana" color=red fontsize=22;
+node [shape=record fontsize=8 fontname="Verdana" style=filled];
+edge [color="blue"]
+subgraph cluster{
+label = "Vector";
+bgcolor="yellow:dodgerblue"
+Vector[label="<30>Posicion: 31\n Indice: B\n Categoria: Salud y Hogar\n Calificacion: 1|<31>Posicion: 32\n Indice: B\n Categoria: Salud y Hogar\n Calificacion: 2|<32>Posicion: 33\n Indice: B\n Categoria: Salud y Hogar\n Calificacion: 3|<33>Posicion: 34\n Indice: B\n Categoria: Salud y Hogar\n Calificacion: 4|<34>Posicion: 35\n Indice: B\n Categoria: Salud y Hogar\n Calificacion: 5",width=20, fillcolor="aquamarine:violet"];
+}
+3011[label="Nombre: Badillo S.L. \n Contacto: 932472152 \n Calificacion: Regular (1)", fillcolor="yellowgreen:aquamarine"];
+Vector:30->3011[color=red]
+3012->3011
+3011->3012
+3012[label="Nombre: Barrios Porras S.L. \n Contacto: 924558019 \n Calificacion: Regular (1)", fillcolor="yellowgreen:aquamarine"];
+3341[label="Nombre: Becerra y Delao \n Contacto: 941.644.324 \n Calificacion: Excelente (4)", fillcolor="yellowgreen:aquamarine"];
+Vector:33->3341[color=red]
+3451[label="Nombre: Barrios Jaime S.L. \n Contacto: 950-262-754 \n Calificacion: Magnifica (5)", fillcolor="yellowgreen:aquamarine"];
+Vector:34->3451[color=red]
+3452->3451
+3451->3452
+3452[label="Nombre: Burgos, Campos y Montemayor Asociados \n Contacto: 942-065-325 \n Calificacion: Magnifica (5)", fillcolor="yellowgreen:aquamarine"];
+}

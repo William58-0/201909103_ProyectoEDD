@@ -1,0 +1,32 @@
+digraph G
+{
+node [shape=circle style=filled];
+Andromeda [label="Andromeda" fillcolor="red"];
+Andromeda -> La_jirafa [label="5" dir=both];
+Andromeda -> La_maquina_neumatica [label="10" dir=both];
+Andromeda -> El_ave_del_paraiso [label="8" dir=both];
+Andromeda -> El_cangrejo [label="12" dir=both];
+La_maquina_neumatica [label="La maquina neumatica" fillcolor="blue"];
+La_maquina_neumatica -> La_jirafa [label="15" dir=both];
+La_maquina_neumatica -> Acuario [label="8" dir=both];
+El_ave_del_paraiso [label="El ave del paraiso" fillcolor="blue"];
+El_ave_del_paraiso -> El_aguila [label="5" dir=both];
+Acuario [label="Acuario" fillcolor="blue"];
+Acuario -> El_altar [label="7" dir=both];
+El_aguila [label="El aguila" fillcolor="blue"];
+El_aguila -> El_carnero [label="9" dir=both];
+La_jirafa [label="La jirafa" fillcolor="yellow"];
+La_jirafa -> El_cangrejo [label="6" dir=both];
+La_jirafa -> El_cincel [label="13" color=red];
+El_cangrejo [label="El cangrejo" fillcolor="blue"];
+El_cangrejo -> El_ave_del_paraiso [label="13" dir=both];
+El_cangrejo -> El_cincel [label="10" dir=both];
+El_cangrejo -> El_aguila [label="15" dir=both];
+El_altar [label="El altar" fillcolor="blue"];
+El_altar -> La_jirafa [label="14" dir=both];
+El_carnero [label="El carnero" fillcolor="blue"];
+El_carnero -> El_cangrejo [label="3" dir=both];
+El_cincel [label="El cincel" fillcolor="green"];
+El_cincel -> El_altar [label="5" dir=both];
+El_cincel -> El_carnero [label="2" dir=both];
+}

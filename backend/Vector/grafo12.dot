@@ -1,0 +1,19 @@
+digraph grafo{
+fontname="Verdana" color=red fontsize=22;
+node [shape=record fontsize=8 fontname="Verdana" style=filled];
+edge [color="blue"]
+subgraph cluster{
+label = "Vector";
+bgcolor="yellow:dodgerblue"
+Vector[label="<60>Posicion: 61\n Indice: C\n Categoria: Television y video\n Calificacion: 1|<61>Posicion: 62\n Indice: C\n Categoria: Television y video\n Calificacion: 2|<62>Posicion: 63\n Indice: C\n Categoria: Television y video\n Calificacion: 3|<63>Posicion: 64\n Indice: C\n Categoria: Television y video\n Calificacion: 4|<64>Posicion: 65\n Indice: C\n Categoria: Television y video\n Calificacion: 5",width=20, fillcolor="aquamarine:violet"];
+}
+6121[label="Nombre: Cepeda y Corrales \n Contacto: 912 329 145 \n Calificacion: Buena (2)", fillcolor="yellowgreen:aquamarine"];
+Vector:61->6121[color=red]
+6122->6121
+6121->6122
+6122[label="Nombre: Correa y Velásquez \n Contacto: 954420756 \n Calificacion: Buena (2)", fillcolor="yellowgreen:aquamarine"];
+6231[label="Nombre: Castañeda Fajardo S.A. \n Contacto: 903-693-741 \n Calificacion: Muy Buena (3)", fillcolor="yellowgreen:aquamarine"];
+Vector:62->6231[color=red]
+6451[label="Nombre: Castro Otero e Hijos \n Contacto: 986.133.256 \n Calificacion: Magnifica (5)", fillcolor="yellowgreen:aquamarine"];
+Vector:64->6451[color=red]
+}

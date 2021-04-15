@@ -1,21 +1,29 @@
 import { ANALYZE_FOR_ENTRY_COMPONENTS, Component, OnInit } from '@angular/core';
 import { DatosService } from "../../services/Datos/Datos.service";
 import { Usuario } from "../../models/Usuario/Usuario";
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-Login',
   templateUrl: './Login.component.html',
   styleUrls: ['./Login.component.css']
 })
-export class LoginComponent implements OnInit {
 
+export class LoginComponent implements OnInit {
   Estado: string
   public static Usuario: Usuario;
   Dpi: number;
   Password: string;
+  NuevoDpi:number;
+  NuevoNombre:string;
+  NuevoPassword:string;
+  NuevoCorreo:string;
+  imagen;
 
-  constructor(private DatosService: DatosService) {
+  constructor(private DatosService: DatosService,
+    private sanitizer:DomSanitizer) {
     this.Estado = "Login"
+
   }
 
   IniciarSesion() {
@@ -52,9 +60,50 @@ export class LoginComponent implements OnInit {
 
   }
 
+  Registrar(){
+    var NuevoUsuario:Usuario={
+      Dpi:this.NuevoDpi,
+      Nombre:this.NuevoNombre,
+      Correo:this.NuevoCorreo,
+      Password:this.NuevoPassword,
+      Cuenta:"Usuario"
+    }
+    this.DatosService.Registrar(NuevoUsuario).subscribe(() => {
+
+    }, (err) => {
+      console.log("Ocurrio un error")
+    })
+
+  }
+
+  Regresar() {
+    this.Estado = "Login"
+  }
+
+  ARegistrar(){
+    this.NuevoDpi=null
+    this.NuevoNombre=""
+    this.NuevoCorreo=""
+    this.NuevoPassword=""
+    this.Estado="Registrar"
+  }
+
   //Para validar
   Buscar(Registro, Correo) {
 
   }
-}
 
+  /*
+  Prueba(){
+    this.DatosService.GrafoInicial().subscribe((picture) => {
+      this.imagen = picture
+      console.log(picture)
+      //this.imagen = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${picture}`);
+      //console.log(this.Productos[0])>
+    }, (err) => {
+      console.log("error")
+    })
+
+  }
+  */
+}

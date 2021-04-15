@@ -1,0 +1,16 @@
+digraph grafo{
+fontname="Verdana" color=red fontsize=22;
+node [shape=record fontsize=8 fontname="Verdana" style=filled];
+edge [color="blue"]
+subgraph cluster{
+label = "Vector";
+bgcolor="yellow:dodgerblue"
+Vector[label="<35>Posicion: 36\n Indice: B\n Categoria: Television y video\n Calificacion: 1|<36>Posicion: 37\n Indice: B\n Categoria: Television y video\n Calificacion: 2|<37>Posicion: 38\n Indice: B\n Categoria: Television y video\n Calificacion: 3|<38>Posicion: 39\n Indice: B\n Categoria: Television y video\n Calificacion: 4|<39>Posicion: 40\n Indice: B\n Categoria: Television y video\n Calificacion: 5",width=20, fillcolor="aquamarine:violet"];
+}
+3511[label="Nombre: Becerra y Delao \n Contacto: 941.557.177 \n Calificacion: Regular (1)", fillcolor="yellowgreen:aquamarine"];
+Vector:35->3511[color=red]
+3621[label="Nombre: Badillo S.L. \n Contacto: 975-665-461 \n Calificacion: Buena (2)", fillcolor="yellowgreen:aquamarine"];
+Vector:36->3621[color=red]
+3841[label="Nombre: Burgos, Campos y Montemayor Asociados \n Contacto: 941-822-988 \n Calificacion: Excelente (4)", fillcolor="yellowgreen:aquamarine"];
+Vector:38->3841[color=red]
+}

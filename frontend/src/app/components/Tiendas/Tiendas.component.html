@@ -5,7 +5,7 @@
       <li class="nav-item"><a class="nav-link" (click)="ACarrito()" style="color:white"><i
             class="fas fa-dolly-flatbed"></i><span> Carrito</span></a></li>
       <li class="nav-item"><a class="nav-link" (click)="ACuentas()" style="color:white"><i
-        class="fas fa-user-circle"></i><span> Cuentas</span></a></li>
+            class="fas fa-user-circle"></i><span> Cuentas</span></a></li>
     </ul>
   </div>
 </nav>
@@ -76,42 +76,9 @@
   <br>
   <div>
     <div class="container" style="margin: auto; color:white;margin-left: 17%;">
-      <!-------------------------------------------------MI PERFIL------------------------------------------------->
-      <form class="form login col-sm-4" style="margin: auto; float:left">
-        <div class="page-header">
-          <h1 class="text-center">Registrar un usuario</h1><br>
-        </div>
-        <div class="form-group" style="text-align: left;">
-          DPI:
-          <input type="text" name="callback_0" data-validator-event="keyup" class="form-control input-lg"
-             [(ngModel)]="NuevoDpi">
-        </div>
 
-        <div class="form-group" style="text-align: left;">
-          Nombre:
-          <input type="text" name="callback_1" data-validator-event="keyup" class="form-control input-lg"
-             [(ngModel)]="NuevoNombre">
-        </div>
-
-        <div class="form-group" style="text-align: left;">
-          Correo:
-          <input type="text" name="callback_2" data-validator-event="keyup" class="form-control input-lg"
-             [(ngModel)]="NuevoCorreo">
-        </div>
-
-        <div class="form-group" style="text-align: left;">
-          Contraseña:
-          <input type="text" name="callback_3" data-validator-event="keyup" class="form-control input-lg"
-             [(ngModel)]="NuevoPassword" type="password">
-        </div>
-        <div class="form-group">
-          <input name="callback_2" type="submit" role="button" index="0" value="Registrar"
-            class="btn btn-lg btn-block btn-uppercase btn-primary" (click)="Registrar()">
-        </div><br>
-      </form>
-
-      <!-------------------------------------------------OTRO PERFIL------------------------------------------------->
-      <form class="form login col-sm-4" style="margin: auto; float:left; margin-left: 8%;">
+      <!-------------------------------------------------ELIMINAR CUENTA------------------------------------------------->
+      <form class="form login col-sm-4" style="margin: auto; margin-left: 8%;">
         <div class="page-header">
           <h1 class="text-center">Eliminar esta Cuenta</h1><br>
         </div>

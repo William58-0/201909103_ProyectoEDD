@@ -59,6 +59,7 @@ type Producto1 struct {
 	Precio       float64 `json:"Precio"`
 	Cantidad     int     `json:"Cantidad"`
 	Imagen       string  `json:"Imagen"`
+	Fecha        string  `json:"Fecha"`
 	Tienda       string  `json:"Tienda"`
 	Departamento string  `json:"Departamento"`
 	Calificacion int     `json:"Calificacion"`
@@ -373,7 +374,6 @@ func Generar_Grafo(arbol *ABB, nombre string) {
 		defer file.Close()
 		fmt.Println("Se ha creado un archivo")
 	}
-
 	var file, err2 = os.OpenFile(path, os.O_RDWR, 0644)
 	if existeError(err2) {
 		return
@@ -396,14 +396,10 @@ func Generar_Grafo(arbol *ABB, nombre string) {
 
 func Recorrer_Arbol(actual **Producto, acum *string) {
 	if *actual != nil {
-		//fmt.Println("Nombre: " + (*actual).Nombre + " Codigo: " + strconv.Itoa((*actual).Codigo))
-		//Producto ACTUAL
 		*acum += "\"" + fmt.Sprint(&(*actual)) + "\"[label=\"" + (*actual).Nombre + "\n" + strconv.Itoa((*actual).Codigo) + "\" fillcolor=aquamarine];\n"
-		//HIZQ
 		if (*actual).Izq != nil {
 			*acum += "\"" + fmt.Sprint(&(*actual)) + "\" -> \"" + fmt.Sprint(&(*actual).Izq) + "\";\n"
 		}
-		//HDER
 		if (*actual).Der != nil {
 			*acum += "\"" + fmt.Sprint(&(*actual)) + "\" -> \"" + fmt.Sprint(&(*actual).Der) + "\";\n"
 		}
@@ -414,14 +410,10 @@ func Recorrer_Arbol(actual **Producto, acum *string) {
 
 func Recorrer_Arbol1(actual **Producto, acum *string) {
 	if *actual != nil {
-		//fmt.Println("Nombre: " + (*actual).Nombre + " Codigo: " + strconv.Itoa((*actual).Codigo))
-		//Producto ACTUAL
 		*acum += "\"" + fmt.Sprint(&(*actual)) + "\"[label=\"" + (*actual).Nombre + "\n" + "\" fillcolor=aquamarine];\n"
-		//HIZQ
 		if (*actual).Izq != nil {
 			*acum += "\"" + fmt.Sprint(&(*actual)) + "\" -> \"" + fmt.Sprint(&(*actual).Izq) + "\";\n"
 		}
-		//HDER
 		if (*actual).Der != nil {
 			*acum += "\"" + fmt.Sprint(&(*actual)) + "\" -> \"" + fmt.Sprint(&(*actual).Der) + "\";\n"
 		}
@@ -442,16 +434,12 @@ func filtrar(Tienda string, Departamento string, Calificacion int) Mostrar {
 	return Mostrar1
 }
 
-//POST registra un nuevo curso aprobado
 func GetInventario(w http.ResponseWriter, r *http.Request) {
-	//var cursos[] NodoLista
 	var buscar *Buscar
-	//leemos el body de la petición
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		fmt.Fprintf(w, "Datos Inválidos")
 	}
-	//tomamos los valores del body y los colocamos en una variable de struct de Nodo
 	json.Unmarshal(reqBody, &buscar)
 	fmt.Println(buscar.Calificacion)
 	buscado := filtrar(buscar.Tienda, buscar.Departamento, buscar.Calificacion)
