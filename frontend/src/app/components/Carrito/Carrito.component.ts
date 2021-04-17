@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DatosService } from "../../services/Datos/Datos.service";
 import { Producto } from "../../models/Producto/Producto";
 import { Usuario } from "../../models/Usuario/Usuario";
+import { Paso } from "../../models/Paso/Paso";
 
 @Component({
   selector: 'app-Carrito',
@@ -12,13 +13,33 @@ import { Usuario } from "../../models/Usuario/Usuario";
 export class CarritoComponent implements OnInit {
 
   Productos: Producto[] = []
-  Usuario:Usuario;
+  Usuario: Usuario;
+  Estado: string;
+  //Para el recorrido
+  Grafo: string;
+  NumeroPaso: number;
+  TiposGrafo = ["Grafo Inicial", "Pasos", "Recorrido Completo"]
+  TipoGrafo = "Grafo Inicial"
+  Pasos: Paso[] = []
+  NPaso: number = 0
+  Pendientes: Producto[] = []
+  Recogidos: Producto[] = []
+  Recorrido: string = ""
+  Distancia: number = 0
 
   constructor(private DatosService: DatosService,
     private route: ActivatedRoute,
     private router: Router) {
     this.DatosService.CargarCarro().subscribe((dataList: any) => {
       this.Productos = dataList.Productos
+      console.log(dataList)
+      this.Estado = "Carrito"
+      //console.log(this.Productos[0])>
+    }, (err) => {
+      console.log("error")
+    })
+    this.DatosService.GetRecorrido().subscribe((dataList: any) => {
+      this.Pasos = dataList.Pasos
       console.log(dataList)
       //console.log(this.Productos[0])>
     }, (err) => {
@@ -53,28 +74,18 @@ export class CarritoComponent implements OnInit {
   Devolver(Producto: Producto) {
     this.DatosService.Devolver(Producto).subscribe((res: any) => {
       Producto.Cantidad++
-      this.Productos=this.removeItemFromArr(this.Productos, Producto)
+      this.Productos = this.removeItemFromArr(this.Productos, Producto)
     }, (err) => {
       console.log("Error")
     })
   }
-/*
-  removeItemFromArr(arr: Producto[], item: Producto) {
-    var Eliminado = false
-    var nuevo:Producto[]=[]
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i].Nombre === item.Nombre && arr[i].Tienda === item.Tienda &&
-         arr[i].Departamento === item.Departamento && !Eliminado) {
-          Eliminado=true
-      }else{
-        nuevo.push(arr[i])
-      }
-    }
-    return nuevo
-  }
-  */
 
-  removeItemFromArr(arr: Producto[], item: Producto){
+  ARecorrido() {
+    this.Estado = "Recorrido"
+
+  }
+
+  removeItemFromArr(arr: Producto[], item: Producto) {
     var i = arr.indexOf(item);
     if (i !== -1) {
       arr.splice(i, 1);
@@ -90,8 +101,57 @@ export class CarritoComponent implements OnInit {
     })
   }
 
-  ATiendas(){
-    window.location.href="/Tiendas/"+this.Usuario.Dpi
+  GenerarRecorrido(Productos: Producto[]) {
+    this.DatosService.GenerarRecorrido(Productos).subscribe(Pasos => {
+      this.Pasos = Pasos.Pasos;
+      console.log(Pasos)
+    },
+      error => {
+        console.log(error);
+      })
+  }
+
+  ATiendas() {
+    window.location.href = "/Tiendas/" + this.Usuario.Dpi
+  }
+
+GrafoInicial(){
+  this.TipoGrafo="Grafo Inicial"
+}
+
+Avanzar(){
+  if (this.NPaso+1<this.Pasos.length){
+    this.NPaso++
+    this.Pendientes=this.Pasos[this.NPaso].Pendientes
+    this.Recogidos=this.Pasos[this.NPaso].Recogidos
+    this.Recorrido=this.Pasos[this.NPaso].Recorrido
+    this.Distancia=this.Pasos[this.NPaso].Distancia
+    this.Grafo="Paso"+this.NPaso
+  }
+}
+
+Retroceder(){
+  if (this.NPaso-1>=0){
+    this.NPaso--
+    this.Pendientes=this.Pasos[this.NPaso].Pendientes
+    this.Recogidos=this.Pasos[this.NPaso].Recogidos
+    this.Recorrido=this.Pasos[this.NPaso].Recorrido
+    this.Distancia=this.Pasos[this.NPaso].Distancia
+    this.Grafo="Paso"+this.NPaso
+  }
+}
+
+Pasoss(){
+  this.TipoGrafo="Pasos"
+}
+
+RecorridoCompleto(){
+  this.TipoGrafo="Recorrido Completo"
+}
+
+
+  Prueba(){
+
   }
 
 }

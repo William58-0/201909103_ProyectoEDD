@@ -89,12 +89,12 @@ func Graficar() {
 		}
 		cadena = cadena + "}"
 		b := []byte(cadena)
-		err := ioutil.WriteFile("../frontend/src/assets/img/"+strconv.Itoa(a)+".dot", b, 0644)
+		err := ioutil.WriteFile("../frontend/src/assets/img/Vector"+strconv.Itoa(a)+".dot", b, 0644)
 		if err != nil {
 			log.Fatal(err)
 		}
 		path, _ := exec.LookPath("dot")
-		cmd, _ := exec.Command(path, "-Tpng", "../frontend/src/assets/img/"+strconv.Itoa(a)+".dot").Output()
+		cmd, _ := exec.Command(path, "-Tpng", "../frontend/src/assets/img/Vector"+strconv.Itoa(a)+".dot").Output()
 		mode := int(0777)
 		ioutil.WriteFile("../frontend/src/assets/img/Vector"+strconv.Itoa(a)+".png", cmd, os.FileMode(mode))
 		fmt.Println("Vector " + strconv.Itoa(a))
@@ -421,7 +421,8 @@ func main() {
 	router.HandleFunc("/Registrar", ArbolB.Registrar).Methods("POST")
 	router.HandleFunc("/Eliminar", ArbolB.Eliminar).Methods("POST")
 	router.HandleFunc("/GrafoInicial", Grafos.GrafoInicial).Methods("POST")
-	router.HandleFunc("/EnviarPedido", Grafos.EnviarPedido).Methods("POST")
+	router.HandleFunc("/GenerarRecorrido", Grafos.GenerarRecorrido).Methods("POST")
+	router.HandleFunc("/GetRecorrido", Grafos.GetRecorrido).Methods("GET")
 
 	log.Fatal(http.ListenAndServe(":3000", handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(router)))
 }

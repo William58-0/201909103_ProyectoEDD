@@ -29,12 +29,13 @@ type Principal struct {
 }
 
 type Producto struct {
-	Nombre      string `json:"Nombre"`
-	Codigo      int    `json:"Codigo"`
-	Descripcion string `json:"Descripcion"`
-	Precio      string `json:"Precio"`
-	Cantidad    int    `json:"Cantidad"`
-	Imagen      string `json:"Imagen"`
+	Nombre         string `json:"Nombre"`
+	Codigo         int    `json:"Codigo"`
+	Descripcion    string `json:"Descripcion"`
+	Precio         string `json:"Precio"`
+	Cantidad       int    `json:"Cantidad"`
+	Imagen         string `json:"Imagen"`
+	Almacenamiento string `json:"Almacenamiento"`
 	//estos son extras
 	Fecha        string `json:"Fecha"`
 	Tienda       string `json:"Tienda"`
@@ -118,18 +119,6 @@ func OrdenarVec(vector []string) []string {
 		}
 		vector[j] = aux
 	}
-	//se crean las estructuras
-	//se crea la lista de años
-	/*
-		anio := ""
-		ListaA := new(ListaA)
-		for i := 0; i < len(vector); i++ {
-			if strings.Split(vector[i], "-")[0] != anio {
-				anio = strings.Split(vector[i], "-")[0]
-				ListaA.InsertarA(anio)
-			}
-		}
-	*/
 	return vector
 }
 
@@ -271,6 +260,7 @@ func Leer(w http.ResponseWriter, r *http.Request) {
 				Producto.Precio = strconv.FormatFloat(Produc.Precio, 'g', 1, 64)
 				Producto.Cantidad = Produc.Cantidad
 				Producto.Imagen = Produc.Imagen
+				Producto.Almacenamiento = Produc.Almacenamiento
 				Producto.Fecha = c.Pedidos[i].Fecha
 				Producto.Tienda = c.Pedidos[i].Tienda
 				Producto.Departamento = c.Pedidos[i].Departamento
@@ -582,7 +572,7 @@ func (ListaA *ListaA) Arbol() {
 		a, err := strconv.Atoi(auxA.Anio)
 		if err != nil {
 		}
-		AVL.Insertar(arbol, auxA.Anio, a, "", 0.0, 0, "", "", "", 0)
+		AVL.Insertar(arbol, auxA.Anio, a, "", 0.0, 0, "", "", "", "", 0)
 		auxA = auxA.Siguiente
 	}
 	fmt.Println("Generando arbol de años")

@@ -6,6 +6,7 @@ export class Producto {
     Precio: string
     Cantidad: number
     Imagen: string
+    Almacenamiento: string
     //estos son extras
     Fecha: string
     Tienda: string
@@ -13,8 +14,8 @@ export class Producto {
     Calificacion: number
 
     constructor(_Nombre: string, _Codigo: number, _Descripcion: string,
-        _Precio: string, _Cantidad: number,_Imagen:string, _Fecha: string,
-        _Tienda: string, _Departamento: string, _Calificacion: number) {
+        _Precio: string, _Cantidad: number,_Imagen:string, _Almacenamiento:string,
+        _Fecha: string, _Tienda: string, _Departamento: string, _Calificacion: number) {
         this.Nombre = _Nombre
         this.Codigo = _Codigo
         this.Descripcion = _Descripcion

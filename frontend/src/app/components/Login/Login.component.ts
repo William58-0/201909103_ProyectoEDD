@@ -18,7 +18,6 @@ export class LoginComponent implements OnInit {
   NuevoNombre:string;
   NuevoPassword:string;
   NuevoCorreo:string;
-  imagen;
 
   constructor(private DatosService: DatosService,
     private sanitizer:DomSanitizer) {
@@ -88,22 +87,4 @@ export class LoginComponent implements OnInit {
     this.Estado="Registrar"
   }
 
-  //Para validar
-  Buscar(Registro, Correo) {
-
-  }
-
-  /*
-  Prueba(){
-    this.DatosService.GrafoInicial().subscribe((picture) => {
-      this.imagen = picture
-      console.log(picture)
-      //this.imagen = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${picture}`);
-      //console.log(this.Productos[0])>
-    }, (err) => {
-      console.log("error")
-    })
-
-  }
-  */
 }

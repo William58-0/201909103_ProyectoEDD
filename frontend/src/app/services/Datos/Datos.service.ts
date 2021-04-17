@@ -163,13 +163,22 @@ export class DatosService {
     return this.http.post<any>(baseURL + 'Eliminar', Usuario, httpOptions);
   }
 
-  EnviarPedido(Productos):Observable<any>{
+  GenerarRecorrido(Productos):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
     };
-    return this.http.post<any>(baseURL + 'EnviarPedido', Productos, httpOptions);
+    return this.http.post<any>(baseURL + 'GenerarRecorrido', Productos, httpOptions);
+  }
+
+  GetRecorrido():Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.get<any>(baseURL + 'GetRecorrido', httpOptions);
   }
 
 

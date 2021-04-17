@@ -77,8 +77,6 @@ type Tienda1 struct {
 }
 
 //-------------------------------------------------------------------------------------------                 LISTA
-
-//lista doblemente enlazada
 type Lista struct {
 	Categoria    string
 	Indice       string
@@ -110,12 +108,10 @@ func (Lista *Lista) Insertar(Nombre string, Descripcion string, Contacto string,
 func (Lista *Lista) Ordenar() []string {
 	aux1 := Lista.Primero
 	var vector []string
-	//se agregan los nombres de las listas a un slice
 	for aux1 != nil {
 		vector = append(vector, aux1.Nombre)
 		aux1 = aux1.Siguiente
 	}
-	//se ordenan lo nombres
 	var j int
 	var aux string
 	n := len(vector)

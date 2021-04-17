@@ -27,12 +27,13 @@ type Principal struct {
 
 //------------------------------------------------------------------------Estructuras btnode
 type Producto struct {
-	Nombre      string  `json:"Nombre"`
-	Codigo      int     `json:"Codigo"`
-	Descripcion string  `json:"Descripcion"`
-	Precio      float64 `json:"Precio"`
-	Cantidad    int     `json:"Cantidad"`
-	Imagen      string  `json:"Imagen"`
+	Nombre         string  `json:"Nombre"`
+	Codigo         int     `json:"Codigo"`
+	Descripcion    string  `json:"Descripcion"`
+	Precio         float64 `json:"Precio"`
+	Cantidad       int     `json:"Cantidad"`
+	Imagen         string  `json:"Imagen"`
+	Almacenamiento string  `json:"Almacenamiento"`
 	//
 	Tienda       string
 	Departamento string
@@ -53,16 +54,17 @@ type Mostrar struct {
 }
 
 type Producto1 struct {
-	Nombre       string  `json:"Nombre"`
-	Codigo       int     `json:"Codigo"`
-	Descripcion  string  `json:"Descripcion"`
-	Precio       float64 `json:"Precio"`
-	Cantidad     int     `json:"Cantidad"`
-	Imagen       string  `json:"Imagen"`
-	Fecha        string  `json:"Fecha"`
-	Tienda       string  `json:"Tienda"`
-	Departamento string  `json:"Departamento"`
-	Calificacion int     `json:"Calificacion"`
+	Nombre         string  `json:"Nombre"`
+	Codigo         int     `json:"Codigo"`
+	Descripcion    string  `json:"Descripcion"`
+	Precio         float64 `json:"Precio"`
+	Cantidad       int     `json:"Cantidad"`
+	Imagen         string  `json:"Imagen"`
+	Almacenamiento string  `json:"Almacenamiento"`
+	Fecha          string  `json:"Fecha"`
+	Tienda         string  `json:"Tienda"`
+	Departamento   string  `json:"Departamento"`
+	Calificacion   int     `json:"Calificacion"`
 }
 
 //-----------------------------------------------------------------------------Para buscar tienda
@@ -136,10 +138,11 @@ func Leer(w http.ResponseWriter, r *http.Request) {
 				P.Precio = Producto.Precio
 				P.Cantidad = Producto.Cantidad
 				P.Imagen = Producto.Imagen
+				P.Almacenamiento = Producto.Almacenamiento
 				P.Tienda = c.Inventarios[i].Tienda
 				P.Departamento = c.Inventarios[i].Departamento
 				P.Calificacion = c.Inventarios[i].Calificacion
-				Insertar(arbol, Producto.Nombre, Producto.Codigo, Producto.Descripcion, Producto.Precio, Producto.Cantidad, Producto.Imagen, Producto.Tienda, Producto.Departamento, Producto.Calificacion)
+				Insertar(arbol, Producto.Nombre, Producto.Codigo, Producto.Descripcion, Producto.Precio, Producto.Cantidad, Producto.Imagen, Producto.Almacenamiento, Producto.Tienda, Producto.Departamento, Producto.Calificacion)
 				Produc = append(Produc, *P)
 			}
 			fmt.Println(strconv.Itoa(i) + " Generando grafo")
@@ -155,12 +158,12 @@ const (
 	Der_Peso   = +1
 )
 
-func New_Producto(Nombre string, Codigo int, Descripcion string, Precio float64, Cantidad int, Imagen string, Tienda string, Departamento string, Calificacion int) *Producto {
-	return &Producto{Nombre, Codigo, Descripcion, Precio, Cantidad, Imagen, Tienda, Departamento, Calificacion, nil, nil, 0}
+func New_Producto(Nombre string, Codigo int, Descripcion string, Precio float64, Cantidad int, Imagen string, Tienda string, Almacenamiento string, Departamento string, Calificacion int) *Producto {
+	return &Producto{Nombre, Codigo, Descripcion, Precio, Cantidad, Imagen, Tienda, Almacenamiento, Departamento, Calificacion, nil, nil, 0}
 }
 
-func New_Producto_2(Nombre string, Codigo int, Descripcion string, Precio float64, Cantidad int, Imagen string, Tienda string, Departamento string, Calificacion int, hizq *Producto, hder *Producto) *Producto {
-	return &Producto{Nombre, Codigo, Descripcion, Precio, Cantidad, Imagen, Tienda, Departamento, Calificacion, hizq, hder, 0}
+func New_Producto_2(Nombre string, Codigo int, Descripcion string, Precio float64, Cantidad int, Imagen string, Tienda string, Almacenamiento string, Departamento string, Calificacion int, hizq *Producto, hder *Producto) *Producto {
+	return &Producto{Nombre, Codigo, Descripcion, Precio, Cantidad, Imagen, Tienda, Almacenamiento, Departamento, Calificacion, hizq, hder, 0}
 }
 
 //--------------------------------------------------------------------------Estructuras binary_tree
@@ -174,8 +177,8 @@ func New_ABB() *ABB {
 	return &ABB{nil}
 }
 
-func New_ABB_2(hizq *ABB, hder *ABB, Nombre string, Codigo int, Descripcion string, Precio float64, Cantidad int, Imagen string, Tienda string, Departamento string, Calificacion int) *ABB {
-	return &ABB{New_Producto_2(Nombre, Codigo, Descripcion, Precio, Cantidad, Imagen, Tienda, Departamento, Calificacion, hizq.Raiz, hder.Raiz)}
+func New_ABB_2(hizq *ABB, hder *ABB, Nombre string, Codigo int, Descripcion string, Precio float64, Cantidad int, Imagen string, Almacenamiento string, Tienda string, Departamento string, Calificacion int) *ABB {
+	return &ABB{New_Producto_2(Nombre, Codigo, Descripcion, Precio, Cantidad, Imagen, Almacenamiento, Tienda, Departamento, Calificacion, hizq.Raiz, hder.Raiz)}
 }
 
 func get_Izq_subarbol(arbol *ABB) *Producto {
@@ -198,19 +201,19 @@ func get_data(arbol *ABB) int {
 	return arbol.Raiz.Codigo
 }
 
-func Insertar(arbol *ABB, Nombre string, Codigo int, Descripcion string, Precio float64, Cantidad int, Imagen string, Tienda string, Departamento string, Calificacion int) bool {
+func Insertar(arbol *ABB, Nombre string, Codigo int, Descripcion string, Precio float64, Cantidad int, Imagen string, Almacenamiento string, Tienda string, Departamento string, Calificacion int) bool {
 	increase = false
-	return Insertar2(&arbol.Raiz, Nombre, Codigo, Descripcion, Precio, Cantidad, Imagen, Tienda, Departamento, Calificacion, &increase)
+	return Insertar2(&arbol.Raiz, Nombre, Codigo, Descripcion, Precio, Cantidad, Imagen, Almacenamiento, Tienda, Departamento, Calificacion, &increase)
 }
 
-func Insertar2(local_Raiz **Producto, Nombre string, Codigo int, Descripcion string, Precio float64, Cantidad int, Imagen string, Tienda string, Departamento string, Calificacion int, increase *bool) bool {
+func Insertar2(local_Raiz **Producto, Nombre string, Codigo int, Descripcion string, Precio float64, Cantidad int, Imagen string, Almacenamiento string, Tienda string, Departamento string, Calificacion int, increase *bool) bool {
 	if *local_Raiz == nil {
-		*local_Raiz = New_Producto(Nombre, Codigo, Descripcion, Precio, Cantidad, Imagen, Tienda, Departamento, Calificacion)
+		*local_Raiz = New_Producto(Nombre, Codigo, Descripcion, Precio, Cantidad, Imagen, Almacenamiento, Tienda, Departamento, Calificacion)
 		*increase = true
 		return true
 	} else {
 		if Codigo < (*local_Raiz).Codigo {
-			return_value := Insertar2(&(*local_Raiz).Izq, Nombre, Codigo, Descripcion, Precio, Cantidad, Imagen, Tienda, Departamento, Calificacion, increase)
+			return_value := Insertar2(&(*local_Raiz).Izq, Nombre, Codigo, Descripcion, Precio, Cantidad, Imagen, Almacenamiento, Tienda, Departamento, Calificacion, increase)
 			if *increase {
 				switch (*local_Raiz).Peso {
 				case Equilibrio:
@@ -227,7 +230,7 @@ func Insertar2(local_Raiz **Producto, Nombre string, Codigo int, Descripcion str
 			}
 			return return_value
 		} else if Codigo > (*local_Raiz).Codigo {
-			return_value := Insertar2(&(*local_Raiz).Der, Nombre, Codigo, Descripcion, Precio, Cantidad, Imagen, Tienda, Departamento, Calificacion, increase)
+			return_value := Insertar2(&(*local_Raiz).Der, Nombre, Codigo, Descripcion, Precio, Cantidad, Imagen, Almacenamiento, Tienda, Departamento, Calificacion, increase)
 			if *increase {
 				switch (*local_Raiz).Peso {
 				case Equilibrio:
@@ -452,8 +455,4 @@ func existeError(err error) bool {
 		fmt.Println(err.Error())
 	}
 	return (err != nil)
-}
-
-func indexRoute(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "William Alejandro Borrayo Alarcon_201909103")
 }

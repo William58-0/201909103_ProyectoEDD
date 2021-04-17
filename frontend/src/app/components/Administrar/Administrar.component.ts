@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DatosService } from "../../services/Datos/Datos.service";
 import { Producto } from "../../models/Producto/Producto";
 import { Usuario } from "../../models/Usuario/Usuario";
+import { Paso } from "../../models/Paso/Paso";
 
 @Component({
   selector: 'app-Administrar',
@@ -23,16 +24,20 @@ export class AdministrarComponent implements OnInit {
   Nombre: string;
   Clave: string;
   Valido: boolean;
-  //LLave de encriptacion
-  LLave: string = "tercerafaseeddfechadeentregaelsabadoantesdemedianoche"
+  //Para matriz linealizada
+  NVec:number=0;
+
   //Para grafos
   Grafo: string;
   NumeroPaso: number;
   TiposGrafo = ["Grafo Inicial", "Pasos", "Recorrido Completo"]
   TipoGrafo = "Grafo Inicial"
-  Mensaje=""
-
+  Pasos: Paso[]=[]
   NPaso:number=0
+  Pendientes:Producto[]=[]
+  Recogidos:Producto[]=[]
+  Recorrido:string=""
+  Distancia:number=0
 
 
   constructor(private DatosService: DatosService,
@@ -42,7 +47,7 @@ export class AdministrarComponent implements OnInit {
       this.Fechas = dataList.Fechas
       console.log(dataList)
       this.Calendario = this.Fechas[0]
-      this.Estado = "Calendarios"
+      this.Estado = "Grafos"
       this.Valido = false
     }, (err) => {
       console.log('No se pudo cargar la lista de fechas')
@@ -54,6 +59,13 @@ export class AdministrarComponent implements OnInit {
       this.Mostrar = this.Filtrar(this.Productos)
     }, (err) => {
       console.log('No se pudieron cargar los pedidos')
+    })
+    this.DatosService.GetRecorrido().subscribe((dataList: any) => {
+      this.Pasos = dataList.Pasos
+      console.log(dataList)
+      //console.log(this.Productos[0])>
+    }, (err) => {
+      console.log("error")
     })
   }
 
@@ -81,6 +93,10 @@ export class AdministrarComponent implements OnInit {
 
   Aarbolcuentas() {
     this.Estado = "ArbolCuentas"
+  }
+
+  Amatrizlinealizada() {
+    this.Estado = "MatrizLinealizada"
   }
 
   ToMes(date: string) {
@@ -113,6 +129,39 @@ export class AdministrarComponent implements OnInit {
         return "Diciembre"
     }
     return date
+  }
+
+  Avanzar(){
+    if (this.NPaso+1<this.Pasos.length){
+      this.NPaso++
+      this.Pendientes=this.Pasos[this.NPaso].Pendientes
+      this.Recogidos=this.Pasos[this.NPaso].Recogidos
+      this.Recorrido=this.Pasos[this.NPaso].Recorrido
+      this.Distancia=this.Pasos[this.NPaso].Distancia
+      this.Grafo="Paso"+this.NPaso
+    }
+  }
+
+  Retroceder(){
+    if (this.NPaso-1>=0){
+      this.NPaso--
+      this.Pendientes=this.Pasos[this.NPaso].Pendientes
+      this.Recogidos=this.Pasos[this.NPaso].Recogidos
+      this.Recorrido=this.Pasos[this.NPaso].Recorrido
+      this.Distancia=this.Pasos[this.NPaso].Distancia
+      this.Grafo="Paso"+this.NPaso
+    }
+  }
+
+  AvanzarVec(){
+      this.NVec++
+
+  }
+
+  RetrocederVec(){
+    if (this.NVec-1>=0){
+      this.NVec--
+    }
   }
 
   ToYear(date: string) {
@@ -183,12 +232,25 @@ export class AdministrarComponent implements OnInit {
     })
   }
 
-  Probar(Productos: Producto[]) {
-    this.DatosService.EnviarPedido(Productos).subscribe((res: any) => {
-      //this.Productos = null
+  GenerarRecorrido(Productos: Producto[]) {
+    this.DatosService.GenerarRecorrido(Productos).subscribe(Pasos => {
+      this.Pasos = Pasos.Pasos;
+      console.log(Pasos)
+    },
+      error => {
+        console.log(error);
+      })
+  }
+
+  Prueba(){
+    this.DatosService.GetRecorrido().subscribe((dataList: any) => {
+      this.Pasos = dataList.Pasos
+      console.log(dataList)
+      //console.log(this.Productos[0])>
     }, (err) => {
-      console.log("Error")
+      console.log("error")
     })
   }
+
 
 }

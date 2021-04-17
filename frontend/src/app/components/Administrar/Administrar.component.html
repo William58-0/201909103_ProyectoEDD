@@ -13,6 +13,12 @@
 
 <nav class="navbar navbar-expand-lg navbar-light" style="color:white">
   <div class="collapse navbar-collapse" id="navbarNav">
+      <button class="btn btn-info" (click)="Agrafos()" style="margin: auto;">
+        <i>Grafos</i>
+      </button>
+      <button class="btn btn-info" (click)="Amatrizlinealizada()" style="margin: auto;">
+        <i>Matriz Linealizada</i>
+      </button>
       <button class="btn btn-info" (click)="Acalendarios()" style="margin: auto;">
         <i>Calendarios</i>
       </button>
@@ -24,9 +30,6 @@
       </button>
       <button class="btn btn-info" (click)="Aarbolcuentas()" style="margin: auto;">
         <i>Arbol de Cuentas</i>
-      </button>
-      <button class="btn btn-info" (click)="Agrafos()" style="margin: auto;">
-        <i>Grafos</i>
       </button>
   </div>
 </nav>
@@ -75,8 +78,8 @@
     </div>
   </ng-container>
 
+<!---------------------------------------------   GRAFOS  ------------------------------------------------->
     <ng-container *ngIf="Estado==='Grafos'">
-
       <div class="navbar navbar-dark align-items-start sidebar-dark bg-gradient-primary p-0"
         style="float:left">
         <div class="container-fluid d-flex flex-column p-0"><a
@@ -85,6 +88,12 @@
 
               <div class="form-row">
                 <div class="col">
+                <button class="btn btn-info" (click)="GenerarRecorrido(Productos)">
+                <i>Generar Recorrido</i>
+              </button>
+              <button class="btn btn-info" (click)="Prueba()">
+                <i>probar</i>
+              </button>
                   <div class="form-group"><label for="email"><strong>Grafo</strong></label>
                     <select class="form-control form-select" [(ngModel)]="TipoGrafo" name="TipoGrafo" (click)="CambiarTipoGrafo(TipoGrafo)" >
                       <option *ngFor="let TipoGrafo of TiposGrafo" [value]="TipoGrafo">{{TipoGrafo}}</option>
@@ -95,11 +104,11 @@
 
               <div *ngIf="TipoGrafo==='Pasos'">
               Paso:
-              <button class="btn btn-info">
+              <button class="btn btn-info" (click)="Retroceder()">
                 <i><</i>
               </button>
-              0
-              <button class="btn btn-info" (click)="Probar(Mostrar)">
+              {{NPaso}}
+              <button class="btn btn-info" (click)="Avanzar()">
                 <i>></i>
               </button>
             </div>
@@ -114,9 +123,9 @@
             <tbody class="tblbody">
               <th>Recorrido</th>
               <th>Distancia</th>
-              <tr *ngFor="let prod of Mostrar">
-                <td style="text-align: center;">{{prod.Tienda}}</td>
-                <td style="text-align: center;">{{prod.Departamento}}</td>
+              <tr>
+                <td style="text-align: center;">{{Distancia}}</td>
+                <td style="text-align: center;">{{Recorrido}}</td>
               </tr>
             </tbody>
           </table>
@@ -125,13 +134,13 @@
             <tbody class="tblbody">
               <th>Codigo</th>
               <th>Fecha</th>
-              <th>Tienda</th>
-              <th>Departamento</th>
-              <tr *ngFor="let prod of Mostrar">
+              <th>Almacen</th>
+              <th>Usuario</th>
+              <tr *ngFor="let prod of Recogidos">
                 <td style="text-align: center;">{{prod.Codigo}}</td>
                 <td style="text-align: center;">{{prod.Fecha}}</td>
+                <td style="text-align: center;">{{prod.Almacenamiento}}</td>
                 <td style="text-align: center;">{{prod.Tienda}}</td>
-                <td style="text-align: center;">{{prod.Departamento}}</td>
               </tr>
             </tbody>
           </table>
@@ -140,36 +149,33 @@
           <tbody class="tblbody">
             <th>Codigo</th>
             <th>Fecha</th>
-            <th>Tienda</th>
-            <th>Departamento</th>
-            <th>Calificacion</th>
-            <tr *ngFor="let prod of Mostrar">
+            <th>Almacen</th>
+            <th>Usuario</th>
+            <tr *ngFor="let prod of Pendientes">
               <td style="text-align: center;">{{prod.Codigo}}</td>
               <td style="text-align: center;">{{prod.Fecha}}</td>
+              <td style="text-align: center;">{{prod.Almacenamiento}}</td>
               <td style="text-align: center;">{{prod.Tienda}}</td>
-              <td style="text-align: center;">{{prod.Departamento}}</td>
-              <td style="text-align: center;">{{prod.Calificacion}}</td>
             </tr>
           </tbody>
         </table>
       </form>
     </div>
         </div>
-
-
       </div>
       <div class="d-flex flex-column" id="content-wrapper">
         <div id="content">
-          <h1>Paso {{ToMes(Calendario)}} {{ToYear(Calendario)}}</h1>
+          <h1 *ngIf="TipoGrafo==='Grafo Inicial'">Grafo Inicial</h1>
+          <h1 *ngIf="TipoGrafo==='Pasos'">Recorrido</h1>
+          <h1 *ngIf="TipoGrafo==='Recorrido Completo'">Recorrido Completo</h1>
           <img src="assets/img/{{Grafo}}.png">
         </div>
-
         <br>
         <br>
       </div>
     </ng-container>
   
-
+<!---------------------------------------------   PEDIDOS  ------------------------------------------------->
   <ng-container *ngIf="Estado==='Pedidos'">
     <form style="margin: auto; background-color: #4884af; margin-top: 2%; padding: 2%; border-radius: 2%; color:white">
       <h1>Pedidos (Productos)</h1>
@@ -191,14 +197,31 @@
       </table>
     </form>
   </ng-container>
-
-  <ng-container *ngIf="Estado==='Arbol'">
+<!---------------------------------------------   ARBOL AÑOS  ------------------------------------------------->
+<ng-container *ngIf="Estado==='Arbol'">
     <form style="margin: auto; background-color: #4884af; margin-top: 2%; padding: 2%; border-radius: 2%; color:white">
       <h1>Árbol de años</h1>
       <img src="assets/img/arbolAnios.png">
     </form>
   </ng-container>
 
+  <!---------------------------------------------   MATRIZ LINEALIZADA  ------------------------------------------------->
+  <ng-container *ngIf="Estado==='MatrizLinealizada'">
+    <form style="margin: auto; background-color: #4884af; margin-top: 2%; padding: 2%; border-radius: 2%; color:white">
+      <h1>Matriz Linealizada</h1>
+      <button class="btn btn-info" (click)="RetrocederVec()">
+        <i><</i>
+      </button>
+      {{NVec}}
+      <button class="btn btn-info" (click)="AvanzarVec()">
+        <i>></i>
+      </button>
+      <img src="assets/img/Vector{{NVec}}.png">
+    </form>
+  </ng-container>
+
+
+<!---------------------------------------------   ARBOL B  ------------------------------------------------->
   <ng-container *ngIf="Estado==='ArbolCuentas'">
     <form style="margin: auto; background-color: #4884af; margin-top: 2%; padding: 2%; border-radius: 2%; color:white">
       <h1>Árbol de Cuentas Sin Cifrado</h1>

@@ -406,16 +406,16 @@ func getusuario(DPI string) Usuario {
 }
 
 func GetUsuario(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("GetUsuario")
-	fmt.Println("Usuarios: ", Users)
+	//fmt.Println("GetUsuario")
+	//fmt.Println("Usuarios: ", Users)
 	var usuario *Usuario1
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		fmt.Fprintf(w, "Datos Inválidos")
 	}
 	json.Unmarshal(reqBody, &usuario)
-	fmt.Println("Buscar:")
-	fmt.Println(usuario.Dpi)
+	//fmt.Println("Buscar:")
+	//fmt.Println(usuario.Dpi)
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(getusuario(usuario.Dpi))
 }
