@@ -180,19 +180,19 @@ func Camino(Actual string) {
 }
 
 func CaminoMasCorto(Inicial, Final string) Ruta {
-	fmt.Println("------------------------------------Camino mas corto-----------------------------")
+	fmt.Println("------------------------Calculando camino mas corto")
 	fmt.Println("De: " + Inicial + " a " + Final)
 	Route := new(Ruta)
 	Rutas = nil
 	if Final == Data.Entrega {
-		fmt.Println("finnn")
+		fmt.Println("El final es el nodo de entrega!")
 	}
 	if Inicial == "" || Final == "" {
-		fmt.Println("finnn")
+		fmt.Println("No existe ese nodo")
 		return *Route
 	}
 	if Inicial == Final {
-		fmt.Println("No se puede")
+		fmt.Println("No se puede in de Inicial a Inicial")
 		return *Route
 	}
 	Camino(Inicial)
@@ -210,10 +210,6 @@ func CaminoMasCorto(Inicial, Final string) Ruta {
 		fmt.Println("finnn")
 		return *Route
 	}
-	fmt.Println("------------------------------------------Rutas Disponibles----------------------------")
-	for i := 0; i < len(Rutas); i++ {
-		fmt.Println(Rutas[i])
-	}
 	var arr []Ruta
 	for i := 0; i < len(Rutas); i++ {
 		if Rutas[i].Actual == Final {
@@ -221,26 +217,17 @@ func CaminoMasCorto(Inicial, Final string) Ruta {
 		}
 	}
 	Rutas = arr
-	fmt.Println("------------------------------------------Primer Filtro--------------------------------")
-	for i := 0; i < len(Rutas); i++ {
-		fmt.Println(Rutas[i])
-	}
 	var arr1 []Ruta
 	for i := 0; i < len(Rutas); i++ {
 		if Rutas[i].Anteriores[0] == Inicial {
-			fmt.Println("Son iguales")
 			arr1 = append(arr1, Rutas[i])
 		}
 	}
 	Rutas = arr1
-	fmt.Println("------------------------------------------Segundo Filtro--------------------------------")
-	for i := 0; i < len(Rutas); i++ {
-		fmt.Println(Rutas[i])
-	}
 	if len(Rutas) == 0 {
 		Rutas = Repuesto
 		var arr4 []Ruta
-		fmt.Println("metodo Extremo")
+		fmt.Println("Intentando Unir rutas")
 		for i := 0; i < len(arr); i++ {
 			for j := 0; j < len(arr[i].Anteriores); j++ {
 				fmt.Println("Getting Rutas: " + arr[i].Anteriores[j])
@@ -256,9 +243,7 @@ func CaminoMasCorto(Inicial, Final string) Ruta {
 		if len(arr4) == 0 {
 			fmt.Println("-----------------------------------NO SE PUDO CALCULAR EL RECORRIDO :(---------------")
 			sepudo = false
-
 		} else {
-			fmt.Println("Reporte")
 			menor := arr4[0].Recorrido
 			usar := new(Ruta)
 			for i := 0; i < len(arr4); i++ {
@@ -266,12 +251,9 @@ func CaminoMasCorto(Inicial, Final string) Ruta {
 					*usar = arr4[i]
 				}
 			}
-			fmt.Println("El menor es: ")
-			fmt.Println(usar)
 
 			var tttt []string
 			for i := 0; i < len(arr); i++ {
-				fmt.Println(arr[i])
 				for j := 0; j < len(arr[i].Anteriores); j++ {
 					if usar.Actual == arr[i].Anteriores[j] {
 						tttt = usar.Anteriores
@@ -298,10 +280,6 @@ func CaminoMasCorto(Inicial, Final string) Ruta {
 			}
 		}
 	}
-	fmt.Println("El camino mas corto es: " + Route.Actual)
-	fmt.Print(Route.Anteriores)
-	fmt.Println(Route.Actual)
-	fmt.Println("Y recorrido: " + fmt.Sprintf("%f", Route.Recorrido))
 	return *Route
 }
 
@@ -384,76 +362,6 @@ func Trayectoria(Ruta Ruta) {
 	}
 }
 
-/*
-func Trayectoria(Ruta Ruta) {
-	if sepudo {
-		var arr []string
-		arr = Ruta.Anteriores
-		arr = append(arr, Ruta.Actual)
-		var Dist float64
-		Ruta.Anteriores = arr
-		for k := 0; k < len(Ruta.Anteriores); k++ {
-			cadena := "digraph G\n{\nnode [shape=circle style=filled];\n"
-			for i := 0; i < len(Nodes); i++ {
-				if Nodes[i].Nombre != Data.PosicionInicialRobot &&
-					Nodes[i].Nombre != Data.Entrega &&
-					Nodes[i].Nombre != Ruta.Anteriores[k] {
-					cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") +
-						" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"blue\"];\n"
-				} else if Nodes[i].Nombre == Data.PosicionInicialRobot &&
-					Nodes[i].Nombre != Ruta.Anteriores[k] {
-					cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") +
-						" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"red\"];\n"
-				} else if Nodes[i].Nombre == Data.Entrega &&
-					Nodes[i].Nombre != Ruta.Anteriores[k] {
-					cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") +
-						" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"green\"];\n"
-				} else if Nodes[i].Nombre == Ruta.Anteriores[k] {
-					cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") +
-						" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"yellow\"];\n"
-				}
-				for j := 0; j < len(Nodes[i].Enlaces); j++ {
-					if k < len(Ruta.Anteriores)-1 &&
-						((Nodes[i].Enlaces[j].Nombre == Ruta.Anteriores[k] &&
-							Nodes[i].Nombre == Ruta.Anteriores[k+1]) ||
-							(Nodes[i].Nombre == Ruta.Anteriores[k] &&
-								Nodes[i].Enlaces[j].Nombre == Ruta.Anteriores[k+1])) {
-						cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") + " -> " +
-							strings.ReplaceAll(Nodes[i].Enlaces[j].Nombre, " ", "_") +
-							" [label=\"" +
-							fmt.Sprintf("%f", Nodes[i].Enlaces[j].Distancia) +
-							"\" color=red];\n"
-						Dist = Nodes[i].Enlaces[j].Distancia
-						j = len(Nodes[i].Enlaces) + 1
-					} else {
-						cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") + " -> " +
-							strings.ReplaceAll(Nodes[i].Enlaces[j].Nombre, " ", "_") +
-							" [label=\"" +
-							fmt.Sprintf("%f", Nodes[i].Enlaces[j].Distancia) +
-							"\" dir=both];\n"
-					}
-				}
-			}
-			cadena += "}"
-			Llevar(Ruta.Anteriores[k])
-			Paso := new(Paso)
-			Paso.Numero = NPaso
-			Distancia = Distancia + Dist
-			Paso.Distancia = Distancia
-			Recorrido += " --> " + Ruta.Anteriores[k]
-			Paso.Recorrido = Recorrido
-			Paso.Recogidos = Camion
-			Paso.Pendientes = PorRecoger
-			Todo1.Pasos = append(Todo1.Pasos, *Paso)
-			GenerarImagen(cadena, "Paso"+strconv.Itoa(NPaso))
-			NPaso++
-		}
-		Actual = Ruta.Anteriores[len(Ruta.Anteriores)-1]
-		EvaluarCaminos(Actual)
-	}
-}
-*/
-
 func CalcularDistancia(Ruta Ruta) float64 {
 	Dist := 0.0
 	for i := 0; i < len(Ruta.Anteriores); i++ {
@@ -515,30 +423,33 @@ func Llevar(Almacenamiento string) {
 		}
 	}
 	AlmaPendientes = nuevoo
-
-	fmt.Println("Pasooooooooooooooooooooooooo a Recoger")
-	fmt.Println(AlmaPendientes)
-	fmt.Println("por recogeer")
-	for i := 0; i < len(PorRecoger); i++ {
-		fmt.Println(PorRecoger[i].Nombre)
-		fmt.Println(PorRecoger[i].Almacenamiento)
-	}
+	fmt.Print("Intento Recoger productos\nAlmacenamientos pendientes: ")
+	fmt.Println(len(AlmaPendientes))
+	fmt.Print("Productos por Recoger: ")
+	fmt.Println(len(PorRecoger))
+	/*
+		for i := 0; i < len(PorRecoger); i++ {
+			fmt.Println(PorRecoger[i].Nombre)
+			fmt.Println(PorRecoger[i].Almacenamiento)
+		}
+	*/
 	//}
 }
 
 func EvaluarCaminos(Actual string) {
 	//if sepudo {
 	if len(AlmaPendientes) == 0 {
-		fmt.Println("ir a el despachooooooooooooooooooooooooooooooooooooooooooooooklkllllllllllllllllllllllllllllllllllllllllllllllllllllllllll")
+		fmt.Println("----------------------------Ir al despacho")
 		if !Entregado {
 			AlmaPendientes = append(AlmaPendientes, Data.Entrega)
 			Trayectoria(CaminoMasCorto(Actual, Data.Entrega))
+			RecorridoCompleto(Recorrido)
 			Entregado = true
 			return
 		}
 	}
 	if Actual == "" {
-		fmt.Println("RAROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
+		fmt.Println("El nodo actual no existe")
 	}
 	var Longitudes []float64
 	for i := 0; i < len(AlmaPendientes); i++ {
@@ -547,12 +458,10 @@ func EvaluarCaminos(Actual string) {
 			if a != 0 {
 				Longitudes = append(Longitudes, a)
 			} else {
-				fmt.Println("Salio un ceroooooooooooooooooooooooooooooooooooooooo")
+				fmt.Println("No se pueden recorridos de longitud 0")
 			}
 		}
 	}
-	fmt.Println("Longituddddddddddddddddddddddddddddddddddddddddddddes: ")
-	fmt.Println(Longitudes)
 	//hallar el mas corto
 	Destino := ""
 	if len(Longitudes) != 0 {
@@ -565,11 +474,11 @@ func EvaluarCaminos(Actual string) {
 		}
 	} else {
 		Destino = Data.Entrega
-		fmt.Println("Llego a estoooooooooooooooooooooooooooooooooooooooooooooooooooooo")
+		fmt.Println("Algo raro pasó")
 	}
 	Cam := CaminoMasCorto(Actual, Destino)
 	if Cam.Recorrido == 0 {
-		fmt.Println("FIIIIIIINNNNNNNNNNNNNNNNNNNNNNNNNNNN")
+		fmt.Println("Algo raro pasó")
 		return
 	} else {
 		Trayectoria(CaminoMasCorto(Actual, Destino))
@@ -592,11 +501,6 @@ func AgregarAlmaPendientes(Pedido []AVL.Producto1) {
 				agregados = append(agregados, Pedido[i].Almacenamiento)
 			}
 		}
-	}
-	//comprobar
-	fmt.Println("Almaceeeenes")
-	for i := 0; i < len(AlmaPendientes); i++ {
-		fmt.Println(AlmaPendientes[i])
 	}
 	PorRecoger = Pedido
 }
@@ -636,22 +540,7 @@ func GenerarRecorrido(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(productos[i].Codigo)
 	}
 	IniciarRecorrido(productos)
-	//COmprobar
-	fmt.Println("COmprobarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
-	for i := 0; i < len(Todo1.Pasos); i++ {
-		fmt.Println("Paso: " + strconv.Itoa(Todo1.Pasos[i].Numero))
-		fmt.Println("Recorrido: " + Todo1.Pasos[i].Recorrido)
-		fmt.Print(Todo1.Pasos[i].Distancia)
-		fmt.Println("Pendientes: ")
-		for j := 0; j < len(Todo1.Pasos[i].Pendientes); j++ {
-			fmt.Println(Todo1.Pasos[i].Pendientes[j].Almacenamiento)
-		}
-		fmt.Println("Cargados: ")
-		for j := 0; j < len(Todo1.Pasos[i].Recogidos); j++ {
-			fmt.Println(Todo1.Pasos[i].Recogidos[j].Almacenamiento)
-		}
-	}
-
+	fmt.Println("--------------------------Recorrido generado")
 }
 
 func GetRecorrido(w http.ResponseWriter, r *http.Request) {
@@ -659,4 +548,99 @@ func GetRecorrido(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(Todo1)
 	}
+}
+
+//Crea la ruta completa del recorrido
+func RecorridoCompleto(Recorrido string) {
+	if sepudo {
+		Ruta := new(Ruta)
+		almacenes := strings.Split(Recorrido, " --> ")
+		Ruta.Actual = almacenes[0]
+		for i := 0; i < len(almacenes); i++ {
+			Ruta.Anteriores = append(Ruta.Anteriores, almacenes[i])
+			//si no es el ultimo almacen del recorrido
+			if i < len(almacenes)-1 {
+				//buscar el enlace
+				for j := 0; j < len(Enlaces); j++ {
+					if Enlaces[j].Nodo1 == almacenes[i] &&
+						Enlaces[j].Nodo2 == almacenes[i+1] {
+						Ruta.Recorrido += Enlaces[j].Distancia
+						Ruta.Actual = Enlaces[j].Nodo2
+						j = len(Enlaces)
+					}
+				}
+			}
+		}
+		TrayectoriaCompleta(*Ruta)
+	}
+}
+
+func FueUsado(nodo string, nodos []string) bool {
+	respuesta := false
+	for i := 0; i < len(nodos); i++ {
+		if nodo == nodos[i] {
+			respuesta = true
+			return respuesta
+		}
+	}
+	return respuesta
+}
+
+func TrayectoriaCompleta(Ruta Ruta) {
+	var escritos []string
+	if sepudo {
+		var arr []string
+		arr = Ruta.Anteriores
+		if arr[len(arr)-1] != Ruta.Actual {
+			arr = append(arr, Ruta.Actual)
+			Ruta.Anteriores = arr
+		}
+		cadena := "digraph G\n{\nnode [shape=circle style=filled];\n"
+		for k := 0; k < len(Ruta.Anteriores); k++ {
+			for i := 0; i < len(Nodes); i++ {
+				SeUso := FueUsado(Nodes[i].Nombre, Ruta.Anteriores)
+				if Nodes[i].Nombre != Data.PosicionInicialRobot &&
+					Nodes[i].Nombre != Data.Entrega && SeUso {
+					cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") +
+						" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"yellow\"];\n"
+				} else if Nodes[i].Nombre == Data.PosicionInicialRobot {
+					cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") +
+						" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"red\"];\n"
+				} else if Nodes[i].Nombre == Data.Entrega {
+					cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") +
+						" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"green\"];\n"
+				} else {
+					cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") +
+						" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"blue\"];\n"
+				}
+				for j := 0; j < len(Nodes[i].Enlaces); j++ {
+					if (strings.Contains(Recorrido, Nodes[i].Nombre+" --> "+Nodes[i].Enlaces[j].Nombre) ||
+						strings.Contains(Recorrido, Nodes[i].Enlaces[j].Nombre+" --> "+Nodes[i].Nombre)) &&
+						(!FueUsado(Nodes[i].Nombre+" --> "+Nodes[i].Enlaces[j].Nombre, escritos) &&
+							!FueUsado(Nodes[i].Enlaces[j].Nombre+" --> "+Nodes[i].Nombre, escritos)) {
+						cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") + " -> " +
+							strings.ReplaceAll(Nodes[i].Enlaces[j].Nombre, " ", "_") +
+							" [label=\"" +
+							fmt.Sprintf("%f", Nodes[i].Enlaces[j].Distancia) +
+							"\" color=red dir=both];\n"
+						escritos = append(escritos, Nodes[i].Enlaces[j].Nombre+" --> "+Nodes[i].Nombre)
+						escritos = append(escritos, Nodes[i].Nombre+" --> "+Nodes[i].Enlaces[j].Nombre)
+					} else if !FueUsado(Nodes[i].Nombre+" --> "+Nodes[i].Enlaces[j].Nombre, escritos) &&
+						!FueUsado(Nodes[i].Enlaces[j].Nombre+" --> "+Nodes[i].Nombre, escritos) {
+						cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") + " -> " +
+							strings.ReplaceAll(Nodes[i].Enlaces[j].Nombre, " ", "_") +
+							" [label=\"" +
+							fmt.Sprintf("%f", Nodes[i].Enlaces[j].Distancia) +
+							"\" dir=both];\n"
+						escritos = append(escritos, Nodes[i].Enlaces[j].Nombre+" --> "+Nodes[i].Nombre)
+						escritos = append(escritos, Nodes[i].Nombre+" --> "+Nodes[i].Enlaces[j].Nombre)
+					}
+				}
+
+			}
+		}
+		cadena += "}"
+		GenerarImagen(cadena, "RecorridoCompleto")
+	}
+
 }

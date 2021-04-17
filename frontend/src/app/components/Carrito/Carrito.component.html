@@ -75,17 +75,6 @@
         class="navbar-brand d-flex justify-content-center align-items-center">
         <div class="sidebar-brand-text mx-3"><span>
 
-          <div class="form-row">
-            <div class="col">
-            <button class="btn btn-info" (click)="GenerarRecorrido(Productos)">
-            <i>Generar Recorrido</i>
-          </button>
-          <button class="btn btn-info" (click)="Prueba()">
-            <i>probar</i>
-          </button>
-            </div>
-          </div>
-
           <div *ngIf="TipoGrafo==='Pasos'">
           Paso:
           <button class="btn btn-info" (click)="Retroceder()">
@@ -128,6 +117,7 @@
           </tr>
         </tbody>
       </table>
+      <div *ngIf="TipoGrafo==='Pasos'">
     <h1>Pendientes</h1>
     <table class="table table-sm table-hover" style="border-radius: 2%;">
       <tbody class="tblbody">
@@ -143,6 +133,7 @@
         </tr>
       </tbody>
     </table>
+  </div>
   </form>
 </div>
     </div>

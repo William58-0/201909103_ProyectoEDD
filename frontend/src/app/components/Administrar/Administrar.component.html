@@ -4,7 +4,7 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item"><a class="nav-link" (click)="ADatosCuentas()" style="color:white"><i
-            class="fas fa-user-circle"></i><span> Datos/Cuentas</span></a></li>
+            class="fas fa-user-circle"></i><span> Cargar Datos</span></a></li>
       <li class="nav-item"><a class="nav-link" href="/" style="color:white"><i class="fas fa-user-circle"></i><span>
             Salir</span></a></li>
     </ul>
@@ -91,9 +91,6 @@
                 <button class="btn btn-info" (click)="GenerarRecorrido(Productos)">
                 <i>Generar Recorrido</i>
               </button>
-              <button class="btn btn-info" (click)="Prueba()">
-                <i>probar</i>
-              </button>
                   <div class="form-group"><label for="email"><strong>Grafo</strong></label>
                     <select class="form-control form-select" [(ngModel)]="TipoGrafo" name="TipoGrafo" (click)="CambiarTipoGrafo(TipoGrafo)" >
                       <option *ngFor="let TipoGrafo of TiposGrafo" [value]="TipoGrafo">{{TipoGrafo}}</option>
@@ -144,6 +141,7 @@
               </tr>
             </tbody>
           </table>
+          <div *ngIf="TipoGrafo==='Pasos'">
         <h1>Pendientes</h1>
         <table class="table table-sm table-hover" style="border-radius: 2%;">
           <tbody class="tblbody">
@@ -159,6 +157,7 @@
             </tr>
           </tbody>
         </table>
+      </div>
       </form>
     </div>
         </div>

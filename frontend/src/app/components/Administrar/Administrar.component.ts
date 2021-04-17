@@ -28,7 +28,7 @@ export class AdministrarComponent implements OnInit {
   NVec:number=0;
 
   //Para grafos
-  Grafo: string;
+  Grafo: string="GrafoInicial";
   NumeroPaso: number;
   TiposGrafo = ["Grafo Inicial", "Pasos", "Recorrido Completo"]
   TipoGrafo = "Grafo Inicial"
@@ -131,28 +131,6 @@ export class AdministrarComponent implements OnInit {
     return date
   }
 
-  Avanzar(){
-    if (this.NPaso+1<this.Pasos.length){
-      this.NPaso++
-      this.Pendientes=this.Pasos[this.NPaso].Pendientes
-      this.Recogidos=this.Pasos[this.NPaso].Recogidos
-      this.Recorrido=this.Pasos[this.NPaso].Recorrido
-      this.Distancia=this.Pasos[this.NPaso].Distancia
-      this.Grafo="Paso"+this.NPaso
-    }
-  }
-
-  Retroceder(){
-    if (this.NPaso-1>=0){
-      this.NPaso--
-      this.Pendientes=this.Pasos[this.NPaso].Pendientes
-      this.Recogidos=this.Pasos[this.NPaso].Recogidos
-      this.Recorrido=this.Pasos[this.NPaso].Recorrido
-      this.Distancia=this.Pasos[this.NPaso].Distancia
-      this.Grafo="Paso"+this.NPaso
-    }
-  }
-
   AvanzarVec(){
       this.NVec++
 
@@ -209,15 +187,46 @@ export class AdministrarComponent implements OnInit {
     return nuevo
   }
 
+  Avanzar(){
+    if (this.NPaso+1<this.Pasos.length){
+      this.NPaso++
+      this.Pendientes=this.Pasos[this.NPaso].Pendientes
+      this.Recogidos=this.Pasos[this.NPaso].Recogidos
+      this.Recorrido=this.Pasos[this.NPaso].Recorrido
+      this.Distancia=this.Pasos[this.NPaso].Distancia
+      this.Grafo="Paso"+this.NPaso
+    }
+  }
+
+  Retroceder(){
+    if (this.NPaso-1>=0){
+      this.NPaso--
+      this.Pendientes=this.Pasos[this.NPaso].Pendientes
+      this.Recogidos=this.Pasos[this.NPaso].Recogidos
+      this.Recorrido=this.Pasos[this.NPaso].Recorrido
+      this.Distancia=this.Pasos[this.NPaso].Distancia
+      this.Grafo="Paso"+this.NPaso
+    }
+  }
+
   CambiarTipoGrafo(grafo: string) {
     if (grafo == "Grafo Inicial") {
       this.Grafo = "GrafoInicial"
     }else if(grafo == "Pasos"){
+      this.NPaso=0
+      this.Pendientes=this.Pasos[this.NPaso].Pendientes
+      this.Recogidos=this.Pasos[this.NPaso].Recogidos
+      this.Recorrido=this.Pasos[this.NPaso].Recorrido
+      this.Distancia=this.Pasos[this.NPaso].Distancia
       this.Grafo="Paso"+this.NPaso
     }else{
+      this.NPaso=this.Pasos.length-1
+      this.Pendientes=this.Pasos[this.NPaso].Pendientes
+      this.Recogidos=this.Pasos[this.NPaso].Recogidos
+      this.Recorrido=this.Pasos[this.NPaso].Recorrido
+      this.Distancia=this.Pasos[this.NPaso].Distancia
       this.Grafo="RecorridoCompleto"
     }
-
   }
 
   ADatosCuentas() {

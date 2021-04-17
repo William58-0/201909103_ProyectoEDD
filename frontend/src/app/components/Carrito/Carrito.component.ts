@@ -16,7 +16,7 @@ export class CarritoComponent implements OnInit {
   Usuario: Usuario;
   Estado: string;
   //Para el recorrido
-  Grafo: string;
+  Grafo: string="GrafoInicial";
   NumeroPaso: number;
   TiposGrafo = ["Grafo Inicial", "Pasos", "Recorrido Completo"]
   TipoGrafo = "Grafo Inicial"
@@ -82,7 +82,6 @@ export class CarritoComponent implements OnInit {
 
   ARecorrido() {
     this.Estado = "Recorrido"
-
   }
 
   removeItemFromArr(arr: Producto[], item: Producto) {
@@ -115,10 +114,6 @@ export class CarritoComponent implements OnInit {
     window.location.href = "/Tiendas/" + this.Usuario.Dpi
   }
 
-GrafoInicial(){
-  this.TipoGrafo="Grafo Inicial"
-}
-
 Avanzar(){
   if (this.NPaso+1<this.Pasos.length){
     this.NPaso++
@@ -141,13 +136,32 @@ Retroceder(){
   }
 }
 
+GrafoInicial(){
+  this.TipoGrafo="Grafo Inicial"
+  this.Grafo="GrafoInicial"
+}
+
 Pasoss(){
+  this.NPaso=0;
+  this.Pendientes=this.Pasos[this.NPaso].Pendientes
+  this.Recogidos=this.Pasos[this.NPaso].Recogidos
+  this.Recorrido=this.Pasos[this.NPaso].Recorrido
+  this.Distancia=this.Pasos[this.NPaso].Distancia
   this.TipoGrafo="Pasos"
+  this.Grafo="Paso"+this.NPaso
 }
 
 RecorridoCompleto(){
+  this.NPaso=this.Pasos.length-1
+  this.Pendientes=this.Pasos[this.NPaso].Pendientes
+  this.Recogidos=this.Pasos[this.NPaso].Recogidos
+  this.Recorrido=this.Pasos[this.NPaso].Recorrido
+  this.Distancia=this.Pasos[this.NPaso].Distancia
   this.TipoGrafo="Recorrido Completo"
+  this.Grafo="RecorridoCompleto"
 }
+
+
 
 
   Prueba(){
