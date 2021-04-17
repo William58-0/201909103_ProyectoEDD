@@ -35,6 +35,9 @@
 </nav>
 
 <div id="wrapper">
+
+  <!---------------------------------------------   CALENDARIOS  ------------------------------------------------->
+
   <ng-container *ngIf="Estado==='Calendarios'">
     <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
       style="float:left">
@@ -91,6 +94,9 @@
                 <button class="btn btn-info" (click)="GenerarRecorrido(Productos)">
                 <i>Generar Recorrido</i>
               </button>
+              <button class="btn btn-info" (click)="Prueba()">
+                <i>prueba</i>
+              </button>
                   <div class="form-group"><label for="email"><strong>Grafo</strong></label>
                     <select class="form-control form-select" [(ngModel)]="TipoGrafo" name="TipoGrafo" (click)="CambiarTipoGrafo(TipoGrafo)" >
                       <option *ngFor="let TipoGrafo of TiposGrafo" [value]="TipoGrafo">{{TipoGrafo}}</option>
@@ -132,13 +138,14 @@
               <th>Codigo</th>
               <th>Fecha</th>
               <th>Almacen</th>
-              <th>Usuario</th>
+              <th>Cliente</th>
               <tr *ngFor="let prod of Recogidos">
                 <td style="text-align: center;">{{prod.Codigo}}</td>
                 <td style="text-align: center;">{{prod.Fecha}}</td>
                 <td style="text-align: center;">{{prod.Almacenamiento}}</td>
-                <td style="text-align: center;">{{prod.Tienda}}</td>
-              </tr>
+                <td style="text-align: center;" *ngIf="VerSiExiste(prod.Cliente)===true">{{prod.Cliente}}</td>
+                <td style="text-align: center;" *ngIf="VerSiExiste(prod.Cliente)===false">Anonimo</td>
+                </tr>
             </tbody>
           </table>
           <div *ngIf="TipoGrafo==='Pasos'">
@@ -148,12 +155,13 @@
             <th>Codigo</th>
             <th>Fecha</th>
             <th>Almacen</th>
-            <th>Usuario</th>
+            <th>Cliente</th>
             <tr *ngFor="let prod of Pendientes">
               <td style="text-align: center;">{{prod.Codigo}}</td>
               <td style="text-align: center;">{{prod.Fecha}}</td>
               <td style="text-align: center;">{{prod.Almacenamiento}}</td>
-              <td style="text-align: center;">{{prod.Tienda}}</td>
+              <td style="text-align: center;" *ngIf="VerSiExiste(prod.Cliente)===false">Anonimo</td>
+              <td style="text-align: center;" *ngIf="VerSiExiste(prod.Cliente)===true">{{prod.Cliente}}</td>
             </tr>
           </tbody>
         </table>

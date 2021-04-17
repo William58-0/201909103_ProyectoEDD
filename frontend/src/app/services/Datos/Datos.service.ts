@@ -181,5 +181,23 @@ export class DatosService {
     return this.http.get<any>(baseURL + 'GetRecorrido', httpOptions);
   }
 
+  GetUsuarios():Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.get<any>(baseURL + 'GetUsuarios', httpOptions);
+  }
+
+  ActAnonimo(Usuario):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post<any>(baseURL + 'ActAnonimo', Usuario, httpOptions);
+  }
+
 
 }

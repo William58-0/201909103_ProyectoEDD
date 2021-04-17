@@ -25,6 +25,7 @@ type Principal struct {
 	Tienda       string      `json:"Tienda"`
 	Departamento string      `json:"Departamento"`
 	Calificacion int         `json:"Calificacion"`
+	Cliente      int         `json:"Cliente"`
 	Productos    []*Producto `json:"Productos"`
 }
 
@@ -41,6 +42,7 @@ type Producto struct {
 	Tienda       string `json:"Tienda"`
 	Departamento string `json:"Departamento"`
 	Calificacion int    `json:"Calificacion"`
+	Cliente      int    `json:"Cliente"`
 }
 
 //--------------------------------------------------------------------------------------------			OBJETOS
@@ -234,6 +236,7 @@ var Inicial []Producto
 func Leer(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Leer")
 	Leido = false
+	Fecha = ""
 	lector, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		log.Fatal(err)
@@ -265,6 +268,7 @@ func Leer(w http.ResponseWriter, r *http.Request) {
 				Producto.Tienda = c.Pedidos[i].Tienda
 				Producto.Departamento = c.Pedidos[i].Departamento
 				Producto.Calificacion = c.Pedidos[i].Calificacion
+				Producto.Cliente = c.Pedidos[i].Cliente
 				Productos = append(Productos, *Producto)
 				//agregar el mes a Meses[]
 				mes := strings.Split(c.Pedidos[i].Fecha, "-")[2] + "-" + strings.Split(c.Pedidos[i].Fecha, "-")[1]
@@ -290,23 +294,12 @@ func Leer(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func Actualizar() {
+func Actualizar(Pedido []Producto) {
 	fmt.Println("Actualizar")
-	Leido = false
 	Meses = nil
-	//Enlistar solo Productos
-	for i := 0; i < len(Productos); i++ {
-		//agregar el mes a Meses[]
-		mes := strings.Split(Productos[i].Fecha, "-")[2] + "-" + strings.Split(Productos[i].Fecha, "-")[1]
-		existe := false
-		for k := 0; k < len(Meses); k++ {
-			if Meses[k] == mes {
-				existe = true
-			}
-		}
-		if !existe {
-			Meses = append(Meses, mes)
-		}
+	Leido = false
+	if len(Pedido) > 0 {
+		Fecha = strings.Split(Pedido[0].Fecha, "-")[2] + "-" + strings.Split(Pedido[0].Fecha, "-")[1]
 	}
 	//se ordenan los Meses
 	Meses = OrdenarVec(Meses)
@@ -316,6 +309,9 @@ func Actualizar() {
 		Estructurar()
 	}
 }
+
+var Anios ListaA
+var Fecha string
 
 func Estructurar() {
 	//se crean las estructuras
@@ -358,6 +354,7 @@ func Estructurar() {
 	}
 	//Arbol de años
 	ListaA.Arbol()
+	Anios = *ListaA
 	//se crean los nodos generales de cada matriz
 	auxA := ListaA.Primero
 	//if !Leido {
@@ -491,69 +488,21 @@ func Estructurar() {
 					auxM.Nodos = append(auxM.Nodos, *nodo)
 				}
 			}
-
-			//se crea el grafo
-			cadena := ""
-			cadena1 := ""
-			rankdir := "{ rank=same; "
-			//fmt.Println("\n INFO DE NODOS: \n")
-			for i := 0; i < len(auxM.Nodos); i++ {
-				a := strings.ReplaceAll(auxM.Nodos[i].Nombre, " ", "_")
-				//si es un nodo con cola
-				if auxM.Nodos[i].Cola.Tamanio != 0 {
-					cadena += "nodo" + a + " [label=\"" + strconv.Itoa(auxM.Nodos[i].Cola.Tamanio) +
-						"\" shape=circle fillcolor=lightgoldenrod]\n"
-				} else {
-					cadena += "nodo" + a + " [label=\"" + auxM.Nodos[i].Nombre + "\" fillcolor=aquamarine]\n"
-				}
-				if auxM.Nodos[i].Arriba != nil {
-					b := strings.ReplaceAll(auxM.Nodos[i].Arriba.Nombre, " ", "_")
-					cadena += "nodo" + a + "->nodo" + b + " [dir=both]\n"
-				}
-				if auxM.Nodos[i].Abajo != nil {
-					b := strings.ReplaceAll(auxM.Nodos[i].Abajo.Nombre, " ", "_")
-					cadena += "nodo" + a + "->nodo" + b + " [dir=both]\n"
-				}
-				if auxM.Nodos[i].Derecha != nil {
-					b := strings.ReplaceAll(auxM.Nodos[i].Derecha.Nombre, " ", "_")
-					if auxM.Nodos[i].Derecha.Tipo != "Dia" {
-						cadena += "nodo" + b + "->nodo" + a + " [constraint=false; dir=both]\n"
-					} else {
-						cadena += "nodo" + b + "->nodo" + a + "  [dir=both]\n"
-					}
-					cadena1 += "{ rank=same; " + "nodo" + a + "; nodo" + b + "; }\n"
-				}
-				if auxM.Nodos[i].Izquierda != nil {
-					b := strings.ReplaceAll(auxM.Nodos[i].Izquierda.Nombre, " ", "_")
-					if auxM.Nodos[i].Izquierda.Tipo != "Dia" {
-						cadena += "nodo" + b + "->nodo" + a + " [constraint=false; dir=both]\n"
-					} else {
-						cadena += "nodo" + b + "->nodo" + a + " [dir=both]\n"
-					}
-					cadena1 += "{ rank=same; " + "nodo" + b + "; nodo" + a + ";}\n "
-				}
-				if auxM.Nodos[i].Tipo == "Dia" {
-					rankdir += "nodo" + a + "; "
-				}
+			if Fecha == "" {
+				Graficar(*auxA, *auxM)
+				fmt.Println("Se creó calendario")
+				fmt.Println(auxM.Mes)
+				auxM = auxM.Siguiente
+				fmt.Println(auxA.Anio)
+			} else if Fecha != "" &&
+				Fecha == auxA.Anio+
+					"-"+auxM.Mes {
+				Graficar(*auxA, *auxM)
+				fmt.Println("Se creó calendario")
+				fmt.Println(auxM.Mes)
+				auxM = auxM.Siguiente
+				fmt.Println(auxA.Anio)
 			}
-			rankdir += "}"
-			cadena = "digraph {\nrankdir = BT;\nnode [shape=rectangle style=filled];\ngraph[ nodesep = 0.5];\n" +
-				cadena1 + cadena + rankdir + "\n }"
-			//se escribe el archivo dot
-			b := []byte(cadena)
-			err := ioutil.WriteFile("../frontend/src/assets/img/"+auxA.Anio+"-"+auxM.Mes+".dot", b, 0644)
-			if err != nil {
-				log.Fatal(err)
-			}
-			//se crea la imagen
-			path, _ := exec.LookPath("dot")
-			cmd, _ := exec.Command(path, "-Tpng", "../frontend/src/assets/img/"+auxA.Anio+"-"+auxM.Mes+".dot").Output()
-			mode := int(0777)
-			ioutil.WriteFile("../frontend/src/assets/img/"+auxA.Anio+"-"+auxM.Mes+".png", cmd, os.FileMode(mode))
-			fmt.Println("Se creó calendario")
-			fmt.Println(auxM.Mes)
-			auxM = auxM.Siguiente
-			fmt.Println(auxA.Anio)
 		}
 		auxA = auxA.Siguiente
 		if auxA == nil {
@@ -571,12 +520,83 @@ func (ListaA *ListaA) Arbol() {
 	for auxA != nil {
 		a, err := strconv.Atoi(auxA.Anio)
 		if err != nil {
+
 		}
 		AVL.Insertar(arbol, auxA.Anio, a, "", 0.0, 0, "", "", "", "", 0)
 		auxA = auxA.Siguiente
 	}
 	fmt.Println("Generando arbol de años")
 	AVL.Generar_Grafo(arbol, "arbolAnios")
+}
+
+func Graficar(auxA YEAR, auxM MONTH) {
+	//se crea el grafo
+	cadena := ""
+	cadena1 := ""
+	rankdir := "{ rank=same; "
+	//fmt.Println("\n INFO DE NODOS: \n")
+	for i := 0; i < len(auxM.Nodos); i++ {
+		a := strings.ReplaceAll(auxM.Nodos[i].Nombre, " ", "_")
+		//si es un nodo con cola
+		if auxM.Nodos[i].Cola.Tamanio != 0 {
+			cadena += "nodo" + a + " [label=\"" + strconv.Itoa(auxM.Nodos[i].Cola.Tamanio) +
+				"\" shape=circle fillcolor=lightgoldenrod]\n"
+		} else {
+			cadena += "nodo" + a + " [label=\"" + auxM.Nodos[i].Nombre + "\" fillcolor=aquamarine]\n"
+		}
+		if auxM.Nodos[i].Arriba != nil {
+			b := strings.ReplaceAll(auxM.Nodos[i].Arriba.Nombre, " ", "_")
+			cadena += "nodo" + a + "->nodo" + b + " [dir=both]\n"
+		}
+		if auxM.Nodos[i].Abajo != nil {
+			b := strings.ReplaceAll(auxM.Nodos[i].Abajo.Nombre, " ", "_")
+			cadena += "nodo" + a + "->nodo" + b + " [dir=both]\n"
+		}
+		if auxM.Nodos[i].Derecha != nil {
+			b := strings.ReplaceAll(auxM.Nodos[i].Derecha.Nombre, " ", "_")
+			if auxM.Nodos[i].Derecha.Tipo != "Dia" {
+				cadena += "nodo" + b + "->nodo" + a + " [constraint=false; dir=both]\n"
+			} else {
+				cadena += "nodo" + b + "->nodo" + a + "  [dir=both]\n"
+			}
+			cadena1 += "{ rank=same; " + "nodo" + a + "; nodo" + b + "; }\n"
+		}
+		if auxM.Nodos[i].Izquierda != nil {
+			b := strings.ReplaceAll(auxM.Nodos[i].Izquierda.Nombre, " ", "_")
+			if auxM.Nodos[i].Izquierda.Tipo != "Dia" {
+				cadena += "nodo" + b + "->nodo" + a + " [constraint=false; dir=both]\n"
+			} else {
+				cadena += "nodo" + b + "->nodo" + a + " [dir=both]\n"
+			}
+			cadena1 += "{ rank=same; " + "nodo" + b + "; nodo" + a + ";}\n "
+		}
+		if auxM.Nodos[i].Tipo == "Dia" {
+			rankdir += "nodo" + a + "; "
+		}
+	}
+	rankdir += "}"
+	cadena = "digraph {\nrankdir = BT;\nnode [shape=rectangle style=filled];\ngraph[ nodesep = 0.5];\n" +
+		cadena1 + cadena + rankdir + "\n }"
+	//se escribe el archivo dot
+	b := []byte(cadena)
+	err := ioutil.WriteFile("../frontend/src/assets/img/"+auxA.Anio+"-"+auxM.Mes+".dot", b, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+	//se crea la imagen
+	path, _ := exec.LookPath("dot")
+	cmd, _ := exec.Command(path, "-Tpng", "../frontend/src/assets/img/"+auxA.Anio+"-"+auxM.Mes+".dot").Output()
+	mode := int(0777)
+	ioutil.WriteFile("../frontend/src/assets/img/"+auxA.Anio+"-"+auxM.Mes+".png", cmd, os.FileMode(mode))
+
+}
+
+type Usuario struct {
+	Dpi      int    `json:"Dpi"`
+	Nombre   string `json:"Nombre"`
+	Correo   string `json:"Correo"`
+	Password string `json:"Password"`
+	Cuenta   string `json:"Cuenta"`
 }
 
 func GetFechas(w http.ResponseWriter, r *http.Request) {

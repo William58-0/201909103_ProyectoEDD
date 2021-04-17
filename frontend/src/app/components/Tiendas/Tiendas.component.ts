@@ -41,6 +41,7 @@ export class TiendasComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetUsuario(this.route.snapshot.paramMap.get('Dpi'))
+    
   }
 
   GetUsuario(Dpi) {
@@ -129,7 +130,11 @@ export class TiendasComponent implements OnInit {
         Cuenta:"Usuario"
       }
       this.DatosService.Eliminar(Usuario).subscribe(() => {
-        window.location.href="/"
+        //this.DatosService.ActAnonimo(Usuario).subscribe(() => {
+          window.location.href="/"
+        //}, (err) => {
+          //console.log("Ocurrio un error")
+        //})
       }, (err) => {
         console.log("Ocurrio un error")
       })

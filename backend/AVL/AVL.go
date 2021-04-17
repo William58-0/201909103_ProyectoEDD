@@ -65,6 +65,7 @@ type Producto1 struct {
 	Tienda         string  `json:"Tienda"`
 	Departamento   string  `json:"Departamento"`
 	Calificacion   int     `json:"Calificacion"`
+	Cliente        int     `json:"Cliente"`
 }
 
 //-----------------------------------------------------------------------------Para buscar tienda
@@ -149,6 +150,7 @@ func Leer(w http.ResponseWriter, r *http.Request) {
 			Generar_Grafo(arbol, c.Inventarios[i].Tienda+"---"+c.Inventarios[i].Departamento+"---"+strconv.Itoa(c.Inventarios[i].Calificacion))
 		}
 	}
+	fmt.Println("Inventario Cargado")
 	Todo1.Productos = Produc
 }
 

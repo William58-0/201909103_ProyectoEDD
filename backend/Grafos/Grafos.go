@@ -100,7 +100,7 @@ func GrafoInicial(w http.ResponseWriter, r *http.Request) {
 			cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") + " -> " +
 				strings.ReplaceAll(Nodes[i].Enlaces[j].Nombre, " ", "_") +
 				" [label=\"" +
-				fmt.Sprintf("%f", Nodes[i].Enlaces[j].Distancia) +
+				fmt.Sprintf("%g", Nodes[i].Enlaces[j].Distancia) +
 				"\" dir=both];\n"
 		}
 	}
@@ -192,7 +192,7 @@ func CaminoMasCorto(Inicial, Final string) Ruta {
 		return *Route
 	}
 	if Inicial == Final {
-		fmt.Println("No se puede in de Inicial a Inicial")
+		fmt.Println("No se puede ir de Inicial a Inicial")
 		return *Route
 	}
 	Camino(Inicial)
@@ -233,7 +233,6 @@ func CaminoMasCorto(Inicial, Final string) Ruta {
 				fmt.Println("Getting Rutas: " + arr[i].Anteriores[j])
 				arr3 := GetAllRutas(arr[i].Anteriores[j])
 				for k := 0; k < len(arr3); k++ {
-					fmt.Println(arr3[k].Anteriores[0])
 					if arr3[k].Anteriores[0] == Inicial {
 						arr4 = append(arr4, arr3[k])
 					}
@@ -321,20 +320,20 @@ func Trayectoria(Ruta Ruta) {
 							cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") + " -> " +
 								strings.ReplaceAll(Nodes[i].Enlaces[j].Nombre, " ", "_") +
 								" [label=\"" +
-								fmt.Sprintf("%f", Nodes[i].Enlaces[j].Distancia) +
+								fmt.Sprintf("%g", Nodes[i].Enlaces[j].Distancia) +
 								"\" color=red dir=both];\n"
 						} else {
 							cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") + " -> " +
 								strings.ReplaceAll(Nodes[i].Enlaces[j].Nombre, " ", "_") +
 								" [label=\"" +
-								fmt.Sprintf("%f", Nodes[i].Enlaces[j].Distancia) +
+								fmt.Sprintf("%g", Nodes[i].Enlaces[j].Distancia) +
 								"\" dir=both];\n"
 						}
 					} else {
 						cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") + " -> " +
 							strings.ReplaceAll(Nodes[i].Enlaces[j].Nombre, " ", "_") +
 							" [label=\"" +
-							fmt.Sprintf("%f", Nodes[i].Enlaces[j].Distancia) +
+							fmt.Sprintf("%g", Nodes[i].Enlaces[j].Distancia) +
 							"\" dir=both];\n"
 					}
 				}
@@ -400,88 +399,83 @@ type Paso struct {
 }
 
 func Llevar(Almacenamiento string) {
-	//if sepudo {
-	//Carga los Productos al Camion
-	for i := 0; i < len(PorRecoger); i++ {
-		if PorRecoger[i].Almacenamiento == Almacenamiento {
-			Camion = append(Camion, PorRecoger[i])
-		}
-	}
-	//Actualiza Productos Pendientes
-	var nuevo []AVL.Producto1
-	for i := 0; i < len(PorRecoger); i++ {
-		if PorRecoger[i].Almacenamiento != Almacenamiento {
-			nuevo = append(nuevo, PorRecoger[i])
-		}
-	}
-	PorRecoger = nuevo
-	//Se elimina de AlmaPendientes
-	var nuevoo []string
-	for i := 0; i < len(AlmaPendientes); i++ {
-		if AlmaPendientes[i] != Almacenamiento {
-			nuevoo = append(nuevoo, AlmaPendientes[i])
-		}
-	}
-	AlmaPendientes = nuevoo
-	fmt.Print("Intento Recoger productos\nAlmacenamientos pendientes: ")
-	fmt.Println(len(AlmaPendientes))
-	fmt.Print("Productos por Recoger: ")
-	fmt.Println(len(PorRecoger))
-	/*
+	if sepudo {
+		//Carga los Productos al Camion
 		for i := 0; i < len(PorRecoger); i++ {
-			fmt.Println(PorRecoger[i].Nombre)
-			fmt.Println(PorRecoger[i].Almacenamiento)
+			if PorRecoger[i].Almacenamiento == Almacenamiento {
+				Camion = append(Camion, PorRecoger[i])
+			}
 		}
-	*/
-	//}
+		//Actualiza Productos Pendientes
+		var nuevo []AVL.Producto1
+		for i := 0; i < len(PorRecoger); i++ {
+			if PorRecoger[i].Almacenamiento != Almacenamiento {
+				nuevo = append(nuevo, PorRecoger[i])
+			}
+		}
+		PorRecoger = nuevo
+		//Se elimina de AlmaPendientes
+		var nuevoo []string
+		for i := 0; i < len(AlmaPendientes); i++ {
+			if AlmaPendientes[i] != Almacenamiento {
+				nuevoo = append(nuevoo, AlmaPendientes[i])
+			}
+		}
+		AlmaPendientes = nuevoo
+		fmt.Print("Intento Recoger productos\nAlmacenamientos pendientes: ")
+		fmt.Println(len(AlmaPendientes))
+		fmt.Print("Productos por Recoger: ")
+		fmt.Println(len(PorRecoger))
+	}
 }
 
 func EvaluarCaminos(Actual string) {
-	//if sepudo {
-	if len(AlmaPendientes) == 0 {
-		fmt.Println("----------------------------Ir al despacho")
-		if !Entregado {
-			AlmaPendientes = append(AlmaPendientes, Data.Entrega)
-			Trayectoria(CaminoMasCorto(Actual, Data.Entrega))
-			RecorridoCompleto(Recorrido)
-			Entregado = true
+	if sepudo {
+		if len(AlmaPendientes) == 0 {
+			fmt.Println("----------------------------Ir al despacho")
+			if !Entregado {
+				AlmaPendientes = append(AlmaPendientes, Data.Entrega)
+				Trayectoria(CaminoMasCorto(Actual, Data.Entrega))
+				RecorridoCompleto(Recorrido)
+				Entregado = true
+				return
+			}
+		}
+		if Actual == "" {
+			fmt.Println("El nodo actual no existe")
+		}
+		var Longitudes []float64
+		for i := 0; i < len(AlmaPendientes); i++ {
+			if Actual != AlmaPendientes[i] {
+				a := CaminoMasCorto(Actual, AlmaPendientes[i]).Recorrido
+				if a != 0 {
+					Longitudes = append(Longitudes, a)
+				} else {
+					fmt.Println("No se pueden recorridos de longitud 0")
+				}
+			}
+		}
+		//hallar el mas corto
+		Destino := ""
+		if len(Longitudes) != 0 {
+			menor := Longitudes[0]
+			for i := 0; i < len(Longitudes); i++ {
+				if Longitudes[i] <= menor && Actual != AlmaPendientes[i] && Longitudes[i] != 0 {
+					menor = Longitudes[i]
+					Destino = AlmaPendientes[i]
+				}
+			}
+		} else {
+			Destino = Data.Entrega
+			//fmt.Println("Algo raro pasó")
+		}
+		Cam := CaminoMasCorto(Actual, Destino)
+		if Cam.Recorrido == 0 {
+			//fmt.Println("Algo raro pasó")
 			return
+		} else {
+			Trayectoria(CaminoMasCorto(Actual, Destino))
 		}
-	}
-	if Actual == "" {
-		fmt.Println("El nodo actual no existe")
-	}
-	var Longitudes []float64
-	for i := 0; i < len(AlmaPendientes); i++ {
-		if Actual != AlmaPendientes[i] {
-			a := CaminoMasCorto(Actual, AlmaPendientes[i]).Recorrido
-			if a != 0 {
-				Longitudes = append(Longitudes, a)
-			} else {
-				fmt.Println("No se pueden recorridos de longitud 0")
-			}
-		}
-	}
-	//hallar el mas corto
-	Destino := ""
-	if len(Longitudes) != 0 {
-		menor := Longitudes[0]
-		for i := 0; i < len(Longitudes); i++ {
-			if Longitudes[i] <= menor && Actual != AlmaPendientes[i] && Longitudes[i] != 0 {
-				menor = Longitudes[i]
-				Destino = AlmaPendientes[i]
-			}
-		}
-	} else {
-		Destino = Data.Entrega
-		fmt.Println("Algo raro pasó")
-	}
-	Cam := CaminoMasCorto(Actual, Destino)
-	if Cam.Recorrido == 0 {
-		fmt.Println("Algo raro pasó")
-		return
-	} else {
-		Trayectoria(CaminoMasCorto(Actual, Destino))
 	}
 }
 
@@ -538,6 +532,7 @@ func GenerarRecorrido(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Productos recibidos")
 	for i := 0; i < len(productos); i++ {
 		fmt.Println(productos[i].Codigo)
+		fmt.Println(productos[i].Cliente)
 	}
 	IniciarRecorrido(productos)
 	fmt.Println("--------------------------Recorrido generado")
@@ -621,7 +616,7 @@ func TrayectoriaCompleta(Ruta Ruta) {
 						cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") + " -> " +
 							strings.ReplaceAll(Nodes[i].Enlaces[j].Nombre, " ", "_") +
 							" [label=\"" +
-							fmt.Sprintf("%f", Nodes[i].Enlaces[j].Distancia) +
+							fmt.Sprintf("%g", Nodes[i].Enlaces[j].Distancia) +
 							"\" color=red dir=both];\n"
 						escritos = append(escritos, Nodes[i].Enlaces[j].Nombre+" --> "+Nodes[i].Nombre)
 						escritos = append(escritos, Nodes[i].Nombre+" --> "+Nodes[i].Enlaces[j].Nombre)
@@ -630,7 +625,7 @@ func TrayectoriaCompleta(Ruta Ruta) {
 						cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") + " -> " +
 							strings.ReplaceAll(Nodes[i].Enlaces[j].Nombre, " ", "_") +
 							" [label=\"" +
-							fmt.Sprintf("%f", Nodes[i].Enlaces[j].Distancia) +
+							fmt.Sprintf("%g", Nodes[i].Enlaces[j].Distancia) +
 							"\" dir=both];\n"
 						escritos = append(escritos, Nodes[i].Enlaces[j].Nombre+" --> "+Nodes[i].Nombre)
 						escritos = append(escritos, Nodes[i].Nombre+" --> "+Nodes[i].Enlaces[j].Nombre)

@@ -238,94 +238,6 @@ func (this *Arbol) colocarNodo(nodo *Nodo, newKey *Key) int {
 	return index
 }
 
-//----------------------------------------------------------------------------vVerificar que los datos sean validos
-/*
-var Valido bool
-
-funcvverificar(actual *Nodo, DPIbuscado int, ContraseniaBuscada string) {
-	if actual != nil && !Valido {
-		for i := 0; i < actual.Max; i++ {
-			if actual.Keys[i] == nil {
-				break
-			}
-			if actual.Keys[i] != nil {
-				fmt.Println("Correo: ", actual.Keys[i].Correo, " DPI: ", actual.Keys[i].DPI)
-				if actual.Keys[i].DPI == DPIbuscado && actual.Keys[i].Contrasenia == ContraseniaBuscada {
-					fmt.Println("Valido")
-					Valido = true
-					return
-				}
-			}
-		}
-		for i := 0; i < actual.Max; i++ {
-			if actual.Keys[i] != nil {
-			vverificar(actual.Keys[i].Izquierdo, DPIbuscado, ContraseniaBuscada)
-			vverificar(actual.Keys[i].Derecho, DPIbuscado, ContraseniaBuscada)
-			} else {
-				break
-			}
-		}
-	}
-	if Valido {
-		return
-	}
-}
-
-func (this *Arbol)vVerificar(DPIbuscado int, ContraseniaBuscada string) bool {
-	Valido = false
-vverificar(this.Raiz, DPIbuscado, ContraseniaBuscada)
-	if Valido {
-		return true
-	} else {
-		return false
-	}
-}
-*/
-
-//-----------------------------------------------------------------------------------Buscar si existe un usuario
-/*
-var Existe bool
-
-func buscar(actual *Nodo, DPIbuscado int) {
-	if actual != nil && !Existe {
-		for i := 0; i < actual.Max; i++ {
-			if actual.Keys[i] == nil {
-				break
-			}
-			if actual.Keys[i] != nil {
-				fmt.Println("Correo: ", actual.Keys[i].Correo, " DPI: ", actual.Keys[i].DPI)
-				if actual.Keys[i].DPI == DPIbuscado {
-					fmt.Println("Valido")
-					Existe = true
-					return
-				}
-			}
-		}
-		for i := 0; i < actual.Max; i++ {
-			if actual.Keys[i] != nil {
-				buscar(actual.Keys[i].Izquierdo, DPIbuscado)
-				buscar(actual.Keys[i].Derecho, DPIbuscado)
-			} else {
-				break
-			}
-		}
-	}
-	if Existe {
-		return
-	}
-}
-
-func (this *Arbol) Buscar(DPIbuscado int) bool {
-	Existe = false
-	buscar(this.Raiz, DPIbuscado)
-	if Existe {
-		return true
-	} else {
-		return false
-	}
-}
-*/
-
 func Buscar(DPI int) bool {
 	for i := 0; i < len(Users); i++ {
 		if Users[i].Dpi == DPI {
@@ -367,11 +279,16 @@ type Usuario1 struct {
 	Cuenta   string `json:"Cuenta"`
 }
 
+var SesionActual int
+
 func iniciarsesion(DPI string, password string) Usuario {
+	SesionActual = 0
 	User := new(Usuario)
 	for i := 0; i < len(Users); i++ {
 		if strconv.Itoa(Users[i].Dpi) == DPI && Users[i].Password == password {
 			fmt.Println(Users[i])
+			SesionActual = Users[i].Dpi
+			*User = Users[i]
 			return Users[i]
 		}
 	}
@@ -394,33 +311,39 @@ func IniciarSesion(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(iniciarsesion(usuario.Dpi, usuario.Password))
 }
 
-func getusuario(DPI string) Usuario {
+func Ggetusuario(DPI string) Usuario {
 	User := new(Usuario)
 	for i := 0; i < len(Users); i++ {
 		if strconv.Itoa(Users[i].Dpi) == DPI {
-			fmt.Println(Users[i])
 			return Users[i]
+		} else {
+			fmt.Println(strconv.Itoa(Users[i].Dpi) + "!=" + DPI)
 		}
 	}
 	return *User
 }
 
 func GetUsuario(w http.ResponseWriter, r *http.Request) {
-	//fmt.Println("GetUsuario")
-	//fmt.Println("Usuarios: ", Users)
 	var usuario *Usuario1
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		fmt.Fprintf(w, "Datos Inválidos")
 	}
 	json.Unmarshal(reqBody, &usuario)
-	//fmt.Println("Buscar:")
-	//fmt.Println(usuario.Dpi)
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(getusuario(usuario.Dpi))
+	json.NewEncoder(w).Encode(Ggetusuario(usuario.Dpi))
 }
 
 var Users []Usuario
+
+func GetUsuarios(w http.ResponseWriter, r *http.Request) {
+	var Dpis []int
+	for i := 0; i < len(Users); i++ {
+		Dpis = append(Dpis, Users[i].Dpi)
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(Dpis)
+}
 
 func Cargar(w http.ResponseWriter, r *http.Request) {
 	c := Usuarios{}
@@ -484,6 +407,8 @@ func eliminar(DPI int) {
 	Users = Nuevo
 }
 
+var Dpis []int
+
 func Eliminar(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Registrar")
 	fmt.Println("Usuarios Antes: ", Users)
@@ -495,7 +420,10 @@ func Eliminar(w http.ResponseWriter, r *http.Request) {
 	json.Unmarshal(reqBody, &usuario)
 	fmt.Println(usuario)
 	eliminar(usuario.Dpi)
-	fmt.Println("Usuarios Despues: ", Users)
+	for i := 0; i < len(Users); i++ {
+		Dpis = append(Dpis, Users[i].Dpi)
+	}
+
 }
 
 func Registrar(w http.ResponseWriter, r *http.Request) {
@@ -516,12 +444,10 @@ func Registrar(w http.ResponseWriter, r *http.Request) {
 	User.Password = usuario.Password
 	User.Cuenta = "Usuario"
 	registrar(*User)
-	fmt.Println(Users)
 }
 
 //-------------------------------------------------------------------------------------------------Cifrado
 func Encriptar(texto string) string {
-	//key := []byte("keygopostmediumkeygopostmediumke")
 	key := []byte("tercerafaseeddfechadeentregaelsa")
 	plaintext := []byte(texto)
 	block, err := aes.NewCipher(key)
@@ -537,28 +463,6 @@ func Encriptar(texto string) string {
 	return fmt.Sprintf("%x", ciphertext)
 }
 
-/*
-func Desencriptar(texto string) string {
-	//key := []byte("keygopostmediumkeygopostmediumke")
-	key := []byte("tercerafaseeddfechadeentregaelsabadoantesdemedianoche")
-	ciphertext, _ := hex.DecodeString(texto)
-	nonce := []byte("gopostmedium")
-	block, err := aes.NewCipher(key)
-	if err != nil {
-		panic(err.Error())
-	}
-	aesgcm, err := cipher.NewGCM(block)
-	if err != nil {
-		panic(err.Error())
-	}
-	plaintext, err := aesgcm.Open(nil, nonce, ciphertext, nil)
-	if err != nil {
-		panic(err.Error())
-	}
-	return string(plaintext)
-}
-*/
-
 //------------------------------------------------------------------------------------------------Graficar
 func graficar(actual *Nodo, cad *strings.Builder, arr map[string]*Nodo, padre *Nodo, pos int, modo string) {
 	if actual == nil {
@@ -572,7 +476,6 @@ func graficar(actual *Nodo, cad *strings.Builder, arr map[string]*Nodo, padre *N
 	} else {
 		arr[fmt.Sprint(&(*actual))] = actual
 	}
-	//fmt.Println("actual", &(*actual))
 	fmt.Fprintf(cad, "node%p[label=\"", &(*actual))
 	enlace := true
 	for i := 0; i < actual.Max; i++ {
@@ -645,13 +548,7 @@ func (this *Arbol) Graficar(modo string) {
 		fmt.Println(err)
 		return
 	}
-	l, err := f.WriteString(builder.String())
-	if err != nil {
-		fmt.Println(err)
-		f.Close()
-		return
-	}
-	fmt.Println(l, "bytes written succesfully")
+	fmt.Println("ArbolB creado")
 	err = f.Close()
 	if err != nil {
 		fmt.Println(err)

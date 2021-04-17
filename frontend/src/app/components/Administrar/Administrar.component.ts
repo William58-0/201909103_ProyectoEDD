@@ -25,19 +25,20 @@ export class AdministrarComponent implements OnInit {
   Clave: string;
   Valido: boolean;
   //Para matriz linealizada
-  NVec:number=0;
+  NVec: number = 0;
 
   //Para grafos
-  Grafo: string="GrafoInicial";
+  Grafo: string = "GrafoInicial";
   NumeroPaso: number;
   TiposGrafo = ["Grafo Inicial", "Pasos", "Recorrido Completo"]
   TipoGrafo = "Grafo Inicial"
-  Pasos: Paso[]=[]
-  NPaso:number=0
-  Pendientes:Producto[]=[]
-  Recogidos:Producto[]=[]
-  Recorrido:string=""
-  Distancia:number=0
+  Pasos: Paso[] = []
+  NPaso: number = 0
+  Pendientes: Producto[] = []
+  Recogidos: Producto[] = []
+  Recorrido: string = ""
+  Distancia: number = 0
+  Usuarios: Usuario[] = []
 
 
   constructor(private DatosService: DatosService,
@@ -67,6 +68,53 @@ export class AdministrarComponent implements OnInit {
     }, (err) => {
       console.log("error")
     })
+    this.DatosService.GetUsuarios().subscribe((dataList: any) => {
+      this.Usuarios = dataList
+      console.log(dataList)
+      //console.log(this.Productos[0])>
+    }, (err) => {
+      console.log("error")
+    })
+  }
+
+  ngOnInit(): void {
+    this.GetUsuario(this.route.snapshot.paramMap.get('Dpi'))
+    for (let i = 0; i < this.Pasos.length; i++) {
+      for (let j = 0; j < this.Pasos[i].Pendientes.length; j++) {
+        if (this.VerSiExiste(this.Pasos[i].Pendientes[j].Cliente)) {
+          this.Pasos[i].Pendientes[j].Cliente = 0
+        }
+      }
+      for (let j = 0; j < this.Pasos[i].Recogidos.length; j++) {
+        if (this.VerSiExiste(this.Pasos[i].Recogidos[j].Cliente)) {
+          this.Pasos[i].Recogidos[j].Cliente = 0
+        }
+      }
+    }
+  }
+
+  GetUsuario(Dpi) {
+    var Busqueda = {
+      Dpi: Dpi
+    }
+    this.DatosService.GetUsuario(Busqueda).subscribe(data => {
+      this.Usuario = data;
+      console.log(data)
+      this.Nombre = data.Nombre;
+      this.Valido = false
+    },
+      error => {
+        console.log(error);
+      });
+  }
+
+  VerSiExiste(Dpi) {
+    var respuesta=false
+    if (this.Usuarios.includes(Dpi)){
+      respuesta=true
+      return true
+    }
+      return respuesta
   }
 
   changeCalendar(date: string) {
@@ -131,13 +179,13 @@ export class AdministrarComponent implements OnInit {
     return date
   }
 
-  AvanzarVec(){
-      this.NVec++
+  AvanzarVec() {
+    this.NVec++
 
   }
 
-  RetrocederVec(){
-    if (this.NVec-1>=0){
+  RetrocederVec() {
+    if (this.NVec - 1 >= 0) {
       this.NVec--
     }
   }
@@ -146,25 +194,6 @@ export class AdministrarComponent implements OnInit {
     var year: string
     year = date.split("-")[0]
     return year
-  }
-
-  ngOnInit(): void {
-    this.GetUsuario(this.route.snapshot.paramMap.get('Dpi'))
-  }
-
-  GetUsuario(Dpi) {
-    var Busqueda = {
-      Dpi: Dpi
-    }
-    this.DatosService.GetUsuario(Busqueda).subscribe(data => {
-      this.Usuario = data;
-      console.log(data)
-      this.Nombre = data.Nombre;
-      this.Valido = false
-    },
-      error => {
-        console.log(error);
-      });
   }
 
   VerificarLlave() {
@@ -187,45 +216,45 @@ export class AdministrarComponent implements OnInit {
     return nuevo
   }
 
-  Avanzar(){
-    if (this.NPaso+1<this.Pasos.length){
+  Avanzar() {
+    if (this.NPaso + 1 < this.Pasos.length) {
       this.NPaso++
-      this.Pendientes=this.Pasos[this.NPaso].Pendientes
-      this.Recogidos=this.Pasos[this.NPaso].Recogidos
-      this.Recorrido=this.Pasos[this.NPaso].Recorrido
-      this.Distancia=this.Pasos[this.NPaso].Distancia
-      this.Grafo="Paso"+this.NPaso
+      this.Pendientes = this.Pasos[this.NPaso].Pendientes
+      this.Recogidos = this.Pasos[this.NPaso].Recogidos
+      this.Recorrido = this.Pasos[this.NPaso].Recorrido
+      this.Distancia = this.Pasos[this.NPaso].Distancia
+      this.Grafo = "Paso" + this.NPaso
     }
   }
 
-  Retroceder(){
-    if (this.NPaso-1>=0){
+  Retroceder() {
+    if (this.NPaso - 1 >= 0) {
       this.NPaso--
-      this.Pendientes=this.Pasos[this.NPaso].Pendientes
-      this.Recogidos=this.Pasos[this.NPaso].Recogidos
-      this.Recorrido=this.Pasos[this.NPaso].Recorrido
-      this.Distancia=this.Pasos[this.NPaso].Distancia
-      this.Grafo="Paso"+this.NPaso
+      this.Pendientes = this.Pasos[this.NPaso].Pendientes
+      this.Recogidos = this.Pasos[this.NPaso].Recogidos
+      this.Recorrido = this.Pasos[this.NPaso].Recorrido
+      this.Distancia = this.Pasos[this.NPaso].Distancia
+      this.Grafo = "Paso" + this.NPaso
     }
   }
 
   CambiarTipoGrafo(grafo: string) {
     if (grafo == "Grafo Inicial") {
       this.Grafo = "GrafoInicial"
-    }else if(grafo == "Pasos"){
-      this.NPaso=0
-      this.Pendientes=this.Pasos[this.NPaso].Pendientes
-      this.Recogidos=this.Pasos[this.NPaso].Recogidos
-      this.Recorrido=this.Pasos[this.NPaso].Recorrido
-      this.Distancia=this.Pasos[this.NPaso].Distancia
-      this.Grafo="Paso"+this.NPaso
-    }else{
-      this.NPaso=this.Pasos.length-1
-      this.Pendientes=this.Pasos[this.NPaso].Pendientes
-      this.Recogidos=this.Pasos[this.NPaso].Recogidos
-      this.Recorrido=this.Pasos[this.NPaso].Recorrido
-      this.Distancia=this.Pasos[this.NPaso].Distancia
-      this.Grafo="RecorridoCompleto"
+    } else if (grafo == "Pasos") {
+      this.NPaso = 0
+      this.Pendientes = this.Pasos[this.NPaso].Pendientes
+      this.Recogidos = this.Pasos[this.NPaso].Recogidos
+      this.Recorrido = this.Pasos[this.NPaso].Recorrido
+      this.Distancia = this.Pasos[this.NPaso].Distancia
+      this.Grafo = "Paso" + this.NPaso
+    } else {
+      this.NPaso = this.Pasos.length - 1
+      this.Pendientes = this.Pasos[this.NPaso].Pendientes
+      this.Recogidos = this.Pasos[this.NPaso].Recogidos
+      this.Recorrido = this.Pasos[this.NPaso].Recorrido
+      this.Distancia = this.Pasos[this.NPaso].Distancia
+      this.Grafo = "RecorridoCompleto"
     }
   }
 
@@ -251,14 +280,8 @@ export class AdministrarComponent implements OnInit {
       })
   }
 
-  Prueba(){
-    this.DatosService.GetRecorrido().subscribe((dataList: any) => {
-      this.Pasos = dataList.Pasos
-      console.log(dataList)
-      //console.log(this.Productos[0])>
-    }, (err) => {
-      console.log("error")
-    })
+  Prueba() {
+    console.log(this.Usuarios)
   }
 
 

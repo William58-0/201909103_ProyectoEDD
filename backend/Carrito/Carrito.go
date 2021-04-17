@@ -109,6 +109,7 @@ func SumarProducto(w http.ResponseWriter, r *http.Request) {
 
 func GenerarPedido(w http.ResponseWriter, r *http.Request) {
 	var productos []*MatrizDispersa.Producto
+	var nuevo []MatrizDispersa.Producto
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		fmt.Fprintf(w, "Datos Inválidos")
@@ -124,10 +125,11 @@ func GenerarPedido(w http.ResponseWriter, r *http.Request) {
 		productos[i].Fecha = fecha
 		fmt.Println(productos[i].Fecha)
 		MatrizDispersa.Productos = append(MatrizDispersa.Productos, *productos[i])
+		nuevo = append(nuevo, *productos[i])
 	}
 	Carrito = nil
 	Todo.Productos = Carrito
-	MatrizDispersa.Actualizar()
+	MatrizDispersa.Actualizar(nuevo)
 }
 
 func GetCarrito(w http.ResponseWriter, r *http.Request) {
