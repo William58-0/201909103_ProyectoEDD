@@ -301,6 +301,19 @@ func Actualizar(Pedido []Producto) {
 	if len(Pedido) > 0 {
 		Fecha = strings.Split(Pedido[0].Fecha, "-")[2] + "-" + strings.Split(Pedido[0].Fecha, "-")[1]
 	}
+	for i := 0; i < len(Productos); i++ {
+		//agregar el mes a Meses[]
+		mes := strings.Split(Productos[i].Fecha, "-")[2] + "-" + strings.Split(Productos[i].Fecha, "-")[1]
+		existe := false
+		for k := 0; k < len(Meses); k++ {
+			if Meses[k] == mes {
+				existe = true
+			}
+		}
+		if !existe {
+			Meses = append(Meses, mes)
+		}
+	}
 	//se ordenan los Meses
 	Meses = OrdenarVec(Meses)
 	Todo1.Fechas = Meses
@@ -492,17 +505,15 @@ func Estructurar() {
 				Graficar(*auxA, *auxM)
 				fmt.Println("Se creó calendario")
 				fmt.Println(auxM.Mes)
-				auxM = auxM.Siguiente
 				fmt.Println(auxA.Anio)
 			} else if Fecha != "" &&
-				Fecha == auxA.Anio+
-					"-"+auxM.Mes {
+				Fecha == auxA.Anio+"-"+auxM.Mes {
 				Graficar(*auxA, *auxM)
 				fmt.Println("Se creó calendario")
 				fmt.Println(auxM.Mes)
-				auxM = auxM.Siguiente
 				fmt.Println(auxA.Anio)
 			}
+			auxM = auxM.Siguiente
 		}
 		auxA = auxA.Siguiente
 		if auxA == nil {
@@ -511,7 +522,6 @@ func Estructurar() {
 			return
 		}
 	}
-	//}
 }
 
 func (ListaA *ListaA) Arbol() {
@@ -534,7 +544,6 @@ func Graficar(auxA YEAR, auxM MONTH) {
 	cadena := ""
 	cadena1 := ""
 	rankdir := "{ rank=same; "
-	//fmt.Println("\n INFO DE NODOS: \n")
 	for i := 0; i < len(auxM.Nodos); i++ {
 		a := strings.ReplaceAll(auxM.Nodos[i].Nombre, " ", "_")
 		//si es un nodo con cola

@@ -3,6 +3,7 @@ package ArbolB
 import (
 	"crypto/aes"
 	"crypto/cipher"
+	"crypto/sha256"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -227,7 +228,7 @@ func (this *Arbol) colocarNodo(nodo *Nodo, newKey *Key) int {
 					break
 				}
 			}
-			if placed == false {
+			if !placed {
 				nodo.Colocar(0, newKey)
 				nodo.Keys[1].Izquierdo = newKey.Derecho
 			}
@@ -286,7 +287,6 @@ func iniciarsesion(DPI string, password string) Usuario {
 	User := new(Usuario)
 	for i := 0; i < len(Users); i++ {
 		if strconv.Itoa(Users[i].Dpi) == DPI && Users[i].Password == password {
-			fmt.Println(Users[i])
 			SesionActual = Users[i].Dpi
 			*User = Users[i]
 			return Users[i]
@@ -297,16 +297,12 @@ func iniciarsesion(DPI string, password string) Usuario {
 
 func IniciarSesion(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("IniciarSesion")
-	fmt.Println("Usuarios: ", Users)
 	var usuario *Usuario1
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		fmt.Fprintf(w, "Datos Inválidos")
 	}
 	json.Unmarshal(reqBody, &usuario)
-	fmt.Println("Buscar:")
-	fmt.Println(usuario.Dpi)
-	fmt.Println(usuario.Password)
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(iniciarsesion(usuario.Dpi, usuario.Password))
 }
@@ -316,8 +312,6 @@ func Ggetusuario(DPI string) Usuario {
 	for i := 0; i < len(Users); i++ {
 		if strconv.Itoa(Users[i].Dpi) == DPI {
 			return Users[i]
-		} else {
-			fmt.Println(strconv.Itoa(Users[i].Dpi) + "!=" + DPI)
 		}
 	}
 	return *User
@@ -388,7 +382,6 @@ func registrar(Usuario Usuario) {
 
 func eliminar(DPI int) {
 	var Nuevo []Usuario
-	fmt.Println(DPI)
 	if Buscar(DPI) {
 		arbol := NewArbol(5)
 		for i := 0; i < len(Users); i++ {
@@ -411,31 +404,25 @@ var Dpis []int
 
 func Eliminar(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Registrar")
-	fmt.Println("Usuarios Antes: ", Users)
 	var usuario *Usuario
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		fmt.Fprintf(w, "Datos Inválidos")
 	}
 	json.Unmarshal(reqBody, &usuario)
-	fmt.Println(usuario)
 	eliminar(usuario.Dpi)
 	for i := 0; i < len(Users); i++ {
 		Dpis = append(Dpis, Users[i].Dpi)
 	}
-
 }
 
 func Registrar(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Registrar")
-	fmt.Println("Usuarios: ", Users)
 	var usuario *Usuario1
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		fmt.Fprintf(w, "Datos Inválidos")
 	}
 	json.Unmarshal(reqBody, &usuario)
-	fmt.Println(usuario)
 	User := new(Usuario)
 	DPI, err := strconv.Atoi(usuario.Dpi)
 	User.Dpi = DPI
@@ -461,6 +448,11 @@ func Encriptar(texto string) string {
 	}
 	ciphertext := aesgcm.Seal(nil, nonce, plaintext, nil)
 	return fmt.Sprintf("%x", ciphertext)
+}
+
+func EncripCont(texto string) string {
+	sum := sha256.Sum256([]byte(texto))
+	return fmt.Sprintf("%x", sum)
 }
 
 //------------------------------------------------------------------------------------------------Graficar
@@ -497,17 +489,20 @@ func graficar(actual *Nodo, cad *strings.Builder, arr map[string]*Nodo, padre *N
 					fmt.Fprintf(cad, "<f%d>%s|", j,
 						"DPI: "+strconv.Itoa(actual.Keys[i].DPI)+"\\n"+
 							"Nombre: "+actual.Keys[i].Nombre+"\\n"+
-							"Correo: "+actual.Keys[i].Correo)
+							"Correo: "+actual.Keys[i].Correo+"\\n"+
+							"Contraseña: "+actual.Keys[i].Contrasenia)
 				} else if modo == "Cif" {
 					fmt.Fprintf(cad, "<f%d>%s|", j,
 						"DPI: "+Encriptar(strconv.Itoa(actual.Keys[i].DPI))+"\\n"+
 							"Nombre: "+Encriptar(actual.Keys[i].Nombre)+"\\n"+
-							"Correo: "+Encriptar(actual.Keys[i].Correo))
+							"Correo: "+Encriptar(actual.Keys[i].Correo)+"\\n"+
+							"Contraseña: "+EncripCont(actual.Keys[i].Contrasenia))
 				} else {
 					fmt.Fprintf(cad, "<f%d>%s|", j,
 						"Nombre: "+actual.Keys[i].Nombre+"\\n"+
 							"DPI: "+Encriptar(strconv.Itoa(actual.Keys[i].DPI))+"\\n"+
-							"Correo: "+Encriptar(actual.Keys[i].Correo))
+							"Correo: "+Encriptar(actual.Keys[i].Correo)+"\\n"+
+							"Contraseña: "+EncripCont(actual.Keys[i].Contrasenia))
 				}
 				j++
 				enlace = true
@@ -548,7 +543,13 @@ func (this *Arbol) Graficar(modo string) {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println("ArbolB creado")
+	f.WriteString(builder.String())
+	if err != nil {
+		fmt.Println(err)
+		f.Close()
+		return
+	}
+	fmt.Println("Arbol B")
 	err = f.Close()
 	if err != nil {
 		fmt.Println(err)

@@ -25,6 +25,7 @@ export class TiendasComponent implements OnInit {
   NuevoPassword:string;
   NuevoCorreo:string;
   Contrasenia:string;
+  Nombre:string;
 
   constructor(private DatosService: DatosService,
     private route: ActivatedRoute,
@@ -50,8 +51,7 @@ export class TiendasComponent implements OnInit {
     }
     this.DatosService.GetUsuario(Busqueda).subscribe(Usuario => {
       this.Usuario = Usuario;
-      console.log("Datos")
-      console.log(Usuario.Dpi)
+      this.Nombre=Usuario.Nombre
         },
       error => {
         console.log(error);
@@ -67,10 +67,8 @@ export class TiendasComponent implements OnInit {
       Calificacion: Tienda.Calificacion
     }
     this.Arbol = Tienda.Nombre + "---" + Tienda.Departamento + "---" + Tienda.Calificacion + ".png"
-    console.log(Busqueda);
     this.DatosService.GetInventario(Busqueda).subscribe((dataList: any) => {
       this.Productos = dataList.Productos
-      console.log(dataList)
       this.Estado = "Productos"
     }, (err) => {
       console.log("No se pudo cargar inventario")
@@ -121,7 +119,7 @@ export class TiendasComponent implements OnInit {
 
   Eliminar(){
     if(this.Contrasenia===this.Usuario.Password){
-      alert("son iguales")
+      alert("Contraseña correcta")
       var Usuario:Usuario={
         Dpi:this.Usuario.Dpi,
         Nombre:this.Usuario.Nombre,
@@ -130,11 +128,7 @@ export class TiendasComponent implements OnInit {
         Cuenta:"Usuario"
       }
       this.DatosService.Eliminar(Usuario).subscribe(() => {
-        //this.DatosService.ActAnonimo(Usuario).subscribe(() => {
           window.location.href="/"
-        //}, (err) => {
-          //console.log("Ocurrio un error")
-        //})
       }, (err) => {
         console.log("Ocurrio un error")
       })

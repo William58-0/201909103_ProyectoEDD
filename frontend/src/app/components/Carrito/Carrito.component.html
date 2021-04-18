@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #216da3; color:white">
-  <a class="navbar-brand" routerLink="/" class="fas fa-home" style="color:white; font-size: large;"> Inicio</a>
+  <a class="navbar-brand" routerLink="/" class="fas fa-home" style="color:white; font-size: large;"> {{Nombre}}</a>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item"><a class="nav-link" (click)="ATiendas()" style="color:white"><i class="fas fa-box"></i><span>
+      <li class="nav-item"><a class="nav-link" (click)="ATiendas()" style="color:white"><i class="fas fa-store"></i><span>
             Seguir Comprando</span></a></li>
     </ul>
   </div>
@@ -55,6 +55,9 @@
 
   <nav class="navbar navbar-expand-lg navbar-light" style="color:white">
     <div class="collapse navbar-collapse" id="navbarNav">
+      <button class="btn btn-info" (click)="Estado='Carrito'" style="margin: auto;">
+        <i>Regresar</i>
+      </button>
         <button class="btn btn-info" (click)="GrafoInicial()" style="margin: auto;">
           <i>Grafo Inicial</i>
         </button>
@@ -70,7 +73,7 @@
 
   <div id="wrapper">
   <div class="navbar navbar-dark align-items-start sidebar-dark bg-gradient-primary p-0"
-    style="float:left">
+    style="float:left; max-width: 25%;">
     <div class="container-fluid d-flex flex-column p-0"><a
         class="navbar-brand d-flex justify-content-center align-items-center">
         <div class="sidebar-brand-text mx-3"><span>
@@ -93,9 +96,9 @@
       style="margin: auto; background-color: #4884af; margin-top: 1%; border-radius: 2%; color:white">
       <h1>Recorrido</h1>
       <table class="table table-sm table-hover" style="border-radius: 2%;">
-        <tbody class="tblbody">
+        <tbody class="tblbodyy">
+          <th>Peso Acum</th>
           <th>Recorrido</th>
-          <th>Distancia</th>
           <tr>
             <td style="text-align: center;">{{Distancia}}</td>
             <td style="text-align: center;">{{Recorrido}}</td>
@@ -104,32 +107,24 @@
       </table>
       <h1>Recogidos</h1>
       <table class="table table-sm table-hover" style="border-radius: 2%;">
-        <tbody class="tblbody">
+        <tbody class="tblbodyy">
           <th>Codigo</th>
-          <th>Fecha</th>
           <th>Almacen</th>
-          <th>Usuario</th>
           <tr *ngFor="let prod of Recogidos">
             <td style="text-align: center;">{{prod.Codigo}}</td>
-            <td style="text-align: center;">{{prod.Fecha}}</td>
             <td style="text-align: center;">{{prod.Almacenamiento}}</td>
-            <td style="text-align: center;">{{prod.Tienda}}</td>
           </tr>
         </tbody>
       </table>
       <div *ngIf="TipoGrafo==='Pasos'">
     <h1>Pendientes</h1>
     <table class="table table-sm table-hover" style="border-radius: 2%;">
-      <tbody class="tblbody">
+      <tbody class="tblbodyy">
         <th>Codigo</th>
-        <th>Fecha</th>
         <th>Almacen</th>
-        <th>Usuario</th>
         <tr *ngFor="let prod of Pendientes">
           <td style="text-align: center;">{{prod.Codigo}}</td>
-          <td style="text-align: center;">{{prod.Fecha}}</td>
           <td style="text-align: center;">{{prod.Almacenamiento}}</td>
-          <td style="text-align: center;">{{prod.Tienda}}</td>
         </tr>
       </tbody>
     </table>

@@ -22,7 +22,6 @@ export class LoginComponent implements OnInit {
   constructor(private DatosService: DatosService,
     private sanitizer:DomSanitizer) {
     this.Estado = "Login"
-
   }
 
   IniciarSesion() {

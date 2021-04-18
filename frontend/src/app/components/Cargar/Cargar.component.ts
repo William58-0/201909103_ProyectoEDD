@@ -36,7 +36,6 @@ export class CargarComponent implements OnInit {
     }
     this.DatosService.GetUsuario(Busqueda).subscribe(data => {
       this.Usuario = data;
-      console.log(data)
       this.Nombre=data.Nombre
     },
       error => {
@@ -49,7 +48,7 @@ export class CargarComponent implements OnInit {
     const reader=new FileReader();
     reader.onload=(e)=>{
       const data =reader.result!.toString().trim();
-      console.log(data)
+      //console.log(data)
     }
     reader.readAsText(this.FileTiendas)
     this.DatosService.LoadTiendas(this.FileTiendas).subscribe(() => {
@@ -63,7 +62,7 @@ export class CargarComponent implements OnInit {
     const reader=new FileReader();
     reader.onload=(e)=>{
       const data =reader.result!.toString().trim();
-      console.log(data)
+      //console.log(data)
     }
     reader.readAsText(this.FileInventario)
     this.DatosService.LoadInventario(this.FileInventario).subscribe(() => {
@@ -77,7 +76,7 @@ export class CargarComponent implements OnInit {
     const reader=new FileReader();
     reader.onload=(e)=>{
       const data =reader.result!.toString().trim();
-      console.log(data)
+      //console.log(data)
     }
     reader.readAsText(this.FilePedidos)
     this.DatosService.LoadFechas(this.FilePedidos).subscribe(() => {
@@ -91,7 +90,7 @@ export class CargarComponent implements OnInit {
     const reader=new FileReader();
     reader.onload=(e)=>{
       const data =reader.result!.toString().trim();
-      console.log(data)
+      //console.log(data)
     }
     reader.readAsText(this.FileUsuarios)
     this.DatosService.LoadUsuarios(this.FileUsuarios).subscribe(() => {
@@ -105,7 +104,7 @@ export class CargarComponent implements OnInit {
     const reader=new FileReader();
     reader.onload=(e)=>{
       const data =reader.result!.toString().trim();
-      console.log(data)
+      //console.log(data)
     }
     reader.readAsText(this.FileGrafo)
     this.DatosService.LoadGrafo(this.FileGrafo).subscribe(() => {

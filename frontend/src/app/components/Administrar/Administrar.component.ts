@@ -38,7 +38,7 @@ export class AdministrarComponent implements OnInit {
   Recogidos: Producto[] = []
   Recorrido: string = ""
   Distancia: number = 0
-  Usuarios: Usuario[] = []
+  Usuarios: number[] = []
 
 
   constructor(private DatosService: DatosService,
@@ -46,7 +46,6 @@ export class AdministrarComponent implements OnInit {
     private router: Router) {
     this.DatosService.GetFechas().subscribe((dataList: any) => {
       this.Fechas = dataList.Fechas
-      console.log(dataList)
       this.Calendario = this.Fechas[0]
       this.Estado = "Grafos"
       this.Valido = false
@@ -55,7 +54,6 @@ export class AdministrarComponent implements OnInit {
     })
     this.DatosService.GetPedidos().subscribe((dataList: any) => {
       this.Productos = dataList.Productos
-      console.log(dataList)
       this.Calendario = this.Fechas[0]
       this.Mostrar = this.Filtrar(this.Productos)
     }, (err) => {
@@ -63,15 +61,11 @@ export class AdministrarComponent implements OnInit {
     })
     this.DatosService.GetRecorrido().subscribe((dataList: any) => {
       this.Pasos = dataList.Pasos
-      console.log(dataList)
-      //console.log(this.Productos[0])>
     }, (err) => {
       console.log("error")
     })
     this.DatosService.GetUsuarios().subscribe((dataList: any) => {
       this.Usuarios = dataList
-      console.log(dataList)
-      //console.log(this.Productos[0])>
     }, (err) => {
       console.log("error")
     })
@@ -99,7 +93,6 @@ export class AdministrarComponent implements OnInit {
     }
     this.DatosService.GetUsuario(Busqueda).subscribe(data => {
       this.Usuario = data;
-      console.log(data)
       this.Nombre = data.Nombre;
       this.Valido = false
     },
@@ -141,6 +134,8 @@ export class AdministrarComponent implements OnInit {
 
   Aarbolcuentas() {
     this.Estado = "ArbolCuentas"
+    this.Valido=false;
+
   }
 
   Amatrizlinealizada() {
@@ -181,7 +176,6 @@ export class AdministrarComponent implements OnInit {
 
   AvanzarVec() {
     this.NVec++
-
   }
 
   RetrocederVec() {
@@ -273,16 +267,12 @@ export class AdministrarComponent implements OnInit {
   GenerarRecorrido(Productos: Producto[]) {
     this.DatosService.GenerarRecorrido(Productos).subscribe(Pasos => {
       this.Pasos = Pasos.Pasos;
-      console.log(Pasos)
     },
       error => {
         console.log(error);
       })
   }
 
-  Prueba() {
-    console.log(this.Usuarios)
-  }
 
 
 }

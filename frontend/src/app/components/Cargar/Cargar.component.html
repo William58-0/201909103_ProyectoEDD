@@ -1,14 +1,13 @@
 <ng-container *ngIf="Estado==='Cargar'">
-
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #216da3; color:white">
         <!--<a class="navbar-brand" routerLink="/" class="fas fa-home" style="color:white; font-size: large;"> Inicio</a>-->
-        <a class="fas fa-home" style="color:white; font-size: large;">{{Nombre}} </a>
+        <a class="fas fa-home" style="color:white; font-size: large;"> {{Nombre}} </a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" (click)="AReportes()" style="color:white"><i
                             class="fas fa-clipboard-check"></i><span> Reportes</span></a></li>
                 <li class="nav-item"><a class="nav-link" href="/" style="color:white"><i
-                            class="fas fa-clipboard-check"></i><span> Salir</span></a></li>
+                            class="fas fa-sign-out-alt"></i><span> Salir</span></a></li>
             </ul>
         </div>
     </nav>

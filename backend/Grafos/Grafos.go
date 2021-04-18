@@ -88,10 +88,10 @@ func GrafoInicial(w http.ResponseWriter, r *http.Request) {
 	for i := 0; i < len(Nodes); i++ {
 		if Nodes[i].Nombre != Data.PosicionInicialRobot && Nodes[i].Nombre != Data.Entrega {
 			cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") +
-				" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"blue\"];\n"
+				" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"darkturquoise\"];\n"
 		} else if Nodes[i].Nombre == Data.PosicionInicialRobot {
 			cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") +
-				" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"red\"];\n"
+				" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"salmon\"];\n"
 		} else if Nodes[i].Nombre == Data.Entrega {
 			cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") +
 				" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"green\"];\n"
@@ -296,11 +296,11 @@ func Trayectoria(Ruta Ruta) {
 					Nodes[i].Nombre != Data.Entrega &&
 					Nodes[i].Nombre != Ruta.Anteriores[k] {
 					cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") +
-						" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"blue\"];\n"
+						" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"darkturquoise\"];\n"
 				} else if Nodes[i].Nombre == Data.PosicionInicialRobot &&
 					Nodes[i].Nombre != Ruta.Anteriores[k] {
 					cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") +
-						" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"red\"];\n"
+						" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"salmon\"];\n"
 				} else if Nodes[i].Nombre == Data.Entrega &&
 					Nodes[i].Nombre != Ruta.Anteriores[k] {
 					cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") +
@@ -432,12 +432,22 @@ func Llevar(Almacenamiento string) {
 func EvaluarCaminos(Actual string) {
 	if sepudo {
 		if len(AlmaPendientes) == 0 {
-			fmt.Println("----------------------------Ir al despacho")
 			if !Entregado {
-				AlmaPendientes = append(AlmaPendientes, Data.Entrega)
-				Trayectoria(CaminoMasCorto(Actual, Data.Entrega))
-				RecorridoCompleto(Recorrido)
+				fmt.Println("----------------------------Ir al despacho")
+				if Actual != Data.Entrega {
+					AlmaPendientes = append(AlmaPendientes, Data.Entrega)
+					Trayectoria(CaminoMasCorto(Actual, Data.Entrega))
+				}
 				Entregado = true
+			}
+			if !Finalizado {
+				fmt.Println("----------------------------Ir a posicion inicial")
+				if Actual != Data.PosicionInicialRobot {
+					AlmaPendientes = append(AlmaPendientes, Data.PosicionInicialRobot)
+					Trayectoria(CaminoMasCorto(Data.Entrega, Data.PosicionInicialRobot))
+				}
+				RecorridoCompleto(Recorrido)
+				Finalizado = true
 				return
 			}
 		}
@@ -465,8 +475,8 @@ func EvaluarCaminos(Actual string) {
 					Destino = AlmaPendientes[i]
 				}
 			}
-		} else {
-			Destino = Data.Entrega
+		} else if !Finalizado {
+			Destino = Data.PosicionInicialRobot
 			//fmt.Println("Algo raro pasó")
 		}
 		Cam := CaminoMasCorto(Actual, Destino)
@@ -519,9 +529,11 @@ type Todo struct {
 
 var Todo1 Todo
 var Entregado bool
+var Finalizado bool
 
 func GenerarRecorrido(w http.ResponseWriter, r *http.Request) {
 	Entregado = false
+	Finalizado = false
 	var productos []AVL.Producto1
 	Todo1 = *new(Todo)
 	reqBody, err := ioutil.ReadAll(r.Body)
@@ -600,13 +612,13 @@ func TrayectoriaCompleta(Ruta Ruta) {
 						" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"yellow\"];\n"
 				} else if Nodes[i].Nombre == Data.PosicionInicialRobot {
 					cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") +
-						" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"red\"];\n"
+						" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"salmon\"];\n"
 				} else if Nodes[i].Nombre == Data.Entrega {
 					cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") +
 						" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"green\"];\n"
 				} else {
 					cadena += strings.ReplaceAll(Nodes[i].Nombre, " ", "_") +
-						" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"blue\"];\n"
+						" [label=\"" + Nodes[i].Nombre + "\" fillcolor=\"darkturquoise\"];\n"
 				}
 				for j := 0; j < len(Nodes[i].Enlaces); j++ {
 					if (strings.Contains(Recorrido, Nodes[i].Nombre+" --> "+Nodes[i].Enlaces[j].Nombre) ||

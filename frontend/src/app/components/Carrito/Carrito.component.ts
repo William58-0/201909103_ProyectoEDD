@@ -15,6 +15,7 @@ export class CarritoComponent implements OnInit {
   Productos: Producto[] = []
   Usuario: Usuario;
   Estado: string;
+  Nombre:string;
   //Para el recorrido
   Grafo: string="GrafoInicial";
   NumeroPaso: number;
@@ -26,6 +27,7 @@ export class CarritoComponent implements OnInit {
   Recogidos: Producto[] = []
   Recorrido: string = ""
   Distancia: number = 0
+  Usuarios: number[] = []
 
   constructor(private DatosService: DatosService,
     private route: ActivatedRoute,
@@ -45,6 +47,11 @@ export class CarritoComponent implements OnInit {
     }, (err) => {
       console.log("error")
     })
+    this.DatosService.GetUsuarios().subscribe((dataList: any) => {
+      this.Usuarios = dataList
+    }, (err) => {
+      console.log("error")
+    })
   }
 
   ngOnInit(): void {
@@ -57,14 +64,8 @@ export class CarritoComponent implements OnInit {
     }
     this.DatosService.GetUsuario(Busqueda).subscribe(Usuario => {
       this.Usuario = Usuario;
-      console.log(Usuario)
-      /*
-      if (data.Usuario != null) {
+      this.Nombre=Usuario.Nombre
 
-      } else {
-        alert("No existe usuario")
-      }
-      */
     },
       error => {
         console.log(error);
@@ -103,7 +104,7 @@ export class CarritoComponent implements OnInit {
   GenerarRecorrido(Productos: Producto[]) {
     this.DatosService.GenerarRecorrido(Productos).subscribe(Pasos => {
       this.Pasos = Pasos.Pasos;
-      console.log(Pasos)
+      //console.log(Pasos)
     },
       error => {
         console.log(error);
@@ -160,12 +161,5 @@ RecorridoCompleto(){
   this.TipoGrafo="Recorrido Completo"
   this.Grafo="RecorridoCompleto"
 }
-
-
-
-
-  Prueba(){
-
-  }
 
 }

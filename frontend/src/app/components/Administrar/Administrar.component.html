@@ -1,11 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #216da3; color:white">
   <!--<a class="navbar-brand" routerLink="/" class="fas fa-home" style="color:white; font-size: large;"> Inicio</a>-->
-  <a class="fas fa-home" style="color:white; font-size: large;">{{Nombre}} </a>
+  <a class="fas fa-home" style="color:white; font-size: large;"> {{Nombre}} </a>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item"><a class="nav-link" (click)="ADatosCuentas()" style="color:white"><i
             class="fas fa-user-circle"></i><span> Cargar Datos</span></a></li>
-      <li class="nav-item"><a class="nav-link" href="/" style="color:white"><i class="fas fa-user-circle"></i><span>
+      <li class="nav-item"><a class="nav-link" href="/" style="color:white"><i class="fas fa-sign-out-alt"></i><span>
             Salir</span></a></li>
     </ul>
   </div>
@@ -15,6 +15,9 @@
   <div class="collapse navbar-collapse" id="navbarNav">
       <button class="btn btn-info" (click)="Agrafos()" style="margin: auto;">
         <i>Grafos</i>
+      </button>
+      <button class="btn btn-info" (click)="Aarbolcuentas()" style="margin: auto;">
+        <i>Arbol de Cuentas</i>
       </button>
       <button class="btn btn-info" (click)="Amatrizlinealizada()" style="margin: auto;">
         <i>Matriz Linealizada</i>
@@ -28,9 +31,6 @@
       <button class="btn btn-info" (click)="Aarbol()" style="margin: auto;">
         <i>Arbol Años</i>
       </button>
-      <button class="btn btn-info" (click)="Aarbolcuentas()" style="margin: auto;">
-        <i>Arbol de Cuentas</i>
-      </button>
   </div>
 </nav>
 
@@ -41,7 +41,7 @@
   <ng-container *ngIf="Estado==='Calendarios'">
     <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
       style="float:left">
-      <div class="container-fluid d-flex flex-column p-0"><a
+      <div class="container-fluid d-flex flex-column p-0 "><a
           class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0">
           <div class="sidebar-brand-text mx-3"><span>Calendarios</span></div>
         </a>
@@ -84,7 +84,7 @@
 <!---------------------------------------------   GRAFOS  ------------------------------------------------->
     <ng-container *ngIf="Estado==='Grafos'">
       <div class="navbar navbar-dark align-items-start sidebar-dark bg-gradient-primary p-0"
-        style="float:left">
+        style="float:left; max-width: 25%;">
         <div class="container-fluid d-flex flex-column p-0"><a
             class="navbar-brand d-flex justify-content-center align-items-center">
             <div class="sidebar-brand-text mx-3"><span>
@@ -93,9 +93,6 @@
                 <div class="col">
                 <button class="btn btn-info" (click)="GenerarRecorrido(Productos)">
                 <i>Generar Recorrido</i>
-              </button>
-              <button class="btn btn-info" (click)="Prueba()">
-                <i>prueba</i>
               </button>
                   <div class="form-group"><label for="email"><strong>Grafo</strong></label>
                     <select class="form-control form-select" [(ngModel)]="TipoGrafo" name="TipoGrafo" (click)="CambiarTipoGrafo(TipoGrafo)" >
@@ -120,12 +117,13 @@
           </a>
           <div *ngIf="TipoGrafo!='Grafo Inicial'">
           <form      
-          style="margin: auto; background-color: #4884af; margin-top: 1%; border-radius: 2%; color:white">
+          style="margin: auto; background-color: #4884af; margin-top: 1%;
+           border-radius: 2%; color:white;">
           <h1>Recorrido</h1>
           <table class="table table-sm table-hover" style="border-radius: 2%;">
             <tbody class="tblbody">
+              <th>Peso Acum</th>
               <th>Recorrido</th>
-              <th>Distancia</th>
               <tr>
                 <td style="text-align: center;">{{Distancia}}</td>
                 <td style="text-align: center;">{{Recorrido}}</td>
