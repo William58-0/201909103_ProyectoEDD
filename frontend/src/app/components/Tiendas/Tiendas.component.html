@@ -49,14 +49,11 @@
   </div>
   <h1 style="color:white">{{Tienda}}</h1>
   <h2 style="color:white">Departamento: {{Departamento}}</h2>
-  <div class="row">
+  <div class="row" style="margin-left: 3%;">
     <ng-container *ngFor="let producto of Productos">
       <div class="Producto">
         <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
           {{producto.Nombre}}
-          <button class="btn btn-info" (click)="Comprar(producto)">
-            <i>Comprar</i>
-          </button>
         </div>
         <img class="imagen" [src]="producto.Imagen">
         <div class="card-body">
@@ -64,6 +61,15 @@
           {{producto.Descripcion}}<br><br>
           Cantidad: {{producto.Cantidad}}
         </div>
+        <div class="card-footer justify-content-between" style="margin: auto;">
+          <button class="btn btn-success" (click)="Comprar(producto)" style="float:left; margin-left:15%">
+            <i>Comprar</i>
+          </button>
+          <button class="btn btn-info" (click)="AComentarioP(producto)">
+            <i>Comentar</i>
+          </button>
+        </div>
+
       </div>
     </ng-container>
   </div>
@@ -106,9 +112,10 @@
 <!--------------------------------------------- COMENTARIOS --------------------------------------------->
 
 <div *ngIf="Estado==='Comentarios'">
-  <button class="btn btn-info" style="margin-top: 2%; margin-right: 1%;" (click)="probar()">
+  <!--<button class="btn btn-info" style="margin-top: 2%; margin-right: 1%;" (click)="probar()">
     <i>probar</i>
   </button>
+-->
   <div style="text-align: left; margin-top: 2%;">
     <button class="btn btn-primary" (click)="Regresar()">
       <i>Regresar</i>
@@ -163,7 +170,7 @@
             (click)="VerRespuestas(comentario, Comentarios, comentario.Subcomentarios)">
             <i>Ver Respuestas</i>
           </button>
-          <button class="btn btn-primary" style="margin-top: 2%;"
+          <button class="btn btn-success" style="margin-top: 2%;"
             (click)="Responder(comentario, comentario.Respuesta.value); comentario.Respuesta.value=''">
             <i>Responder</i>
           </button>
@@ -196,7 +203,7 @@
         class="form-control input-lg" rows=1 placeholder="Comentario" name="callback_0">
        </textarea>
       <div style="text-align: right;">
-        <button class="btn btn-primary" style="margin-top: 2%;" 
+        <button class="btn btn-success" style="margin-top: 2%;" 
         (click)="Responder(Anterior, Anterior.Respuesta.value); Anterior.Respuesta.value=''">
           <i>Responder</i>
         </button>
@@ -229,7 +236,7 @@
             (click)="VerRespuestas(comentario, Comentarios)">
             <i>Ver Respuestas</i>
           </button>
-          <button class="btn btn-primary" style="margin-top: 2%;"
+          <button class="btn btn-success" style="margin-top: 2%;"
             (click)="Responder(comentario, comentario.Respuesta.value); comentario.Respuesta.value=''">
             <i>Responder</i>
           </button>
