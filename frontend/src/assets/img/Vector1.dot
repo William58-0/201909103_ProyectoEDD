@@ -1,0 +1,22 @@
+digraph grafo{
+fontname="Verdana" color=red fontsize=22;
+node [shape=record fontsize=8 fontname="Verdana" style=filled];
+edge [color="blue"]
+subgraph cluster{
+label = "Vector";
+bgcolor="yellow:dodgerblue"
+Vector[label="<5>Posicion: 6\n Indice: A\n Categoria: Amazon Music\n Calificacion: 1|<6>Posicion: 7\n Indice: A\n Categoria: Amazon Music\n Calificacion: 2|<7>Posicion: 8\n Indice: A\n Categoria: Amazon Music\n Calificacion: 3|<8>Posicion: 9\n Indice: A\n Categoria: Amazon Music\n Calificacion: 4|<9>Posicion: 10\n Indice: A\n Categoria: Amazon Music\n Calificacion: 5",width=20, fillcolor="aquamarine:violet"];
+}
+621[label="Nombre: Aguilera, Oquendo y Ferrer Asociados \n Contacto: 913-939-715 \n Calificacion: Buena (2)", fillcolor="yellowgreen:aquamarine"];
+Vector:6->621[color=red]
+841[label="Nombre: Aranda, Aparicio y Navarro Asociados \n Contacto: 976-889-995 \n Calificacion: Excelente (4)", fillcolor="yellowgreen:aquamarine"];
+Vector:8->841[color=red]
+842->841
+841->842
+842[label="Nombre: Arredondo Duarte S.A. \n Contacto: 953-764-741 \n Calificacion: Excelente (4)", fillcolor="yellowgreen:aquamarine"];
+843->842
+842->843
+843[label="Nombre: Arriaga y Dueñas \n Contacto: 901 644 965 \n Calificacion: Excelente (4)", fillcolor="yellowgreen:aquamarine"];
+951[label="Nombre: Arias, Lucio y Martínez Asociados \n Contacto: 912-150-202 \n Calificacion: Magnifica (5)", fillcolor="yellowgreen:aquamarine"];
+Vector:9->951[color=red]
+}

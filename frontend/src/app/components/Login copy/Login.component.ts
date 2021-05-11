@@ -19,14 +19,8 @@ export class LoginComponent implements OnInit {
   NuevoNombre:string;
   NuevoPassword:string;
   NuevoCorreo:string;
-  Comentarios1 = [
-    { Autor: 285, Texto: "Sistemas operativos 2", Subcomentarios: [], },
-    { Autor: 975, Texto: "Redes de computadoras 2", Subcomentarios: [], }
-    ];
-  Comentarios = [
-  { Autor: 285, Texto: "Sistemas operativos 2", Subcomentarios: this.Comentarios1, },
-  { Autor: 975, Texto: "Redes de computadoras 2", Subcomentarios: 4, }
-  ];
+
+
 
   constructor(private DatosService: DatosService,
     private sanitizer:DomSanitizer) {
@@ -96,3 +90,4 @@ export class LoginComponent implements OnInit {
   }
 
 }
+

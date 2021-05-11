@@ -1,0 +1,17 @@
+digraph grafo{
+fontname="Verdana" color=red fontsize=22;
+node [shape=record fontsize=8 fontname="Verdana" style=filled];
+edge [color="blue"]
+subgraph cluster{
+label = "Vector";
+bgcolor="yellow:dodgerblue"
+Vector[label="<10>Posicion: 11\n Indice: B\n Categoria: GPS y navegacion\n Calificacion: 1|<11>Posicion: 12\n Indice: B\n Categoria: GPS y navegacion\n Calificacion: 2|<12>Posicion: 13\n Indice: B\n Categoria: GPS y navegacion\n Calificacion: 3|<13>Posicion: 14\n Indice: B\n Categoria: GPS y navegacion\n Calificacion: 4|<14>Posicion: 15\n Indice: B\n Categoria: GPS y navegacion\n Calificacion: 5",width=20, fillcolor="aquamarine:violet"];
+}
+1011[label="Nombre: Banda e Hijos \n Contacto: 979 660 008 \n Calificacion: Regular (1)", fillcolor="yellowgreen:aquamarine"];
+Vector:10->1011[color=red]
+1231[label="Nombre: Baca Jasso S.L. \n Contacto: 982752937 \n Calificacion: Muy Buena (3)", fillcolor="yellowgreen:aquamarine"];
+Vector:12->1231[color=red]
+1232->1231
+1231->1232
+1232[label="Nombre: Bernal, Pelayo y Delafuente Asociados \n Contacto: 942-486-431 \n Calificacion: Muy Buena (3)", fillcolor="yellowgreen:aquamarine"];
+}

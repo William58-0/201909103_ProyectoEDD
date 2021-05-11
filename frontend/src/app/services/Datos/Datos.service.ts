@@ -199,5 +199,23 @@ export class DatosService {
     return this.http.post<any>(baseURL + 'ActAnonimo', Usuario, httpOptions);
   }
 
+  SendComentario(Comentario):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post<any>(baseURL + 'SendComentario', Comentario, httpOptions);
+  }
+
+  GetComentarios():Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.get<any>(baseURL + 'GetComentarios', httpOptions);
+  }
+
 
 }

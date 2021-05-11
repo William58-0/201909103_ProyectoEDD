@@ -1,0 +1,57 @@
+digraph G{
+node [shape=circle style=filled];
+"0xc000006030"[label="Sin marca Soft Toallas
+245" fillcolor=aquamarine];
+"0xc000006030" -> "0xc0001844e0";
+"0xc000006030" -> "0xc0001844e8";
+"0xc0001844e0"[label="Fantástico Granito Auto
+239" fillcolor=aquamarine];
+"0xc0001844e0" -> "0xc0001848a0";
+"0xc0001844e0" -> "0xc0001848a8";
+"0xc0001848a0"[label="Refinado Fresco Ensalada
+237" fillcolor=aquamarine];
+"0xc0001848a0" -> "0xc000184f80";
+"0xc0001848a0" -> "0xc000184f88";
+"0xc000184f80"[label="Fantástico Madera Bike
+235" fillcolor=aquamarine];
+"0xc000184f80" -> "0xc000185700";
+"0xc000184f80" -> "0xc000185708";
+"0xc000185700"[label="Práctica Granito Camisa
+234" fillcolor=aquamarine];
+"0xc000185708"[label="Genérica Plástico Pantalones
+236" fillcolor=aquamarine];
+"0xc000184f88"[label="Gorgeous Madera Toallas
+238" fillcolor=aquamarine];
+"0xc0001848a8"[label="Inteligente Cotton Tocino
+243" fillcolor=aquamarine];
+"0xc0001848a8" -> "0xc000184da0";
+"0xc0001848a8" -> "0xc000184da8";
+"0xc000184da0"[label="Refinado Hormigón Pelota
+241" fillcolor=aquamarine];
+"0xc000184da0" -> "0xc0001849e0";
+"0xc000184da0" -> "0xc0001849e8";
+"0xc0001849e0"[label="Rústico Caucho Pizza
+240" fillcolor=aquamarine];
+"0xc0001849e8"[label="Artesanal Fresco Zapatos
+242" fillcolor=aquamarine];
+"0xc000184da8"[label="Inteligente Plástico Embutidos
+244" fillcolor=aquamarine];
+"0xc0001844e8"[label="Fantástico Acero Mesa
+248" fillcolor=aquamarine];
+"0xc0001844e8" -> "0xc000184bc0";
+"0xc0001844e8" -> "0xc000184bc8";
+"0xc000184bc0"[label="Pequeño Caucho Ratón
+247" fillcolor=aquamarine];
+"0xc000184bc0" -> "0xc000184120";
+"0xc000184120"[label="Increíble Acero Toallas
+246" fillcolor=aquamarine];
+"0xc000184bc8"[label="Pequeño Frozen Ensalada
+250" fillcolor=aquamarine];
+"0xc000184bc8" -> "0xc000185e80";
+"0xc000184bc8" -> "0xc000185e88";
+"0xc000185e80"[label="Fantástico Frozen Mesa
+249" fillcolor=aquamarine];
+"0xc000185e88"[label="Refinado Frozen Pizza
+251" fillcolor=aquamarine];
+
+}

@@ -17,6 +17,7 @@ import (
 	"./Estructuras"
 	"./Grafos"
 	"./MatrizDispersa"
+	"./TablaHash"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
@@ -425,6 +426,9 @@ func main() {
 	router.HandleFunc("/GenerarRecorrido", Grafos.GenerarRecorrido).Methods("POST")
 	router.HandleFunc("/GetRecorrido", Grafos.GetRecorrido).Methods("GET")
 	router.HandleFunc("/GetUsuarios", ArbolB.GetUsuarios).Methods("GET")
+	//-------------------------------------------------------------------FASE 4
+	router.HandleFunc("/SendComentario", TablaHash.SendComentario).Methods("POST")
+	router.HandleFunc("/GetComentarios", TablaHash.GetComentarios).Methods("GET")
 
 	log.Fatal(http.ListenAndServe(":3000", handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(router)))
 }

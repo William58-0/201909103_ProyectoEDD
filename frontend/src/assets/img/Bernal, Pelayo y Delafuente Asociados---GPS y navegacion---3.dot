@@ -1,0 +1,57 @@
+digraph G{
+node [shape=circle style=filled];
+"0xc0000d2020"[label="Increíble Metal Ratón
+246" fillcolor=aquamarine];
+"0xc0000d2020" -> "0xc0000617a0";
+"0xc0000d2020" -> "0xc0000617a8";
+"0xc0000617a0"[label="Licencia Soft Toallas
+242" fillcolor=aquamarine];
+"0xc0000617a0" -> "0xc000061a20";
+"0xc0000617a0" -> "0xc000061a28";
+"0xc000061a20"[label="Sin marca Acero Sombrero
+240" fillcolor=aquamarine];
+"0xc000061a20" -> "0xc0001a4260";
+"0xc000061a20" -> "0xc0001a4268";
+"0xc0001a4260"[label="Licencia Caucho Jabón
+239" fillcolor=aquamarine];
+"0xc0001a4268"[label="Inteligente Soft Mesa
+241" fillcolor=aquamarine];
+"0xc000061a28"[label="Práctica Caucho Bike
+244" fillcolor=aquamarine];
+"0xc000061a28" -> "0xc000061660";
+"0xc000061a28" -> "0xc000061668";
+"0xc000061660"[label="Refinado Cotton Pelota
+243" fillcolor=aquamarine];
+"0xc000061668"[label="Pequeño Granito Embutidos
+245" fillcolor=aquamarine];
+"0xc0000617a8"[label="Licencia Granito Presidente
+252" fillcolor=aquamarine];
+"0xc0000617a8" -> "0xc000061700";
+"0xc0000617a8" -> "0xc000061708";
+"0xc000061700"[label="Rústico Granito Tuna
+249" fillcolor=aquamarine];
+"0xc000061700" -> "0xc000061de0";
+"0xc000061700" -> "0xc000061de8";
+"0xc000061de0"[label="Inteligente Frozen Pizza
+248" fillcolor=aquamarine];
+"0xc000061de0" -> "0xc000061ac0";
+"0xc000061ac0"[label="Hecho a mano Caucho Ensalada
+247" fillcolor=aquamarine];
+"0xc000061de8"[label="Práctica Madera Ensalada
+251" fillcolor=aquamarine];
+"0xc000061de8" -> "0xc0000618e0";
+"0xc0000618e0"[label="Increíble Hormigón Teclado
+250" fillcolor=aquamarine];
+"0xc000061708"[label="Pequeño Caucho Ensalada
+255" fillcolor=aquamarine];
+"0xc000061708" -> "0xc000061b60";
+"0xc000061708" -> "0xc000061b68";
+"0xc000061b60"[label="Pequeño Plástico Pescado
+253" fillcolor=aquamarine];
+"0xc000061b60" -> "0xc000061848";
+"0xc000061848"[label="Licencia Metal Mesa
+254" fillcolor=aquamarine];
+"0xc000061b68"[label="Fantástico Cotton Mesa
+256" fillcolor=aquamarine];
+
+}

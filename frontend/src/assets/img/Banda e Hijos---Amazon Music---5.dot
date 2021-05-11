@@ -1,0 +1,54 @@
+digraph G{
+node [shape=circle style=filled];
+"0xc000006030"[label="Inteligente Madera Toallas
+224" fillcolor=aquamarine];
+"0xc000006030" -> "0xc000184f80";
+"0xc000006030" -> "0xc000184f88";
+"0xc000184f80"[label="Gorgeous Madera Sombrero
+220" fillcolor=aquamarine];
+"0xc000184f80" -> "0xc000184bc0";
+"0xc000184f80" -> "0xc000184bc8";
+"0xc000184bc0"[label="Hecho a mano Caucho Teclado
+217" fillcolor=aquamarine];
+"0xc000184bc0" -> "0xc0001849e0";
+"0xc000184bc0" -> "0xc0001849e8";
+"0xc0001849e0"[label="Sin marca Frozen Embutidos
+216" fillcolor=aquamarine];
+"0xc0001849e8"[label="Pequeño Frozen Pantalones
+218" fillcolor=aquamarine];
+"0xc0001849e8" -> "0xc000185ac8";
+"0xc000185ac8"[label="Artesanal Acero Camisa
+219" fillcolor=aquamarine];
+"0xc000184bc8"[label="Elegante Soft Teclado
+222" fillcolor=aquamarine];
+"0xc000184bc8" -> "0xc000185ca0";
+"0xc000184bc8" -> "0xc000185ca8";
+"0xc000185ca0"[label="Artesanal Frozen Zapatos
+221" fillcolor=aquamarine];
+"0xc000185ca8"[label="Gorgeous Cotton Zapatos
+223" fillcolor=aquamarine];
+"0xc000184f88"[label="Genérica Frozen Jabón
+228" fillcolor=aquamarine];
+"0xc000184f88" -> "0xc000184300";
+"0xc000184f88" -> "0xc000184308";
+"0xc000184300"[label="Increíble Granito Jabón
+226" fillcolor=aquamarine];
+"0xc000184300" -> "0xc000185520";
+"0xc000184300" -> "0xc000185528";
+"0xc000185520"[label="Sabrosa Frozen Camisa
+225" fillcolor=aquamarine];
+"0xc000185528"[label="Ergonómico Metal Camisa
+227" fillcolor=aquamarine];
+"0xc000184308"[label="Pequeño Fresco Pizza
+231" fillcolor=aquamarine];
+"0xc000184308" -> "0xc0001846c0";
+"0xc000184308" -> "0xc0001846c8";
+"0xc0001846c0"[label="Gorgeous Acero Pizza
+230" fillcolor=aquamarine];
+"0xc0001846c0" -> "0xc000185160";
+"0xc000185160"[label="Sin marca Cotton Ratón
+229" fillcolor=aquamarine];
+"0xc0001846c8"[label="Rústico Metal Pizza
+232" fillcolor=aquamarine];
+
+}

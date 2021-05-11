@@ -1,0 +1,36 @@
+digraph G{
+node [shape=circle style=filled];
+"0xc000006028"[label="Gorgeous Plástico Bike
+249" fillcolor=aquamarine];
+"0xc000006028" -> "0xc0001a4260";
+"0xc000006028" -> "0xc0001a4268";
+"0xc0001a4260"[label="Licencia Frozen Pantalones
+245" fillcolor=aquamarine];
+"0xc0001a4260" -> "0xc0001a4080";
+"0xc0001a4260" -> "0xc0001a4088";
+"0xc0001a4080"[label="Refinado Hormigón Zapatos
+244" fillcolor=aquamarine];
+"0xc0001a4080" -> "0xc0001a4620";
+"0xc0001a4620"[label="Sin marca Fresco Tocino
+243" fillcolor=aquamarine];
+"0xc0001a4088"[label="Fantástico Hormigón Auto
+247" fillcolor=aquamarine];
+"0xc0001a4088" -> "0xc0001a4800";
+"0xc0001a4088" -> "0xc0001a4808";
+"0xc0001a4800"[label="Refinado Madera Ensalada
+246" fillcolor=aquamarine];
+"0xc0001a4808"[label="Artesanal Fresco Guantes
+248" fillcolor=aquamarine];
+"0xc0001a4268"[label="Increíble Soft Bike
+251" fillcolor=aquamarine];
+"0xc0001a4268" -> "0xc0001a49e0";
+"0xc0001a4268" -> "0xc0001a49e8";
+"0xc0001a49e0"[label="Refinado Plástico Ensalada
+250" fillcolor=aquamarine];
+"0xc0001a49e8"[label="Elegante Acero Guantes
+253" fillcolor=aquamarine];
+"0xc0001a49e8" -> "0xc0001a4bc0";
+"0xc0001a4bc0"[label="Genérica Madera Auto
+252" fillcolor=aquamarine];
+
+}

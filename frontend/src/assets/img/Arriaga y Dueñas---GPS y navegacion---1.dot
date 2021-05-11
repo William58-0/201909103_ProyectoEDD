@@ -1,0 +1,57 @@
+digraph G{
+node [shape=circle style=filled];
+"0xc0000061e0"[label="Fantástico Fresco Toallas
+250" fillcolor=aquamarine];
+"0xc0000061e0" -> "0xc000061020";
+"0xc0000061e0" -> "0xc000061028";
+"0xc000061020"[label="Rústico Caucho Pescado
+244" fillcolor=aquamarine];
+"0xc000061020" -> "0xc0000610c0";
+"0xc000061020" -> "0xc0000610c8";
+"0xc0000610c0"[label="Sabrosa Hormigón Auto
+241" fillcolor=aquamarine];
+"0xc0000610c0" -> "0xc000060f80";
+"0xc0000610c0" -> "0xc000060f88";
+"0xc000060f80"[label="Fantástico Frozen Pantalones
+240" fillcolor=aquamarine];
+"0xc000060f88"[label="Sabrosa Hormigón Computadora
+243" fillcolor=aquamarine];
+"0xc000060f88" -> "0xc000061520";
+"0xc000061520"[label="Licencia Plástico Tuna
+242" fillcolor=aquamarine];
+"0xc0000610c8"[label="Increíble Acero Mesa
+248" fillcolor=aquamarine];
+"0xc0000610c8" -> "0xc000061200";
+"0xc0000610c8" -> "0xc000061208";
+"0xc000061200"[label="Artesanal Soft Computadora
+246" fillcolor=aquamarine];
+"0xc000061200" -> "0xc000061700";
+"0xc000061200" -> "0xc000061708";
+"0xc000061700"[label="Sin marca Granito Pantalones
+245" fillcolor=aquamarine];
+"0xc000061708"[label="Ergonómico Metal Teclado
+247" fillcolor=aquamarine];
+"0xc000061208"[label="Sabrosa Metal Ratón
+249" fillcolor=aquamarine];
+"0xc000061028"[label="Ergonómico Hormigón Computadora
+254" fillcolor=aquamarine];
+"0xc000061028" -> "0xc000061340";
+"0xc000061028" -> "0xc000061348";
+"0xc000061340"[label="Rústico Frozen Pelota
+252" fillcolor=aquamarine];
+"0xc000061340" -> "0xc000060da0";
+"0xc000061340" -> "0xc000060da8";
+"0xc000060da0"[label="Práctica Soft Sombrero
+251" fillcolor=aquamarine];
+"0xc000060da8"[label="Artesanal Cotton Ratón
+253" fillcolor=aquamarine];
+"0xc000061348"[label="Sabrosa Granito Pescado
+256" fillcolor=aquamarine];
+"0xc000061348" -> "0xc000060e40";
+"0xc000061348" -> "0xc000060e48";
+"0xc000060e40"[label="Fantástico Metal Queso
+255" fillcolor=aquamarine];
+"0xc000060e48"[label="Artesanal Caucho Tocino
+257" fillcolor=aquamarine];
+
+}

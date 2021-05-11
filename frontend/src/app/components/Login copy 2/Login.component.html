@@ -1,0 +1,109 @@
+<div>
+    <div style="text-align: left; margin-top: 2%;">
+        <button class="btn btn-primary" (click)="HacerCadenaRuta()">
+            <i>Regresar</i>
+        </button>
+    </div>
+    <h1 style="color:white;">Comentarios</h1><br><br>
+    <div *ngIf="pilaComentarios.length>1" style="max-width: 80%; text-align: left; margin: auto;">
+        <div style="text-align: left;">
+            <button class="btn btn-primary" (click)="Regresar()">
+                <i>Regresar</i>
+            </button>
+        </div>
+        <br>
+        <div class="card-header bg-dark text-white d-flex align-items-center"
+            style="color:white">
+            <img src="../../../assets/img/user.png" height="4%" width="4%" style="border-radius: 75%;">
+            <div style="margin-left: 1%;">
+                {{Anterior.Nombre}}
+            </div>
+        </div>
+
+        <div class="card-body" style="background-color: rgb(32, 108, 151); color: white;">
+            {{Anterior.Mensaje}}
+        </div>
+        <div class="card-footer" style="background-color: rgb(32, 108, 151); color: white;">
+            <textarea data-validator="required" data-validator-event="keyup" class="form-control input-lg" rows=1
+                placeholder="Comentario" name="callback_0" [(ngModel)]="Comentario">
+         </textarea>
+
+
+            <div style="text-align: right;">
+
+                <button class="btn btn-primary" style="margin-top: 2%;"
+                    (click)="VerRespuestas(comentario, Comentarios)">
+                    <i>Responder</i>
+                </button>
+            </div>
+        </div>
+        <br>
+    </div>
+
+    <div *ngIf="pilaComentarios.length==1" style="max-width: 80%; text-align: left; margin: auto;">
+        <div *ngFor="let comentario of Comentarios">
+            <div class="card-header bg-dark text-white d-flex align-items-center"
+                style="color:white; text-align: left;">
+                <img src="../../../assets/img/user.png" height="4%" width="4%" style="border-radius: 75%;">
+                <div style="margin-left: 1%;">
+                    {{comentario.Nombre}}
+                </div>
+            </div>
+
+            <div class="card-body" style="background-color: rgb(32, 108, 151); color: white;">
+                {{comentario.Mensaje}}
+            </div>
+
+            <div class="card-footer" style="background-color: rgb(32, 108, 151); color: white;">
+                <textarea data-validator="required" data-validator-event="keyup" class="form-control input-lg" rows=1
+                    placeholder="Comentario" name="callback_0" [(ngModel)]="Comentario">
+             </textarea>
+                <div style="text-align: right;">
+                    <button class="btn btn-info" style="margin-top: 2%; margin-right: 1%;"
+                        (click)="VerRespuestas(comentario, Comentarios, comentario.Subcomentarios)">
+                        <i>Ver Respuestas</i>
+                    </button>
+                    <button class="btn btn-primary" style="margin-top: 2%;"
+                        (click)="VerRespuestas(comentario, Comentarios, comentario.Subcomentarios)">
+                        <i>Responder</i>
+                    </button>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+
+    <div *ngIf="pilaComentarios.length>1" style="max-width: 70%; text-align: left; margin-left: 20%;">
+        <div *ngFor="let comentario of Comentarios">
+            <div class="card-header bg-dark text-white d-flex align-items-center"
+                style="color:white">
+                <img src="../../../assets/img/user.png" height="4%" width="4%" style="border-radius: 75%;">
+                <div style="margin-left: 1%;">
+                    {{comentario.Nombre}}
+                </div>
+            </div>
+
+            <div class="card-body" style="background-color: rgb(32, 108, 151); color: white;">
+                {{comentario.Mensaje}}
+            </div>
+
+            <div class="card-footer" style="background-color: rgb(32, 108, 151); color: white;">
+                <textarea data-validator="required" data-validator-event="keyup" class="form-control input-lg" rows=1
+                    placeholder="Comentario" name="callback_0" [(ngModel)]="Comentario">
+             </textarea>
+
+                <div style="text-align: right;">
+                    <button class="btn btn-info" style="margin-top: 2%; margin-right: 1%;"
+                        (click)="VerRespuestas(comentario, Comentarios)">
+                        <i>Ver Respuestas</i>
+                    </button>
+                    <button class="btn btn-primary" style="margin-top: 2%;"
+                        (click)="VerRespuestas(comentario, Comentarios)">
+                        <i>Responder</i>
+                    </button>
+                </div>
+            </div>
+            <br>
+
+        </div>
+    </div>

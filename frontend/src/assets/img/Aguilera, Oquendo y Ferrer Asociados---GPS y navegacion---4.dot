@@ -1,0 +1,51 @@
+digraph G{
+node [shape=circle style=filled];
+"0xc0000d2038"[label="Refinado Cotton Auto
+452" fillcolor=aquamarine];
+"0xc0000d2038" -> "0xc000060a80";
+"0xc0000d2038" -> "0xc000060a88";
+"0xc000060a80"[label="Fantástico Plástico Auto
+449" fillcolor=aquamarine];
+"0xc000060a80" -> "0xc000061c00";
+"0xc000060a80" -> "0xc000061c08";
+"0xc000061c00"[label="Inteligente Acero Computadora
+447" fillcolor=aquamarine];
+"0xc000061c00" -> "0xc000061980";
+"0xc000061c00" -> "0xc000061988";
+"0xc000061980"[label="Sin marca Cotton Presidente
+446" fillcolor=aquamarine];
+"0xc000061988"[label="Gorgeous Caucho Toallas
+448" fillcolor=aquamarine];
+"0xc000061c08"[label="Hecho a mano Fresco Teclado
+451" fillcolor=aquamarine];
+"0xc000061c08" -> "0xc000061ca0";
+"0xc000061ca0"[label="Rústico Plástico Queso
+450" fillcolor=aquamarine];
+"0xc000060a88"[label="Refinado Madera Ratón
+456" fillcolor=aquamarine];
+"0xc000060a88" -> "0xc000060080";
+"0xc000060a88" -> "0xc000060088";
+"0xc000060080"[label="Increíble Acero Teclado
+454" fillcolor=aquamarine];
+"0xc000060080" -> "0xc000061a20";
+"0xc000060080" -> "0xc000061a28";
+"0xc000061a20"[label="Sin marca Caucho Auto
+453" fillcolor=aquamarine];
+"0xc000061a28"[label="Refinado Soft Ratón
+455" fillcolor=aquamarine];
+"0xc000060088"[label="Sin marca Frozen Pantalones
+459" fillcolor=aquamarine];
+"0xc000060088" -> "0xc000061b60";
+"0xc000060088" -> "0xc000061b68";
+"0xc000061b60"[label="Sabrosa Granito Ratón
+458" fillcolor=aquamarine];
+"0xc000061b60" -> "0xc000060d00";
+"0xc000060d00"[label="Hecho a mano Madera Pelota
+457" fillcolor=aquamarine];
+"0xc000061b68"[label="Increíble Cotton Computadora
+461" fillcolor=aquamarine];
+"0xc000061b68" -> "0xc000061ac0";
+"0xc000061ac0"[label="Ergonómico Cotton Pescado
+460" fillcolor=aquamarine];
+
+}

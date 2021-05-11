@@ -135,18 +135,18 @@ type Ruta struct {
 
 var arr []Ruta
 
-func GetAllRutas(Siguiente string) []Ruta {
+func GetAllRutas(Primero, Siguiente string) []Ruta {
 	arr = nil
 	for i := 0; i < len(Rutas); i++ {
-		if Rutas[i].Actual == Siguiente {
+		if Rutas[i].Actual == Siguiente && Rutas[i].Anteriores[0] == Primero {
 			arr = append(arr, Rutas[i])
 		}
 	}
 	return arr
 }
 
-func GetRuta(Siguiente string) Ruta {
-	arr = GetAllRutas(Siguiente)
+func GetRuta(Primero, Siguiente string) Ruta {
+	arr = GetAllRutas(Primero, Siguiente)
 	Ruta := new(Ruta)
 	if len(arr) != 0 {
 		menor := arr[0].Recorrido
@@ -160,11 +160,11 @@ func GetRuta(Siguiente string) Ruta {
 	return *Ruta
 }
 
-func Camino(Actual string) {
+func Camino(Primero, Actual string) {
 	if sepudo {
 		for i := 0; i < len(Enlaces); i++ {
 			if Enlaces[i].Nodo1 == Actual {
-				Route := GetRuta(Enlaces[i].Nodo1)
+				Route := GetRuta(Primero, Enlaces[i].Nodo1)
 				var arr = Route.Anteriores
 				arr = append(arr, Actual)
 				Ruta := new(Ruta)
@@ -195,16 +195,15 @@ func CaminoMasCorto(Inicial, Final string) Ruta {
 		fmt.Println("No se puede ir de Inicial a Inicial")
 		return *Route
 	}
-	Camino(Inicial)
-	for k := 0; k < 5; k++ {
+	Camino(Inicial, Inicial)
+	for k := 0; k < 50; k++ {
 		for i := 0; i < len(Nodes); i++ {
-			if Nodes[i].Nombre != Inicial &&
-				Nodes[i].Nombre != Final {
-				Camino(Nodes[i].Nombre)
+			if Nodes[i].Nombre != Inicial {
+				Camino(Inicial, Nodes[i].Nombre)
 			}
 		}
 	}
-	Camino(Final)
+	Camino(Inicial, Final)
 	var Repuesto = Rutas
 	if len(Rutas) == 0 {
 		fmt.Println("finnn")
@@ -231,7 +230,7 @@ func CaminoMasCorto(Inicial, Final string) Ruta {
 		for i := 0; i < len(arr); i++ {
 			for j := 0; j < len(arr[i].Anteriores); j++ {
 				fmt.Println("Getting Rutas: " + arr[i].Anteriores[j])
-				arr3 := GetAllRutas(arr[i].Anteriores[j])
+				arr3 := GetAllRutas(Inicial, arr[i].Anteriores[j])
 				for k := 0; k < len(arr3); k++ {
 					if arr3[k].Anteriores[0] == Inicial {
 						arr4 = append(arr4, arr3[k])
