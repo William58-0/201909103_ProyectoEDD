@@ -1,10 +1,13 @@
 package MatrizDispersa
 
 import (
+	"container/list"
+	"crypto/sha256"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
+	"math"
 	"net/http"
 	"os"
 	"os/exec"
@@ -234,6 +237,7 @@ var Leido bool
 var Inicial []Producto
 
 func Leer(w http.ResponseWriter, r *http.Request) {
+	ArbolMerkle := NewArbolMerkle()
 	fmt.Println("Leer")
 	Leido = false
 	Fecha = ""
@@ -249,7 +253,10 @@ func Leer(w http.ResponseWriter, r *http.Request) {
 	Meses = nil
 	//Enlistar solo Productos
 	for i := 0; i < len(c.Pedidos); i++ {
-		//fmt.Println(strconv.Itoa(i))
+		//----------------------------------------------------------------------------------- Insercion a Merkle
+		//-------------------------------------------------------------- HASH: FECHA + TIENDA + CLIENTE
+		hash := Hash(c.Pedidos[i].Fecha + c.Pedidos[i].Tienda + strconv.Itoa(c.Pedidos[i].Cliente))
+		ArbolMerkle.Insertar(Hash(hash), c.Pedidos[i].Fecha, c.Pedidos[i].Tienda, c.Pedidos[i].Cliente)
 		for j := 0; j < len(c.Pedidos[i].Productos); j++ {
 			//Produc := c.Pedidos[i].Productos[j]
 			if !AVL.ExisteProducto(c.Pedidos[i].Productos[j].Codigo) {
@@ -291,6 +298,7 @@ func Leer(w http.ResponseWriter, r *http.Request) {
 	Pedd1.Productos = Productos
 	if !Leido {
 		Estructurar()
+		ArbolMerkle.GraficarMerkle()
 	}
 }
 
@@ -616,4 +624,136 @@ func GetFechas(w http.ResponseWriter, r *http.Request) {
 func GetPedidos(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(Pedd1)
+}
+
+//----------------------------------------------------------------------------------------------- ARBOL MERKLE
+type NodoA struct {
+	Hash      string
+	Fecha     string
+	Tienda    string
+	Cliente   int
+	Derecha   *NodoA
+	Izquierda *NodoA
+}
+
+type ArbolMerkle struct {
+	Raiz *NodoA
+}
+
+func newNodoA(Hash string, Nombre, Departamento string, Calificacion int, Derecha *NodoA, Izquierda *NodoA) *NodoA {
+	return &NodoA{Hash, Nombre, Departamento, Calificacion, Derecha, Izquierda}
+}
+
+func NewArbolMerkle() *ArbolMerkle {
+	return &ArbolMerkle{}
+}
+
+func (this *ArbolMerkle) Insertar(Hash1, Nombre, Departamento string, Calificacion int) {
+	n := newNodoA(Hash1, Nombre, Departamento, Calificacion, nil, nil)
+	if this.Raiz == nil {
+		lista := list.New()
+		lista.PushBack(n)
+		lista.PushBack(newNodoA(Hash(""), "", "", -1, nil, nil))
+		this.construirArbolMerkle(lista)
+	} else {
+		lista := this.obtenerLista()
+		lista.PushBack(n)
+		this.construirArbolMerkle(lista)
+	}
+}
+
+func (this *ArbolMerkle) obtenerLista() *list.List {
+	lista := list.New()
+	obtenerLista(lista, this.Raiz.Izquierda)
+	obtenerLista(lista, this.Raiz.Derecha)
+	return lista
+}
+
+func obtenerLista(lista *list.List, actual *NodoA) {
+	if actual != nil {
+		obtenerLista(lista, actual.Izquierda)
+		if actual.Derecha == nil && actual.Hash != Hash("") {
+			lista.PushBack(actual)
+		}
+		obtenerLista(lista, actual.Derecha)
+	}
+}
+
+func (this *ArbolMerkle) construirArbolMerkle(lista *list.List) {
+	size := float64(lista.Len())
+	cant := 1
+	for (size / 2) > 1 {
+		cant++
+		size = size / 2
+	}
+	NodoAstot := math.Pow(2, float64(cant))
+	for lista.Len() < int(NodoAstot) {
+		lista.PushBack(newNodoA(Hash(""), "", "", -1, nil, nil))
+	}
+	for lista.Len() > 1 {
+		primero := lista.Front()
+		segundo := primero.Next()
+		lista.Remove(primero)
+		lista.Remove(segundo)
+		NodoA1 := primero.Value.(*NodoA)
+		NodoA2 := segundo.Value.(*NodoA)
+		h := ""
+		if NodoA2.Hash != "" {
+			h = NodoA1.Hash + "\\n" + NodoA2.Hash
+		} else {
+			h = NodoA1.Hash
+		}
+		a := Hash(h)
+		nuevo := newNodoA(a, h, "", -1, NodoA2, NodoA1)
+		lista.PushBack(nuevo)
+	}
+	this.Raiz = lista.Front().Value.(*NodoA)
+}
+
+func (this *ArbolMerkle) GraficarMerkle() {
+	var cadena strings.Builder
+	fmt.Fprintf(&cadena, "digraph G{\n")
+	fmt.Fprintf(&cadena, "node[shape=\"record\", style=\"filled\"];\n")
+	if this.Raiz != nil {
+		fmt.Fprintf(&cadena, "node%p[label=\"{%s | %s}\", fillcolor=\"green\"];\n", &(*this.Raiz), this.Raiz.Hash, this.Raiz.Fecha)
+		this.generar(&cadena, (this.Raiz), this.Raiz.Izquierda, (this.Raiz))
+		this.generar(&cadena, (this.Raiz), this.Raiz.Derecha, (this.Raiz))
+	}
+	fmt.Fprintf(&cadena, "}\n")
+	//hacer el dot y la imagen
+	b := []byte(cadena.String())
+	err := ioutil.WriteFile("../frontend/src/assets/img/MerklePedidos.dot", b, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+	path, _ := exec.LookPath("dot")
+	cmd, _ := exec.Command(path, "-Tpng", "../frontend/src/assets/img/MerklePedidos.dot").Output()
+	mode := int(0777)
+	ioutil.WriteFile("../frontend/src/assets/img/MerklePedidos.png", cmd, os.FileMode(mode))
+	fmt.Println("MerklePedidos")
+
+}
+
+func (this *ArbolMerkle) generar(cadena *strings.Builder, padre *NodoA, actual *NodoA, Raiz *NodoA) {
+	if actual != nil {
+		if actual.Hash != Hash("") {
+			if actual.Cliente >= 0 {
+				fmt.Fprintf(cadena, "node%p[label=\"{%s |Fecha: %s \\nTienda: %s \\nCliente: %v}\", fillcolor=\"green\"];\n",
+					&(*actual), actual.Hash, actual.Fecha, actual.Tienda, actual.Cliente)
+			} else {
+				fmt.Fprintf(cadena, "node%p[label=\"{%s | %s}\", fillcolor=\"green\"];\n", &(*actual), actual.Hash, actual.Fecha)
+			}
+		} else {
+			fmt.Fprintf(cadena, "node%p[label=\"{%s |%s \\n %s \\n %v}\", fillcolor=\"gray\", color=\"red\"];\n",
+				&(*actual), actual.Hash, actual.Fecha, actual.Tienda, actual.Cliente)
+		}
+		fmt.Fprintf(cadena, "node%p->node%p [dir=back]\n", &(*padre), &(*actual))
+		this.generar(cadena, actual, actual.Izquierda, Raiz)
+		this.generar(cadena, actual, actual.Derecha, Raiz)
+	}
+}
+
+func Hash(texto string) string {
+	hash := sha256.Sum256([]byte(texto))
+	return fmt.Sprintf("%x", hash)
 }

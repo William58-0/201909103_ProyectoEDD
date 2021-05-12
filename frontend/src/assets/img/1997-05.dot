@@ -1,0 +1,23 @@
+digraph {
+rankdir = BT;
+node [shape=rectangle style=filled];
+graph[ nodesep = 0.5];
+{ rank=same; nodoMatriz_D; nodo05;}
+ { rank=same; nodo05; nodo07;}
+ { rank=same; nodoGPS_y_navegacion; nodo07GPS_y_navegacion;}
+ { rank=same; nodo07GPS_y_navegacion; nodo05GPS_y_navegacion;}
+ nodoMatriz_D [label="Matriz_D" fillcolor=aquamarine]
+nodo05 [label="05" fillcolor=aquamarine]
+nodoMatriz_D->nodo05 [dir=both]
+nodo07 [label="07" fillcolor=aquamarine]
+nodo05->nodo07 [dir=both]
+nodoGPS_y_navegacion [label="GPS y navegacion" fillcolor=aquamarine]
+nodoGPS_y_navegacion->nodoMatriz_D [dir=both]
+nodo07GPS_y_navegacion [label="1" shape=circle fillcolor=lightgoldenrod]
+nodo07GPS_y_navegacion->nodo07 [dir=both]
+nodoGPS_y_navegacion->nodo07GPS_y_navegacion [constraint=false; dir=both]
+nodo05GPS_y_navegacion [label="1" shape=circle fillcolor=lightgoldenrod]
+nodo05GPS_y_navegacion->nodo05 [dir=both]
+nodo07GPS_y_navegacion->nodo05GPS_y_navegacion [constraint=false; dir=both]
+{ rank=same; nodoMatriz_D; nodo05; nodo07; }
+ }

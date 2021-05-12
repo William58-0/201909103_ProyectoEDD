@@ -1,0 +1,64 @@
+digraph G{
+node[shape="record", style="filled"];
+node0xc0000589b0[label="{c028504adce52d3f3b15a1d3d79385e985329f9b0fe62181c789fb84c8f6d7d4 | a268fce9717ca5106df419d2c709e16751195953df439a689879e0b9fbe053e7\n46d42129dcc20f27008624d8ccf300f8dcf2b1e9abc7dbf10aab45e5f55063f8}", fillcolor="green"];
+node0xc000058910[label="{a268fce9717ca5106df419d2c709e16751195953df439a689879e0b9fbe053e7 | ceb0eb367d2af50430e4b51857fe52a188dc1aa3aa1845bfb1bb77c98ab0d4a3\n7cbbc3c7c3cb439e76ac74ca91f7295ec5a876fe249bc42d827a028320562594}", fillcolor="green"];
+node0xc0000589b0->node0xc000058910 [dir=back]
+node0xc0000587d0[label="{ceb0eb367d2af50430e4b51857fe52a188dc1aa3aa1845bfb1bb77c98ab0d4a3 | 3b47249157c8f2e5be22ec402cafbb08a507140b9f562ebfd97571e8c6daa32e\n3dcf4ae4f9782edcd5de68934a1d51a4448d3ef9506ae32265557584627e4a4e}", fillcolor="green"];
+node0xc000058910->node0xc0000587d0 [dir=back]
+node0xc000058370[label="{3b47249157c8f2e5be22ec402cafbb08a507140b9f562ebfd97571e8c6daa32e | b876aeff09275671df70830b8963859aa9bfbd482cabd87fab8bad752fad5c52\nd28588cd4b9bbd8c02aeb485d0d69a0ed46f8e1e0cd3bafa5ca02bd7df4edaf5}", fillcolor="green"];
+node0xc0000587d0->node0xc000058370 [dir=back]
+node0xc000315770[label="{b876aeff09275671df70830b8963859aa9bfbd482cabd87fab8bad752fad5c52 |Fecha: 08-05-1997 \nTienda: Baca Jasso S.L. \nCliente7913235243699}", fillcolor="green"];
+node0xc000058370->node0xc000315770 [dir=back]
+node0xc000315860[label="{d28588cd4b9bbd8c02aeb485d0d69a0ed46f8e1e0cd3bafa5ca02bd7df4edaf5 |Fecha: 18-03-1997 \nTienda: Arias, Lucio y Martínez Asociados \nCliente6337279296374}", fillcolor="green"];
+node0xc000058370->node0xc000315860 [dir=back]
+node0xc0000585a0[label="{3dcf4ae4f9782edcd5de68934a1d51a4448d3ef9506ae32265557584627e4a4e | 28a32dc8b83e130c87f51f76f9671265814f31cb78b815f05ce91db677973dea\nf43a47f60f998ef54edcdc67dac479b373f34478bc08d400eb693f76c27f63bb}", fillcolor="green"];
+node0xc0000587d0->node0xc0000585a0 [dir=back]
+node0xc000315900[label="{28a32dc8b83e130c87f51f76f9671265814f31cb78b815f05ce91db677973dea |Fecha: 25-01-1997 \nTienda: Baca Jasso S.L. \nCliente6337279296374}", fillcolor="green"];
+node0xc0000585a0->node0xc000315900 [dir=back]
+node0xc000315a90[label="{f43a47f60f998ef54edcdc67dac479b373f34478bc08d400eb693f76c27f63bb |Fecha: 08-04-1997 \nTienda: Arriaga y Dueñas \nCliente4556984858539}", fillcolor="green"];
+node0xc0000585a0->node0xc000315a90 [dir=back]
+node0xc000058820[label="{7cbbc3c7c3cb439e76ac74ca91f7295ec5a876fe249bc42d827a028320562594 | 2ade19bfdea1e9f4058d529a16e0c00410c1f98ce85f076c4a8a2d8319d51cd5\n332d8fe701b7483910c4b4398f6d69e02e4ff59aa67e8c91a8b966318b0f304e}", fillcolor="green"];
+node0xc000058910->node0xc000058820 [dir=back]
+node0xc0000585f0[label="{2ade19bfdea1e9f4058d529a16e0c00410c1f98ce85f076c4a8a2d8319d51cd5 | 1a1fb099d1d12329d2549bdfa2ac3df2e03a65c3c2f87124859f3e948e4a7890\n1f91595451800796a63d6ca48faa039006ac0f826ca68b13b7cb306172eeeb1a}", fillcolor="green"];
+node0xc000058820->node0xc0000585f0 [dir=back]
+node0xc000315bd0[label="{1a1fb099d1d12329d2549bdfa2ac3df2e03a65c3c2f87124859f3e948e4a7890 |Fecha: 01-01-1997 \nTienda: Arriaga y Dueñas \nCliente4515348769345}", fillcolor="green"];
+node0xc0000585f0->node0xc000315bd0 [dir=back]
+node0xc000315f40[label="{1f91595451800796a63d6ca48faa039006ac0f826ca68b13b7cb306172eeeb1a |Fecha: 14-08-1997 \nTienda: Arriaga y Dueñas \nCliente3163518389391}", fillcolor="green"];
+node0xc0000585f0->node0xc000315f40 [dir=back]
+node0xc000058640[label="{332d8fe701b7483910c4b4398f6d69e02e4ff59aa67e8c91a8b966318b0f304e | a831a8867c4b74ff6281cc993b155c555c2a435a56c068547b8d171125f5697f\n96df61eb98d144eaeff65e8653c5bf0d5e81548480983c4ae1ba4697b196452a}", fillcolor="green"];
+node0xc000058820->node0xc000058640 [dir=back]
+node0xc0003ae280[label="{a831a8867c4b74ff6281cc993b155c555c2a435a56c068547b8d171125f5697f |Fecha: 23-02-1997 \nTienda: Arredondo Duarte S.A. \nCliente4918878656113}", fillcolor="green"];
+node0xc000058640->node0xc0003ae280 [dir=back]
+node0xc0003ae550[label="{96df61eb98d144eaeff65e8653c5bf0d5e81548480983c4ae1ba4697b196452a |Fecha: 14-02-1997 \nTienda: Banda e Hijos \nCliente2397977697528}", fillcolor="green"];
+node0xc000058640->node0xc0003ae550 [dir=back]
+node0xc000058960[label="{46d42129dcc20f27008624d8ccf300f8dcf2b1e9abc7dbf10aab45e5f55063f8 | 5edc3db81e2c04b07e92b32e86f315667293c5ac474f0209304d691de82e7573\n15c24bcf0c77b588aee51a08bfef361bade7ed7eab9c4310c8434ff95f0a1c92}", fillcolor="green"];
+node0xc0000589b0->node0xc000058960 [dir=back]
+node0xc000058870[label="{5edc3db81e2c04b07e92b32e86f315667293c5ac474f0209304d691de82e7573 | 1f17697b0e246c1de7f256b006d14d27604e697cc4fb9451c8e18c2b4e6537d2\n4be7ec7a96974af74743c70e03489aeb550b5fd6a5290026cd71ad05012cb7bd}", fillcolor="green"];
+node0xc000058960->node0xc000058870 [dir=back]
+node0xc000058690[label="{1f17697b0e246c1de7f256b006d14d27604e697cc4fb9451c8e18c2b4e6537d2 | 8f0fa764ffabd98dbc57f1161abccf8deb3af6f0540af3c5cdf54dc1e8046633\n2fa4292cb1e6b8f13eedf7f2720fc3082379bf289fe529c75e3af0691eb58be3}", fillcolor="green"];
+node0xc000058870->node0xc000058690 [dir=back]
+node0xc0003ae7d0[label="{8f0fa764ffabd98dbc57f1161abccf8deb3af6f0540af3c5cdf54dc1e8046633 |Fecha: 21-04-1997 \nTienda: Arriaga y Dueñas \nCliente1973526586315}", fillcolor="green"];
+node0xc000058690->node0xc0003ae7d0 [dir=back]
+node0xc0003aef50[label="{2fa4292cb1e6b8f13eedf7f2720fc3082379bf289fe529c75e3af0691eb58be3 |Fecha: 22-01-1997 \nTienda: Aguilera, Oquendo y Ferrer Asociados \nCliente3719448425919}", fillcolor="green"];
+node0xc000058690->node0xc0003aef50 [dir=back]
+node0xc0000586e0[label="{4be7ec7a96974af74743c70e03489aeb550b5fd6a5290026cd71ad05012cb7bd | 119ee363dede2d381c876ed1c9cea910634f5265fad4bd295538aae09421e69d\n55bb0017395c02967a8577085705bc1adf505720b07e8be801d9947dd0c36170}", fillcolor="green"];
+node0xc000058870->node0xc0000586e0 [dir=back]
+node0xc0003ae0f0[label="{119ee363dede2d381c876ed1c9cea910634f5265fad4bd295538aae09421e69d |Fecha: 07-05-1997 \nTienda: Banda e Hijos \nCliente8616272612388}", fillcolor="green"];
+node0xc0000586e0->node0xc0003ae0f0 [dir=back]
+node0xc0003af590[label="{55bb0017395c02967a8577085705bc1adf505720b07e8be801d9947dd0c36170 |Fecha: 18-09-1997 \nTienda: Aguilera, Oquendo y Ferrer Asociados \nCliente9783989826944}", fillcolor="green"];
+node0xc0000586e0->node0xc0003af590 [dir=back]
+node0xc0000588c0[label="{15c24bcf0c77b588aee51a08bfef361bade7ed7eab9c4310c8434ff95f0a1c92 | 88e75338df0b3673c6f5d13ca23cdbc6985e9a90ecb5220559c3303bf1a6d131\ne9b7e28d3e83fb297fd3e0546f514646b7e887c2ab53d312e250f4111da78d13}", fillcolor="green"];
+node0xc000058960->node0xc0000588c0 [dir=back]
+node0xc000058730[label="{88e75338df0b3673c6f5d13ca23cdbc6985e9a90ecb5220559c3303bf1a6d131 | 40c0ef149519f428b72a97a8238bc1e958e869b03b8054a4cd8765e316e6d1ea\n9baf9e59db485afb5cd1fe7780c64270c9337c45d297a2bb229900847e099dee}", fillcolor="green"];
+node0xc0000588c0->node0xc000058730 [dir=back]
+node0xc0003afbd0[label="{40c0ef149519f428b72a97a8238bc1e958e869b03b8054a4cd8765e316e6d1ea |Fecha: 22-06-1997 \nTienda: Bernal, Pelayo y Delafuente Asociados \nCliente3719448425919}", fillcolor="green"];
+node0xc000058730->node0xc0003afbd0 [dir=back]
+node0xc000058280[label="{9baf9e59db485afb5cd1fe7780c64270c9337c45d297a2bb229900847e099dee |Fecha: 05-05-1997 \nTienda: Banda e Hijos \nCliente5553164513391}", fillcolor="green"];
+node0xc000058730->node0xc000058280 [dir=back]
+node0xc000058780[label="{e9b7e28d3e83fb297fd3e0546f514646b7e887c2ab53d312e250f4111da78d13 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855}", fillcolor="green"];
+node0xc0000588c0->node0xc000058780 [dir=back]
+node0xc0000582d0[label="{e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | \n  \n -1}", fillcolor="gray", color="red"];
+node0xc000058780->node0xc0000582d0 [dir=back]
+node0xc000058320[label="{e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | \n  \n -1}", fillcolor="gray", color="red"];
+node0xc000058780->node0xc000058320 [dir=back]
+}

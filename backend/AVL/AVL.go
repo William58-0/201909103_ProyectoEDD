@@ -1,14 +1,18 @@
 package AVL
 
 import (
+	"container/list"
+	"crypto/sha256"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
+	"math"
 	"net/http"
 	"os"
 	"os/exec"
 	"strconv"
+	"strings"
 
 	"../Estructuras"
 )
@@ -112,6 +116,7 @@ func ExisteTienda(Nombre string, Departamento string, Calificacion int) bool {
 }
 
 func Leer(w http.ResponseWriter, r *http.Request) {
+	arbolMerkle := NewArbol()
 	var Produc []Producto1
 	lector, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -145,6 +150,19 @@ func Leer(w http.ResponseWriter, r *http.Request) {
 				P.Calificacion = c.Inventarios[i].Calificacion
 				Insertar(arbol, Producto.Nombre, Producto.Codigo, Producto.Descripcion, Producto.Precio, Producto.Cantidad, Producto.Imagen, Producto.Almacenamiento, Producto.Tienda, Producto.Departamento, Producto.Calificacion)
 				Produc = append(Produc, *P)
+				//----------------------------------------------------------------------------Insercion a arbol de Merkle
+				//----------------------------------------------- HASH: TIENDA  +  DEPARTAMENTO + CALIFICACION + CODIGO
+				hash := Hash(c.Inventarios[i].Tienda +
+					c.Inventarios[i].Departamento +
+					strconv.Itoa(c.Inventarios[i].Calificacion) +
+					strconv.Itoa(Producto.Codigo))
+				//-------------------------------------------Insercion al arbol
+				arbolMerkle.Insertar(Hash(hash),
+					c.Inventarios[i].Tienda,
+					c.Inventarios[i].Departamento,
+					c.Inventarios[i].Calificacion,
+					Producto.Codigo)
+
 			}
 			fmt.Println(strconv.Itoa(i) + " Generando grafo")
 			Generar_Grafo(arbol, c.Inventarios[i].Tienda+"---"+c.Inventarios[i].Departamento+"---"+strconv.Itoa(c.Inventarios[i].Calificacion))
@@ -152,6 +170,7 @@ func Leer(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println("Inventario Cargado")
 	Todo1.Productos = Produc
+	arbolMerkle.GraficarMerkle()
 }
 
 const (
@@ -457,4 +476,139 @@ func existeError(err error) bool {
 		fmt.Println(err.Error())
 	}
 	return (err != nil)
+}
+
+//------------------------------------------------------------------------------------------- MERKLE PRODUCTOS
+
+type Nodo struct {
+	Hash string
+	//--------------------------De la tienda
+	Tienda       string
+	Departamento string
+	Calificacion int
+	//--------------------------Del producto
+	Codigo    int
+	Derecha   *Nodo
+	Izquierda *Nodo
+}
+
+type Arbol struct {
+	Raiz *Nodo
+}
+
+func newNodo(Hash, Tienda, Departamento string, Calificacion, Codigo int, Derecha *Nodo, Izquierda *Nodo) *Nodo {
+	return &Nodo{Hash, Tienda, Departamento, Calificacion, Codigo, Derecha, Izquierda}
+}
+
+func NewArbol() *Arbol {
+	return &Arbol{}
+}
+
+func (this *Arbol) Insertar(Hash1, Tienda, Departamento string, Calificacion, Codigo int) {
+	n := newNodo(Hash1, Tienda, Departamento, Calificacion, Codigo, nil, nil)
+	if this.Raiz == nil {
+		lista := list.New()
+		lista.PushBack(n)
+		lista.PushBack(newNodo(Hash(""), "", "", -1, -1, nil, nil))
+		this.construirArbol(lista)
+	} else {
+		lista := this.obtenerLista()
+		lista.PushBack(n)
+		this.construirArbol(lista)
+	}
+}
+
+func (this *Arbol) obtenerLista() *list.List {
+	lista := list.New()
+	obtenerLista(lista, this.Raiz.Izquierda)
+	obtenerLista(lista, this.Raiz.Derecha)
+	return lista
+}
+
+func obtenerLista(lista *list.List, actual *Nodo) {
+	if actual != nil {
+		obtenerLista(lista, actual.Izquierda)
+		if actual.Derecha == nil && actual.Hash != Hash("") {
+			lista.PushBack(actual)
+		}
+		obtenerLista(lista, actual.Derecha)
+	}
+}
+
+func (this *Arbol) construirArbol(lista *list.List) {
+	size := float64(lista.Len())
+	cant := 1
+	for (size / 2) > 1 {
+		cant++
+		size = size / 2
+	}
+	nodostot := math.Pow(2, float64(cant))
+	for lista.Len() < int(nodostot) {
+		lista.PushBack(newNodo(Hash(""), "", "", -1, -1, nil, nil))
+	}
+	for lista.Len() > 1 {
+		primero := lista.Front()
+		segundo := primero.Next()
+		lista.Remove(primero)
+		lista.Remove(segundo)
+		nodo1 := primero.Value.(*Nodo)
+		nodo2 := segundo.Value.(*Nodo)
+		h := ""
+		if nodo2.Hash != "" {
+			h = nodo1.Hash + "\\n" + nodo2.Hash
+		} else {
+			h = nodo1.Hash
+		}
+		a := Hash(h)
+		nuevo := newNodo(a, h, "", -1, -1, nodo2, nodo1)
+		lista.PushBack(nuevo)
+	}
+	this.Raiz = lista.Front().Value.(*Nodo)
+}
+
+func (this *Arbol) GraficarMerkle() {
+	var cadena strings.Builder
+	fmt.Fprintf(&cadena, "digraph G{\n")
+	fmt.Fprintf(&cadena, "node[shape=\"record\", style=\"filled\"];\n")
+	if this.Raiz != nil {
+		fmt.Fprintf(&cadena, "node%p[label=\"{%s | %s}\", fillcolor=\"green\"];\n", &(*this.Raiz), this.Raiz.Hash, this.Raiz.Tienda)
+		this.generar(&cadena, (this.Raiz), this.Raiz.Izquierda, (this.Raiz))
+		this.generar(&cadena, (this.Raiz), this.Raiz.Derecha, (this.Raiz))
+	}
+	fmt.Fprintf(&cadena, "}\n")
+	//hacer dot y la imagen
+	b := []byte(cadena.String())
+	err := ioutil.WriteFile("../frontend/src/assets/img/MerkleProductos.dot", b, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+	path, _ := exec.LookPath("dot")
+	cmd, _ := exec.Command(path, "-Tpng", "../frontend/src/assets/img/MerkleProductos.dot").Output()
+	mode := int(0777)
+	ioutil.WriteFile("../frontend/src/assets/img/MerkleProductos.png", cmd, os.FileMode(mode))
+	fmt.Println("MerkleProductos")
+}
+
+func (this *Arbol) generar(cadena *strings.Builder, padre *Nodo, actual *Nodo, Raiz *Nodo) {
+	if actual != nil {
+		if actual.Hash != Hash("") {
+			if actual.Calificacion >= 0 {
+				fmt.Fprintf(cadena, "node%p[label=\"{%s |Tienda: %s \\nDep: %s \\nCodigo: %v}\", fillcolor=\"green\"];\n",
+					&(*actual), actual.Hash, actual.Tienda, actual.Departamento, actual.Codigo)
+			} else {
+				fmt.Fprintf(cadena, "node%p[label=\"{%s | %s}\", fillcolor=\"green\"];\n", &(*actual), actual.Hash, actual.Tienda)
+			}
+		} else {
+			fmt.Fprintf(cadena, "node%p[label=\"{%s |%s \\n %s \\n %v}\", fillcolor=\"gray\", color=\"red\"];\n",
+				&(*actual), actual.Hash, actual.Tienda, actual.Departamento, actual.Calificacion)
+		}
+		fmt.Fprintf(cadena, "node%p->node%p [dir=back]\n", &(*padre), &(*actual))
+		this.generar(cadena, actual, actual.Izquierda, Raiz)
+		this.generar(cadena, actual, actual.Derecha, Raiz)
+	}
+}
+
+func Hash(texto string) string {
+	hash := sha256.Sum256([]byte(texto))
+	return fmt.Sprintf("%x", hash)
 }

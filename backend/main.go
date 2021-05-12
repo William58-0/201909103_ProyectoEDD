@@ -1,10 +1,13 @@
 package main
 
 import (
+	"container/list"
+	"crypto/sha256"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
+	"math"
 	"net/http"
 	"os"
 	"os/exec"
@@ -139,6 +142,7 @@ var Todo Estructuras.Todo
 
 //-------------------------------------------------------------------------------------------------------------------------Matriz Linealizada
 func Cargar(w http.ResponseWriter, r *http.Request) {
+	arbolMerkle := NewArbol()
 	Vector = nil
 	AVL.Todo1.Productos = nil
 	MatrizDispersa.Todo1.Fechas = nil
@@ -216,6 +220,12 @@ func Cargar(w http.ResponseWriter, r *http.Request) {
 							Tienda1.Departamento = aux1.Departamento
 							Tienda1.Logo = aux1.Logo
 							if Tienda1 != nil {
+								//-----------------------------------------------------------------Se insertan al arbol merkle
+								//---------------------------------------------- HASH: NOMBRE + DEPARTAMENTO + CALIFICACION
+								hash := Hash(aux1.Nombre + aux1.Departamento + strconv.Itoa(aux1.Calificacion))
+								//---------------------------------------------- Insercion
+								arbolMerkle.Insertar(Hash(hash), aux1.Nombre, aux1.Departamento, aux1.Calificacion)
+								//----------------------------------------------------------------Se agregan a la lista
 								ListaTiendas = append(ListaTiendas, *Tienda1)
 								ListaOrdenada.Insertar(aux1.Nombre, aux1.Descripcion, aux1.Contacto, aux1.Calificacion, aux1.Departamento, aux1.Logo)
 							}
@@ -235,7 +245,10 @@ func Cargar(w http.ResponseWriter, r *http.Request) {
 		AVL.Tiendas = ListaTiendas
 	}
 	w.Header().Set("Content-Type", "application/json")
+	//----------------------------------------------------------Matriz Linealizada
 	Graficar()
+	//-----------------------------------------------------------Arbol Merkle
+	arbolMerkle.GraficarMerkle()
 	json.NewEncoder(w).Encode("Datos Cargados")
 }
 
@@ -383,6 +396,138 @@ func GuardarJson(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+//--------------------------------------------------------------------------------------ARBOL TIENDAS
+type Nodo struct {
+	Hash         string
+	Nombre       string
+	Departamento string
+	Calificacion int
+	Derecha      *Nodo
+	Izquierda    *Nodo
+}
+
+type Arbol struct {
+	Raiz *Nodo
+}
+
+func newNodo(Hash string, Nombre, Departamento string, Calificacion int, Derecha *Nodo, Izquierda *Nodo) *Nodo {
+	return &Nodo{Hash, Nombre, Departamento, Calificacion, Derecha, Izquierda}
+}
+
+func NewArbol() *Arbol {
+	return &Arbol{}
+}
+
+func (this *Arbol) Insertar(Hash1, Nombre, Departamento string, Calificacion int) {
+	n := newNodo(Hash1, Nombre, Departamento, Calificacion, nil, nil)
+	if this.Raiz == nil {
+		lista := list.New()
+		lista.PushBack(n)
+		lista.PushBack(newNodo(Hash(""), "", "", -1, nil, nil))
+		this.construirArbol(lista)
+	} else {
+		lista := this.obtenerLista()
+		lista.PushBack(n)
+		this.construirArbol(lista)
+	}
+}
+
+func (this *Arbol) obtenerLista() *list.List {
+	lista := list.New()
+	obtenerLista(lista, this.Raiz.Izquierda)
+	obtenerLista(lista, this.Raiz.Derecha)
+	return lista
+}
+
+func obtenerLista(lista *list.List, actual *Nodo) {
+	if actual != nil {
+		obtenerLista(lista, actual.Izquierda)
+		if actual.Derecha == nil && actual.Hash != Hash("") {
+			lista.PushBack(actual)
+		}
+		obtenerLista(lista, actual.Derecha)
+	}
+}
+
+func (this *Arbol) construirArbol(lista *list.List) {
+	size := float64(lista.Len())
+	cant := 1
+	for (size / 2) > 1 {
+		cant++
+		size = size / 2
+	}
+	nodostot := math.Pow(2, float64(cant))
+	for lista.Len() < int(nodostot) {
+		lista.PushBack(newNodo(Hash(""), "", "", -1, nil, nil))
+	}
+	for lista.Len() > 1 {
+		primero := lista.Front()
+		segundo := primero.Next()
+		lista.Remove(primero)
+		lista.Remove(segundo)
+		nodo1 := primero.Value.(*Nodo)
+		nodo2 := segundo.Value.(*Nodo)
+		h := ""
+		if nodo2.Hash != "" {
+			h = nodo1.Hash + "\\n" + nodo2.Hash
+		} else {
+			h = nodo1.Hash
+		}
+		a := Hash(h)
+		nuevo := newNodo(a, h, "", -1, nodo2, nodo1)
+		lista.PushBack(nuevo)
+	}
+	this.Raiz = lista.Front().Value.(*Nodo)
+}
+
+func (this *Arbol) GraficarMerkle() {
+	var cadena strings.Builder
+	fmt.Fprintf(&cadena, "digraph G{\n")
+	fmt.Fprintf(&cadena, "node[shape=\"record\", style=\"filled\"];\n")
+	if this.Raiz != nil {
+		fmt.Fprintf(&cadena, "node%p[label=\"{%s | %s}\", fillcolor=\"green\"];\n", &(*this.Raiz), this.Raiz.Hash, this.Raiz.Nombre)
+		this.generar(&cadena, (this.Raiz), this.Raiz.Izquierda, (this.Raiz))
+		this.generar(&cadena, (this.Raiz), this.Raiz.Derecha, (this.Raiz))
+	}
+	fmt.Fprintf(&cadena, "}\n")
+	//hacer el dot y la imagen
+	b := []byte(cadena.String())
+	err := ioutil.WriteFile("../frontend/src/assets/img/MerkleTiendas.dot", b, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+	path, _ := exec.LookPath("dot")
+	cmd, _ := exec.Command(path, "-Tpng", "../frontend/src/assets/img/MerkleTiendas.dot").Output()
+	mode := int(0777)
+	ioutil.WriteFile("../frontend/src/assets/img/MerkleTiendas.png", cmd, os.FileMode(mode))
+	fmt.Println("MerkleTiendas")
+}
+
+func (this *Arbol) generar(cadena *strings.Builder, padre *Nodo, actual *Nodo, Raiz *Nodo) {
+	if actual != nil {
+		if actual.Hash != Hash("") {
+			if actual.Calificacion >= 0 {
+				fmt.Fprintf(cadena, "node%p[label=\"{%s |Nombre: %s \\nDep: %s \\nCalif: %v}\", fillcolor=\"green\"];\n",
+					&(*actual), actual.Hash, actual.Nombre, actual.Departamento, actual.Calificacion)
+			} else {
+				fmt.Fprintf(cadena, "node%p[label=\"{%s | %s}\", fillcolor=\"green\"];\n", &(*actual), actual.Hash, actual.Nombre)
+			}
+		} else {
+			fmt.Fprintf(cadena, "node%p[label=\"{%s |%s \\n %s \\n %v}\", fillcolor=\"gray\" ,color=\"red\"];\n",
+				&(*actual), actual.Hash, actual.Nombre, actual.Departamento, actual.Calificacion)
+		}
+		fmt.Fprintf(cadena, "node%p->node%p [dir=back]\n", &(*padre), &(*actual))
+		this.generar(cadena, actual, actual.Izquierda, Raiz)
+		this.generar(cadena, actual, actual.Derecha, Raiz)
+	}
+}
+
+func Hash(texto string) string {
+	hash := sha256.Sum256([]byte(texto))
+	return fmt.Sprintf("%x", hash)
+}
+
+//--------------------------------------------------------------------------------------ENDPOINTS
 func indexRoute(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "William Alejandro Borrayo Alarcon_201909103")
 }

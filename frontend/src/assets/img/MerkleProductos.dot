@@ -1,0 +1,128 @@
+digraph G{
+node[shape="record", style="filled"];
+node0xc000314e10[label="{d0b0efd96f5a20a6ed6880a1836423c296e4730237b9f2906cad522ac903e3d6 | 562001d1e421e9239a9fed1abd05e4f7ac2825c3dfda5e07fdc74cc9f25da3e2\ne2d44bceae87bbc14613555f0c85e55aa9f6ebc06ae4023c8e3791b83a3228d3}", fillcolor="green"];
+node0xc000314d70[label="{562001d1e421e9239a9fed1abd05e4f7ac2825c3dfda5e07fdc74cc9f25da3e2 | a96c394888885707f3cc5af8909bca682dbd5b12d6a3a7931cb62e04eee55605\na1c2a5566107a8f19f4a9d58fe44692b915986b56b0b4a89fb2cb3140bf8586a}", fillcolor="green"];
+node0xc000314e10->node0xc000314d70 [dir=back]
+node0xc000314c30[label="{a96c394888885707f3cc5af8909bca682dbd5b12d6a3a7931cb62e04eee55605 | 073902580d25577e5490a1a41bd9f304d48804a675d655784ce50620fd8369ed\nf80b7bed680150285e8c4a27bc1ca9d93a4061a634aaf53148a9dcc9b39dc263}", fillcolor="green"];
+node0xc000314d70->node0xc000314c30 [dir=back]
+node0xc0003149b0[label="{073902580d25577e5490a1a41bd9f304d48804a675d655784ce50620fd8369ed | 2318aa283d1ce40750935af998cb2ea98b9718b07b3eeea173ab4d583ffbf0af\nd1d37f3e3cb4005e9c5aa50edc44a98a9b0be3a7912cc6a9f19837f081686297}", fillcolor="green"];
+node0xc000314c30->node0xc0003149b0 [dir=back]
+node0xc0003144b0[label="{2318aa283d1ce40750935af998cb2ea98b9718b07b3eeea173ab4d583ffbf0af | 8161000683b0ce85b2c12c1c6cc3fd9d8e85d9888cb07d97ffabdb50668d68a7\n411b1a35d60d78ba5ce79a03acadec80792b6d518d206790082d9ef5b3459367}", fillcolor="green"];
+node0xc0003149b0->node0xc0003144b0 [dir=back]
+node0xc0003ae280[label="{8161000683b0ce85b2c12c1c6cc3fd9d8e85d9888cb07d97ffabdb50668d68a7 |Tienda: Aranda, Aparicio y Navarro Asociados \nDep: GPS y navegacion \nCodigo: 515}", fillcolor="green"];
+node0xc0003144b0->node0xc0003ae280 [dir=back]
+node0xc0003ae370[label="{411b1a35d60d78ba5ce79a03acadec80792b6d518d206790082d9ef5b3459367 |Tienda: Aranda, Aparicio y Navarro Asociados \nDep: GPS y navegacion \nCodigo: 514}", fillcolor="green"];
+node0xc0003144b0->node0xc0003ae370 [dir=back]
+node0xc000314500[label="{d1d37f3e3cb4005e9c5aa50edc44a98a9b0be3a7912cc6a9f19837f081686297 | cb162026bb95ff2c1710ddc260747fe8e36e5a62d79db5bb2f30cc0b796101de\nc056f20bd90d6aba75c5a84b918350467421d919be8a4d51fb4cd0bd6430d313}", fillcolor="green"];
+node0xc0003149b0->node0xc000314500 [dir=back]
+node0xc0003ae410[label="{cb162026bb95ff2c1710ddc260747fe8e36e5a62d79db5bb2f30cc0b796101de |Tienda: Aranda, Aparicio y Navarro Asociados \nDep: GPS y navegacion \nCodigo: 518}", fillcolor="green"];
+node0xc000314500->node0xc0003ae410 [dir=back]
+node0xc0003ae5a0[label="{c056f20bd90d6aba75c5a84b918350467421d919be8a4d51fb4cd0bd6430d313 |Tienda: Aranda, Aparicio y Navarro Asociados \nDep: GPS y navegacion \nCodigo: 511}", fillcolor="green"];
+node0xc000314500->node0xc0003ae5a0 [dir=back]
+node0xc000314a00[label="{f80b7bed680150285e8c4a27bc1ca9d93a4061a634aaf53148a9dcc9b39dc263 | ba87a456768e73b1e9b9b19ecc5fcdebdc046b54429da6a2073f8768350a3e98\nbe20d03c9b3630759cd4563f04d98e940cc993dc5c71141376c812df976c0c7f}", fillcolor="green"];
+node0xc000314c30->node0xc000314a00 [dir=back]
+node0xc000314550[label="{ba87a456768e73b1e9b9b19ecc5fcdebdc046b54429da6a2073f8768350a3e98 | 4cd88caec766997d395bd6eded845c191ee5606fd8b13486adc0282695dd85ae\n54ba51cd4dbd47157982ad0099feee4b355ccbe13711110b97fba8efde6647df}", fillcolor="green"];
+node0xc000314a00->node0xc000314550 [dir=back]
+node0xc0003ae6e0[label="{4cd88caec766997d395bd6eded845c191ee5606fd8b13486adc0282695dd85ae |Tienda: Aranda, Aparicio y Navarro Asociados \nDep: GPS y navegacion \nCodigo: 517}", fillcolor="green"];
+node0xc000314550->node0xc0003ae6e0 [dir=back]
+node0xc0003aea50[label="{54ba51cd4dbd47157982ad0099feee4b355ccbe13711110b97fba8efde6647df |Tienda: Aranda, Aparicio y Navarro Asociados \nDep: GPS y navegacion \nCodigo: 344}", fillcolor="green"];
+node0xc000314550->node0xc0003aea50 [dir=back]
+node0xc0003145a0[label="{be20d03c9b3630759cd4563f04d98e940cc993dc5c71141376c812df976c0c7f | 679d6f901aa9ced1186f1e031e504e7f9b790657778abcd7593a9c95a27b9652\ne1299b16d9a3326fa1a7e9a64fab3b9fbaa3c2011caebcb0ba1951d829e9b5e8}", fillcolor="green"];
+node0xc000314a00->node0xc0003145a0 [dir=back]
+node0xc0003aee10[label="{679d6f901aa9ced1186f1e031e504e7f9b790657778abcd7593a9c95a27b9652 |Tienda: Arredondo Duarte S.A. \nDep: Amazon Music \nCodigo: 304}", fillcolor="green"];
+node0xc0003145a0->node0xc0003aee10 [dir=back]
+node0xc0003af0e0[label="{e1299b16d9a3326fa1a7e9a64fab3b9fbaa3c2011caebcb0ba1951d829e9b5e8 |Tienda: Arredondo Duarte S.A. \nDep: Amazon Music \nCodigo: 301}", fillcolor="green"];
+node0xc0003145a0->node0xc0003af0e0 [dir=back]
+node0xc000314c80[label="{a1c2a5566107a8f19f4a9d58fe44692b915986b56b0b4a89fb2cb3140bf8586a | f10e34fb4ab92d9da9c7d1584ac028ddaedb564243bf3ae8c9b6f48b34b1e93e\na553914e175027ffa99e0b5ac6debdebf92202cf9df67fd51b12c06a3e07e2ea}", fillcolor="green"];
+node0xc000314d70->node0xc000314c80 [dir=back]
+node0xc000314a50[label="{f10e34fb4ab92d9da9c7d1584ac028ddaedb564243bf3ae8c9b6f48b34b1e93e | a94b0e8b73429c567d77e61d163a5efaa79eb1879e5ba1eba9710230b56d5574\nb2687269bb92d5f0310202f77d9d183614bc0d5fe229e68edacfa236b80907c3}", fillcolor="green"];
+node0xc000314c80->node0xc000314a50 [dir=back]
+node0xc0003145f0[label="{a94b0e8b73429c567d77e61d163a5efaa79eb1879e5ba1eba9710230b56d5574 | 1e205b95e6daf3ad9493065e09f9b09b3647ffa69f227045924ae8066d10a234\n155be7191b5897439b7e8710c9e5862b164ef1b0cc107eae1f14806a09d06ceb}", fillcolor="green"];
+node0xc000314a50->node0xc0003145f0 [dir=back]
+node0xc0003af360[label="{1e205b95e6daf3ad9493065e09f9b09b3647ffa69f227045924ae8066d10a234 |Tienda: Arredondo Duarte S.A. \nDep: Amazon Music \nCodigo: 271}", fillcolor="green"];
+node0xc0003145f0->node0xc0003af360 [dir=back]
+node0xc0003afae0[label="{155be7191b5897439b7e8710c9e5862b164ef1b0cc107eae1f14806a09d06ceb |Tienda: Arredondo Duarte S.A. \nDep: Amazon Music \nCodigo: 278}", fillcolor="green"];
+node0xc0003145f0->node0xc0003afae0 [dir=back]
+node0xc000314640[label="{b2687269bb92d5f0310202f77d9d183614bc0d5fe229e68edacfa236b80907c3 | a26055283a849b811a4d7294365555ed6212b483c127606ad3c9fe1c7a063a8c\n2090ffb31a245cb4e12ca1d47b353704d07f8b9805dcc5230691aea3cf01c063}", fillcolor="green"];
+node0xc000314a50->node0xc000314640 [dir=back]
+node0xc0000802d0[label="{a26055283a849b811a4d7294365555ed6212b483c127606ad3c9fe1c7a063a8c |Tienda: Arredondo Duarte S.A. \nDep: Amazon Music \nCodigo: 273}", fillcolor="green"];
+node0xc000314640->node0xc0000802d0 [dir=back]
+node0xc000080960[label="{2090ffb31a245cb4e12ca1d47b353704d07f8b9805dcc5230691aea3cf01c063 |Tienda: Arredondo Duarte S.A. \nDep: Amazon Music \nCodigo: 284}", fillcolor="green"];
+node0xc000314640->node0xc000080960 [dir=back]
+node0xc000314aa0[label="{a553914e175027ffa99e0b5ac6debdebf92202cf9df67fd51b12c06a3e07e2ea | 13ae9e0343d43c581be6a57197202ba670354c1c8bab45726bfd8d31233621d1\n9b8dd8d596ca4b9bc5930dd88c6162cdeebdef493e027ee658c8b1a4dc14a35b}", fillcolor="green"];
+node0xc000314c80->node0xc000314aa0 [dir=back]
+node0xc000314690[label="{13ae9e0343d43c581be6a57197202ba670354c1c8bab45726bfd8d31233621d1 | 24abfb68ee18344e67543d181002de2bd36422870ecf25c04181c0d9873b3068\n975f43a91f20846028290829e472285957adb4638d55a06008f3483034f257c7}", fillcolor="green"];
+node0xc000314aa0->node0xc000314690 [dir=back]
+node0xc000080fa0[label="{24abfb68ee18344e67543d181002de2bd36422870ecf25c04181c0d9873b3068 |Tienda: Arredondo Duarte S.A. \nDep: Amazon Music \nCodigo: 283}", fillcolor="green"];
+node0xc000314690->node0xc000080fa0 [dir=back]
+node0xc000081590[label="{975f43a91f20846028290829e472285957adb4638d55a06008f3483034f257c7 |Tienda: Arredondo Duarte S.A. \nDep: Amazon Music \nCodigo: 269}", fillcolor="green"];
+node0xc000314690->node0xc000081590 [dir=back]
+node0xc0003146e0[label="{9b8dd8d596ca4b9bc5930dd88c6162cdeebdef493e027ee658c8b1a4dc14a35b | fb33ef44732ff21f57717eec5b3d0de2b4c26534b2cd2e753e7383e477bce47d\n5f89457ff216ea687d030f7e7b237d64667df85fed6f4fa0ef6756b76ddbdf7c}", fillcolor="green"];
+node0xc000314aa0->node0xc0003146e0 [dir=back]
+node0xc000081b30[label="{fb33ef44732ff21f57717eec5b3d0de2b4c26534b2cd2e753e7383e477bce47d |Tienda: Arredondo Duarte S.A. \nDep: Amazon Music \nCodigo: 270}", fillcolor="green"];
+node0xc0003146e0->node0xc000081b30 [dir=back]
+node0xc0003d42d0[label="{5f89457ff216ea687d030f7e7b237d64667df85fed6f4fa0ef6756b76ddbdf7c |Tienda: Baca Jasso S.L. \nDep: GPS y navegacion \nCodigo: 830}", fillcolor="green"];
+node0xc0003146e0->node0xc0003d42d0 [dir=back]
+node0xc000314dc0[label="{e2d44bceae87bbc14613555f0c85e55aa9f6ebc06ae4023c8e3791b83a3228d3 | 70d7fbfff0604db8fd7fd7a69f5b946655be59ec99f7d01be595725cbf6ad900\n1300789e89fab66b846d74ac71b594b2f2dddc8422bfd229e311cefaa425d3fd}", fillcolor="green"];
+node0xc000314e10->node0xc000314dc0 [dir=back]
+node0xc000314cd0[label="{70d7fbfff0604db8fd7fd7a69f5b946655be59ec99f7d01be595725cbf6ad900 | 0e59085f28a57d04ce487abfcfa5810297ef0d3390354eac9a7e1366ce25ab5f\n4bd1bccf01a924535aacf9a7e2eb5831dfbeafb4b1991989c685e41ed4577c4e}", fillcolor="green"];
+node0xc000314dc0->node0xc000314cd0 [dir=back]
+node0xc000314af0[label="{0e59085f28a57d04ce487abfcfa5810297ef0d3390354eac9a7e1366ce25ab5f | 1f2840b70949325bea240983e62be8e2a44aa446f43a2e4af54e03e497be2e0c\nb5aaabcab1c6ec20c9f2ea7955b4a27e760f6cb372fd957c96be553649e6c09b}", fillcolor="green"];
+node0xc000314cd0->node0xc000314af0 [dir=back]
+node0xc000314730[label="{1f2840b70949325bea240983e62be8e2a44aa446f43a2e4af54e03e497be2e0c | 7eb838e8a5f5b7283573371ef7472e25b204a648b8b8c5c22d64578670af399a\n8d66f154320f83981066a2fe06e25ba87c11303ea4269fedd36e4d5e2fcf4aec}", fillcolor="green"];
+node0xc000314af0->node0xc000314730 [dir=back]
+node0xc0003d47d0[label="{7eb838e8a5f5b7283573371ef7472e25b204a648b8b8c5c22d64578670af399a |Tienda: Baca Jasso S.L. \nDep: GPS y navegacion \nCodigo: 828}", fillcolor="green"];
+node0xc000314730->node0xc0003d47d0 [dir=back]
+node0xc0003d5680[label="{8d66f154320f83981066a2fe06e25ba87c11303ea4269fedd36e4d5e2fcf4aec |Tienda: Baca Jasso S.L. \nDep: GPS y navegacion \nCodigo: 840}", fillcolor="green"];
+node0xc000314730->node0xc0003d5680 [dir=back]
+node0xc000314780[label="{b5aaabcab1c6ec20c9f2ea7955b4a27e760f6cb372fd957c96be553649e6c09b | 24acafaa8c3f4f76601f7dd4a1c4cb72d8ce1fa83a17bdc0a932ad28df532508\n809c8ea6195efc6be0ea63faf0a456f2a742a56521034c553c63c2de61c98610}", fillcolor="green"];
+node0xc000314af0->node0xc000314780 [dir=back]
+node0xc000282500[label="{24acafaa8c3f4f76601f7dd4a1c4cb72d8ce1fa83a17bdc0a932ad28df532508 |Tienda: Baca Jasso S.L. \nDep: GPS y navegacion \nCodigo: 839}", fillcolor="green"];
+node0xc000314780->node0xc000282500 [dir=back]
+node0xc000283310[label="{809c8ea6195efc6be0ea63faf0a456f2a742a56521034c553c63c2de61c98610 |Tienda: Baca Jasso S.L. \nDep: GPS y navegacion \nCodigo: 831}", fillcolor="green"];
+node0xc000314780->node0xc000283310 [dir=back]
+node0xc000314b40[label="{4bd1bccf01a924535aacf9a7e2eb5831dfbeafb4b1991989c685e41ed4577c4e | 61ba4f14a61ae7305dbd70ed38862e20718c84c32ebea8682a459efbc66b2514\ne9b7e28d3e83fb297fd3e0546f514646b7e887c2ab53d312e250f4111da78d13}", fillcolor="green"];
+node0xc000314cd0->node0xc000314b40 [dir=back]
+node0xc0003147d0[label="{61ba4f14a61ae7305dbd70ed38862e20718c84c32ebea8682a459efbc66b2514 | ee1a5c95e57492f1ec5434b7eb0764c17a1dd869c8751dae360de2ed28ca192c\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855}", fillcolor="green"];
+node0xc000314b40->node0xc0003147d0 [dir=back]
+node0xc0003140f0[label="{ee1a5c95e57492f1ec5434b7eb0764c17a1dd869c8751dae360de2ed28ca192c |Tienda: Baca Jasso S.L. \nDep: GPS y navegacion \nCodigo: 844}", fillcolor="green"];
+node0xc0003147d0->node0xc0003140f0 [dir=back]
+node0xc000314140[label="{e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | \n  \n -1}", fillcolor="gray", color="red"];
+node0xc0003147d0->node0xc000314140 [dir=back]
+node0xc000314820[label="{e9b7e28d3e83fb297fd3e0546f514646b7e887c2ab53d312e250f4111da78d13 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855}", fillcolor="green"];
+node0xc000314b40->node0xc000314820 [dir=back]
+node0xc000314190[label="{e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | \n  \n -1}", fillcolor="gray", color="red"];
+node0xc000314820->node0xc000314190 [dir=back]
+node0xc0003141e0[label="{e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | \n  \n -1}", fillcolor="gray", color="red"];
+node0xc000314820->node0xc0003141e0 [dir=back]
+node0xc000314d20[label="{1300789e89fab66b846d74ac71b594b2f2dddc8422bfd229e311cefaa425d3fd | 205a2919294efd84506697d55e58bd165cbffa88ae99be3b0622b35efcf4a57b\n205a2919294efd84506697d55e58bd165cbffa88ae99be3b0622b35efcf4a57b}", fillcolor="green"];
+node0xc000314dc0->node0xc000314d20 [dir=back]
+node0xc000314b90[label="{205a2919294efd84506697d55e58bd165cbffa88ae99be3b0622b35efcf4a57b | e9b7e28d3e83fb297fd3e0546f514646b7e887c2ab53d312e250f4111da78d13\ne9b7e28d3e83fb297fd3e0546f514646b7e887c2ab53d312e250f4111da78d13}", fillcolor="green"];
+node0xc000314d20->node0xc000314b90 [dir=back]
+node0xc000314870[label="{e9b7e28d3e83fb297fd3e0546f514646b7e887c2ab53d312e250f4111da78d13 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855}", fillcolor="green"];
+node0xc000314b90->node0xc000314870 [dir=back]
+node0xc000314230[label="{e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | \n  \n -1}", fillcolor="gray", color="red"];
+node0xc000314870->node0xc000314230 [dir=back]
+node0xc000314280[label="{e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | \n  \n -1}", fillcolor="gray", color="red"];
+node0xc000314870->node0xc000314280 [dir=back]
+node0xc0003148c0[label="{e9b7e28d3e83fb297fd3e0546f514646b7e887c2ab53d312e250f4111da78d13 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855}", fillcolor="green"];
+node0xc000314b90->node0xc0003148c0 [dir=back]
+node0xc0003142d0[label="{e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | \n  \n -1}", fillcolor="gray", color="red"];
+node0xc0003148c0->node0xc0003142d0 [dir=back]
+node0xc000314320[label="{e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | \n  \n -1}", fillcolor="gray", color="red"];
+node0xc0003148c0->node0xc000314320 [dir=back]
+node0xc000314be0[label="{205a2919294efd84506697d55e58bd165cbffa88ae99be3b0622b35efcf4a57b | e9b7e28d3e83fb297fd3e0546f514646b7e887c2ab53d312e250f4111da78d13\ne9b7e28d3e83fb297fd3e0546f514646b7e887c2ab53d312e250f4111da78d13}", fillcolor="green"];
+node0xc000314d20->node0xc000314be0 [dir=back]
+node0xc000314910[label="{e9b7e28d3e83fb297fd3e0546f514646b7e887c2ab53d312e250f4111da78d13 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855}", fillcolor="green"];
+node0xc000314be0->node0xc000314910 [dir=back]
+node0xc000314370[label="{e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | \n  \n -1}", fillcolor="gray", color="red"];
+node0xc000314910->node0xc000314370 [dir=back]
+node0xc0003143c0[label="{e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | \n  \n -1}", fillcolor="gray", color="red"];
+node0xc000314910->node0xc0003143c0 [dir=back]
+node0xc000314960[label="{e9b7e28d3e83fb297fd3e0546f514646b7e887c2ab53d312e250f4111da78d13 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855}", fillcolor="green"];
+node0xc000314be0->node0xc000314960 [dir=back]
+node0xc000314410[label="{e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | \n  \n -1}", fillcolor="gray", color="red"];
+node0xc000314960->node0xc000314410 [dir=back]
+node0xc000314460[label="{e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | \n  \n -1}", fillcolor="gray", color="red"];
+node0xc000314960->node0xc000314460 [dir=back]
+}
