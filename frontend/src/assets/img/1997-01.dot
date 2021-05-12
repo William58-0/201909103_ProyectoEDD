@@ -1,0 +1,30 @@
+digraph {
+rankdir = BT;
+node [shape=rectangle style=filled];
+graph[ nodesep = 0.5];
+{ rank=same; nodoMatriz_D; nodo01;}
+ { rank=same; nodo01; nodo22;}
+ { rank=same; nodo22; nodo25;}
+ { rank=same; nodoGPS_y_navegacion; nodo25GPS_y_navegacion;}
+ { rank=same; nodo25GPS_y_navegacion; nodo01GPS_y_navegacion;}
+ { rank=same; nodo01GPS_y_navegacion; nodo22GPS_y_navegacion;}
+ nodoMatriz_D [label="Matriz_D" fillcolor=aquamarine]
+nodo01 [label="01" fillcolor=aquamarine]
+nodoMatriz_D->nodo01 [dir=both]
+nodo22 [label="22" fillcolor=aquamarine]
+nodo01->nodo22 [dir=both]
+nodo25 [label="25" fillcolor=aquamarine]
+nodo22->nodo25 [dir=both]
+nodoGPS_y_navegacion [label="GPS y navegacion" fillcolor=aquamarine]
+nodoGPS_y_navegacion->nodoMatriz_D [dir=both]
+nodo25GPS_y_navegacion [label="4" shape=circle fillcolor=lightgoldenrod]
+nodo25GPS_y_navegacion->nodo25 [dir=both]
+nodoGPS_y_navegacion->nodo25GPS_y_navegacion [constraint=false; dir=both]
+nodo01GPS_y_navegacion [label="6" shape=circle fillcolor=lightgoldenrod]
+nodo01GPS_y_navegacion->nodo01 [dir=both]
+nodo25GPS_y_navegacion->nodo01GPS_y_navegacion [constraint=false; dir=both]
+nodo22GPS_y_navegacion [label="3" shape=circle fillcolor=lightgoldenrod]
+nodo22GPS_y_navegacion->nodo22 [dir=both]
+nodo01GPS_y_navegacion->nodo22GPS_y_navegacion [constraint=false; dir=both]
+{ rank=same; nodoMatriz_D; nodo01; nodo22; nodo25; }
+ }

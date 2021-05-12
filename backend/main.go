@@ -397,6 +397,7 @@ func GuardarJson(w http.ResponseWriter, r *http.Request) {
 }
 
 //--------------------------------------------------------------------------------------ARBOL TIENDAS
+//estructura del nodo para infomación de las tiendas
 type Nodo struct {
 	Hash         string
 	Nombre       string
@@ -406,67 +407,95 @@ type Nodo struct {
 	Izquierda    *Nodo
 }
 
+//estructura del arbol
 type Arbol struct {
 	Raiz *Nodo
 }
 
 func newNodo(Hash string, Nombre, Departamento string, Calificacion int, Derecha *Nodo, Izquierda *Nodo) *Nodo {
+	//retorna la direccion de memoria de un nuevo nodo
 	return &Nodo{Hash, Nombre, Departamento, Calificacion, Derecha, Izquierda}
 }
 
 func NewArbol() *Arbol {
+	//retorna direccion de memoria de un nuevo arbol, sin raiz
 	return &Arbol{}
 }
 
 func (this *Arbol) Insertar(Hash1, Nombre, Departamento string, Calificacion int) {
+	//Se crea un nodo si hijos (hoja):
 	n := newNodo(Hash1, Nombre, Departamento, Calificacion, nil, nil)
+	//Si no hay arbol, se crea uno:
 	if this.Raiz == nil {
+		//Esta lista es para los valores (de hasta abajo)
 		lista := list.New()
+		//Se le agrega el nuevo nodo que creamos:
 		lista.PushBack(n)
+		//Un nodo sin valor para balancear
 		lista.PushBack(newNodo(Hash(""), "", "", -1, nil, nil))
+		//Se crea el resto de nodos
 		this.construirArbol(lista)
 	} else {
+		//Si ya existe un arbol, se obtienen los valores que tiene
 		lista := this.obtenerLista()
+		//Se le agrega el nuevo nodo
 		lista.PushBack(n)
 		this.construirArbol(lista)
 	}
 }
 
+//Retorna los nodos hoja (valores) que no sean -1
+//Se usa librería list
 func (this *Arbol) obtenerLista() *list.List {
+	//Metodo que retorna una nueva lista
 	lista := list.New()
+	//Se tiene que recorrer enorden (izquierda -> raiz -> derecha)
 	obtenerLista(lista, this.Raiz.Izquierda)
 	obtenerLista(lista, this.Raiz.Derecha)
 	return lista
 }
 
-func obtenerLista(lista *list.List, actual *Nodo) {
+func obtenerLista(lista *list.List, actual *Nodo) { //al parametro lista se agregarán los elementos
+	//Si actual == nil => No hace nada porque probablemente llegó a un nodo hoja
 	if actual != nil {
+		//Se toma el izquierdo
 		obtenerLista(lista, actual.Izquierda)
+		//Si ya llegó hasta abajo
 		if actual.Derecha == nil && actual.Hash != Hash("") {
+			//Se agrega a la lista desde atrás
 			lista.PushBack(actual)
 		}
+		//Toma el hijo derecho
 		obtenerLista(lista, actual.Derecha)
 	}
 }
 
-func (this *Arbol) construirArbol(lista *list.List) {
-	size := float64(lista.Len())
-	cant := 1
+func (this *Arbol) construirArbol(lista *list.List) { //Se envia como parametro la lista de nodos
+	//Esto es para calcular el número de pisos
+	size := float64(lista.Len()) //Cantidad de valores insertados
+	cant := 1                    //Numero de divisiones (iteraciones)
+	//Se divide entre 2 mientras sea mayor a 1, cant = numero de pisos
 	for (size / 2) > 1 {
 		cant++
 		size = size / 2
 	}
+	//Total de nodos= 2^numero de pisos = 2^cant
 	nodostot := math.Pow(2, float64(cant))
+	//Se crean nodos hasta llenar lo necesario (nodos internos)
 	for lista.Len() < int(nodostot) {
 		lista.PushBack(newNodo(Hash(""), "", "", -1, nil, nil))
 	}
+	//Ya con la lista llena
+	//Emparejará los nodos
 	for lista.Len() > 1 {
-		primero := lista.Front()
-		segundo := primero.Next()
+		primero := lista.Front()  //obtiene el primer nodo en la lista
+		segundo := primero.Next() //obtiene el siguiente del primer nodo en la lista
+		//Se sacan de la lista los nodos obtenidos
 		lista.Remove(primero)
-		lista.Remove(segundo)
-		nodo1 := primero.Value.(*Nodo)
-		nodo2 := segundo.Value.(*Nodo)
+		lista.Remove(segundo)          //pareja
+		nodo1 := primero.Value.(*Nodo) //es una interfaz casteada a nodo
+		nodo2 := segundo.Value.(*Nodo) //es una interfaz casteada a nodo
+		//Para la suma hash de los hijos
 		h := ""
 		if nodo2.Hash != "" {
 			h = nodo1.Hash + "\\n" + nodo2.Hash
@@ -474,19 +503,25 @@ func (this *Arbol) construirArbol(lista *list.List) {
 			h = nodo1.Hash
 		}
 		a := Hash(h)
+		//Nodo (Padre) con suma de hash de los hijos
 		nuevo := newNodo(a, h, "", -1, nodo2, nodo1)
 		lista.PushBack(nuevo)
 	}
+	//La raiz será el nodo que quede en la lista
 	this.Raiz = lista.Front().Value.(*Nodo)
 }
 
+//Para generar el grafo
 func (this *Arbol) GraficarMerkle() {
 	var cadena strings.Builder
 	fmt.Fprintf(&cadena, "digraph G{\n")
 	fmt.Fprintf(&cadena, "node[shape=\"record\", style=\"filled\"];\n")
+	//Si existe arbol
 	if this.Raiz != nil {
 		fmt.Fprintf(&cadena, "node%p[label=\"{%s | %s}\", fillcolor=\"green\"];\n", &(*this.Raiz), this.Raiz.Hash, this.Raiz.Nombre)
+		//Se recorre hijo izquierdo
 		this.generar(&cadena, (this.Raiz), this.Raiz.Izquierda, (this.Raiz))
+		//Se recorre hijo derecho
 		this.generar(&cadena, (this.Raiz), this.Raiz.Derecha, (this.Raiz))
 	}
 	fmt.Fprintf(&cadena, "}\n")
@@ -503,6 +538,8 @@ func (this *Arbol) GraficarMerkle() {
 	fmt.Println("MerkleTiendas")
 }
 
+//Metodo de graficar de un arbol binario
+//strings.Builder
 func (this *Arbol) generar(cadena *strings.Builder, padre *Nodo, actual *Nodo, Raiz *Nodo) {
 	if actual != nil {
 		if actual.Hash != Hash("") {
@@ -533,8 +570,6 @@ func indexRoute(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	//Load() //para cargar las tiendas
-	//MatrizDispersa.Leer()
 	router := mux.NewRouter().StrictSlash(true)
 	arbol := ArbolB.NewArbol(5)
 	ArbolB.Administrador(arbol)

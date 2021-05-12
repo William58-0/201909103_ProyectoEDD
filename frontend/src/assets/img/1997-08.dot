@@ -1,0 +1,16 @@
+digraph {
+rankdir = BT;
+node [shape=rectangle style=filled];
+graph[ nodesep = 0.5];
+{ rank=same; nodoMatriz_D; nodo14;}
+ { rank=same; nodoAmazon_Music; nodo14Amazon_Music;}
+ nodoMatriz_D [label="Matriz_D" fillcolor=aquamarine]
+nodo14 [label="14" fillcolor=aquamarine]
+nodoMatriz_D->nodo14 [dir=both]
+nodoAmazon_Music [label="Amazon Music" fillcolor=aquamarine]
+nodoAmazon_Music->nodoMatriz_D [dir=both]
+nodo14Amazon_Music [label="1" shape=circle fillcolor=lightgoldenrod]
+nodo14Amazon_Music->nodo14 [dir=both]
+nodoAmazon_Music->nodo14Amazon_Music [constraint=false; dir=both]
+{ rank=same; nodoMatriz_D; nodo14; }
+ }

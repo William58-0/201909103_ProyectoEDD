@@ -1,64 +1,64 @@
 digraph G{
 node[shape="record", style="filled"];
-node0xc0002b76d0[label="{ff32bb716c4219dd9cf025eb0a19b466620dfdf9cda4761b2cbbaa1073ccd25e | 8482a4c27c5a26d89629380cd274b5a8ee3c909caff189a24c1559762724618a\n5f0e2392691b828d464da43d175fe66bcb8b16923305e14ba3b0d60638d02d95}", fillcolor="green"];
-node0xc0002b7630[label="{8482a4c27c5a26d89629380cd274b5a8ee3c909caff189a24c1559762724618a | 5ccbff952cca3978db4296b463272996795615d833e8d80dd4a89444f48f85ac\nc723193c488e0ed441d207643ee93bc81b36ed123c9b291a7d1cf56e34fcb920}", fillcolor="green"];
-node0xc0002b76d0->node0xc0002b7630 [dir=back]
-node0xc0002b74f0[label="{5ccbff952cca3978db4296b463272996795615d833e8d80dd4a89444f48f85ac | eef8da4958e802a2e9fd45b3977e2db76044fad32288dd81d4426c956cec8d69\ndb45f747edce2a84562301452a3c3995f82f8625c159ceedb81fca722f584610}", fillcolor="green"];
-node0xc0002b7630->node0xc0002b74f0 [dir=back]
-node0xc0002b7270[label="{eef8da4958e802a2e9fd45b3977e2db76044fad32288dd81d4426c956cec8d69 | 64cae2c30aeb99ab39d1376776617611d5477bbf024f2a21b0048eb8ebd59151\n9de8a8f54f33a1381a48bf9a1c444d937b775519d3ec894191a7674cb4f50641}", fillcolor="green"];
-node0xc0002b74f0->node0xc0002b7270 [dir=back]
-node0xc000058be0[label="{64cae2c30aeb99ab39d1376776617611d5477bbf024f2a21b0048eb8ebd59151 |Nombre: Arriaga y Dueñas \nDep: GPS y navegacion \nCalif: 1}", fillcolor="green"];
-node0xc0002b7270->node0xc000058be0 [dir=back]
-node0xc000058cd0[label="{9de8a8f54f33a1381a48bf9a1c444d937b775519d3ec894191a7674cb4f50641 |Nombre: Aguilera, Oquendo y Ferrer Asociados \nDep: GPS y navegacion \nCalif: 4}", fillcolor="green"];
-node0xc0002b7270->node0xc000058cd0 [dir=back]
-node0xc0002b72c0[label="{db45f747edce2a84562301452a3c3995f82f8625c159ceedb81fca722f584610 | 864c0ad479ca3faa12a9330bd30e97558edab93a0bdfc2fcd42d6539d78233d7\ncd4864f737e0e9111f8189807cc8e902715a98af5b66c65ed98fb049769bd6e7}", fillcolor="green"];
-node0xc0002b74f0->node0xc0002b72c0 [dir=back]
-node0xc000058d70[label="{864c0ad479ca3faa12a9330bd30e97558edab93a0bdfc2fcd42d6539d78233d7 |Nombre: Aranda, Aparicio y Navarro Asociados \nDep: GPS y navegacion \nCalif: 4}", fillcolor="green"];
-node0xc0002b72c0->node0xc000058d70 [dir=back]
-node0xc000058f00[label="{cd4864f737e0e9111f8189807cc8e902715a98af5b66c65ed98fb049769bd6e7 |Nombre: Aguilera, Oquendo y Ferrer Asociados \nDep: Amazon Music \nCalif: 2}", fillcolor="green"];
-node0xc0002b72c0->node0xc000058f00 [dir=back]
-node0xc0002b7540[label="{c723193c488e0ed441d207643ee93bc81b36ed123c9b291a7d1cf56e34fcb920 | 6ad3ecda812b21f802bed0f6d58614bf141f39cda488839e58766f6ae40b1016\n9c959bf0c52ab21ad9dfd6d3445073d4a236f7c6b83a344f4a7c7cd3081c5f8b}", fillcolor="green"];
-node0xc0002b7630->node0xc0002b7540 [dir=back]
-node0xc0002b7310[label="{6ad3ecda812b21f802bed0f6d58614bf141f39cda488839e58766f6ae40b1016 | 6ffbe2b9e85692555dccc633e9abce50ea5809f686bebd477fac650f8203c648\n6eeb156de5d333c41cd0e44a1d2212de4f6592137b94f471db4aa89b8d9fd14d}", fillcolor="green"];
-node0xc0002b7540->node0xc0002b7310 [dir=back]
-node0xc000059040[label="{6ffbe2b9e85692555dccc633e9abce50ea5809f686bebd477fac650f8203c648 |Nombre: Aranda, Aparicio y Navarro Asociados \nDep: Amazon Music \nCalif: 4}", fillcolor="green"];
-node0xc0002b7310->node0xc000059040 [dir=back]
-node0xc0000593b0[label="{6eeb156de5d333c41cd0e44a1d2212de4f6592137b94f471db4aa89b8d9fd14d |Nombre: Arredondo Duarte S.A. \nDep: Amazon Music \nCalif: 4}", fillcolor="green"];
-node0xc0002b7310->node0xc0000593b0 [dir=back]
-node0xc0002b7360[label="{9c959bf0c52ab21ad9dfd6d3445073d4a236f7c6b83a344f4a7c7cd3081c5f8b | 418d50d8fb969247a4609d941e2c61cf95c49e291e5d0f00ef8382f8424ff43a\n9dfebcd73e6e8fd63b8420a694edf7da7ca71b8e11a9806193baeb22aed08a21}", fillcolor="green"];
-node0xc0002b7540->node0xc0002b7360 [dir=back]
-node0xc0000596d0[label="{418d50d8fb969247a4609d941e2c61cf95c49e291e5d0f00ef8382f8424ff43a |Nombre: Arriaga y Dueñas \nDep: Amazon Music \nCalif: 4}", fillcolor="green"];
-node0xc0002b7360->node0xc0000596d0 [dir=back]
-node0xc0000599a0[label="{9dfebcd73e6e8fd63b8420a694edf7da7ca71b8e11a9806193baeb22aed08a21 |Nombre: Arias, Lucio y Martínez Asociados \nDep: Amazon Music \nCalif: 5}", fillcolor="green"];
-node0xc0002b7360->node0xc0000599a0 [dir=back]
-node0xc0002b7680[label="{5f0e2392691b828d464da43d175fe66bcb8b16923305e14ba3b0d60638d02d95 | 2e7b28a9646c5fce6ec68becb16d692341a616cdbac3fb2268857228280994d5\n205a2919294efd84506697d55e58bd165cbffa88ae99be3b0622b35efcf4a57b}", fillcolor="green"];
-node0xc0002b76d0->node0xc0002b7680 [dir=back]
-node0xc0002b7590[label="{2e7b28a9646c5fce6ec68becb16d692341a616cdbac3fb2268857228280994d5 | d68eca8f024cae1f9e252420d8f8047dc7f4fa8c2b4ee2b4a67d82e1245c5927\nb268fa5f63b8ebbbf764d9591dfbb4c4a8762756ba08d91df67157a4d3e0c7af}", fillcolor="green"];
-node0xc0002b7680->node0xc0002b7590 [dir=back]
-node0xc0002b73b0[label="{d68eca8f024cae1f9e252420d8f8047dc7f4fa8c2b4ee2b4a67d82e1245c5927 | d16e704631d60a998948ea684d791007fd6e8d222cdc73d124a875e58c8fbb93\n3f735012b65d624211148e4fc76d9b32cc1e04ce5e29b93f1ef5afd7efc5579c}", fillcolor="green"];
-node0xc0002b7590->node0xc0002b73b0 [dir=back]
-node0xc000059c20[label="{d16e704631d60a998948ea684d791007fd6e8d222cdc73d124a875e58c8fbb93 |Nombre: Banda e Hijos \nDep: GPS y navegacion \nCalif: 1}", fillcolor="green"];
-node0xc0002b73b0->node0xc000059c20 [dir=back]
-node0xc0002b6370[label="{3f735012b65d624211148e4fc76d9b32cc1e04ce5e29b93f1ef5afd7efc5579c |Nombre: Baca Jasso S.L. \nDep: GPS y navegacion \nCalif: 3}", fillcolor="green"];
-node0xc0002b73b0->node0xc0002b6370 [dir=back]
-node0xc0002b7400[label="{b268fa5f63b8ebbbf764d9591dfbb4c4a8762756ba08d91df67157a4d3e0c7af | 57f73e586d1d31e8d3e06fe44059babac3721f866b70676c2b7cf3e44414ea24\n997d790efa6af44075f24043014b0490327183eee6bd37c1e9076e9331620817}", fillcolor="green"];
-node0xc0002b7590->node0xc0002b7400 [dir=back]
-node0xc0002b6a50[label="{57f73e586d1d31e8d3e06fe44059babac3721f866b70676c2b7cf3e44414ea24 |Nombre: Bernal, Pelayo y Delafuente Asociados \nDep: GPS y navegacion \nCalif: 3}", fillcolor="green"];
-node0xc0002b7400->node0xc0002b6a50 [dir=back]
-node0xc0002b70e0[label="{997d790efa6af44075f24043014b0490327183eee6bd37c1e9076e9331620817 |Nombre: Banda e Hijos \nDep: Amazon Music \nCalif: 5}", fillcolor="green"];
-node0xc0002b7400->node0xc0002b70e0 [dir=back]
-node0xc0002b75e0[label="{205a2919294efd84506697d55e58bd165cbffa88ae99be3b0622b35efcf4a57b | e9b7e28d3e83fb297fd3e0546f514646b7e887c2ab53d312e250f4111da78d13\ne9b7e28d3e83fb297fd3e0546f514646b7e887c2ab53d312e250f4111da78d13}", fillcolor="green"];
-node0xc0002b7680->node0xc0002b75e0 [dir=back]
-node0xc0002b7450[label="{e9b7e28d3e83fb297fd3e0546f514646b7e887c2ab53d312e250f4111da78d13 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855}", fillcolor="green"];
-node0xc0002b75e0->node0xc0002b7450 [dir=back]
-node0xc0002b7130[label="{e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | \n  \n -1}", fillcolor="gray" ,color="red"];
-node0xc0002b7450->node0xc0002b7130 [dir=back]
-node0xc0002b7180[label="{e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | \n  \n -1}", fillcolor="gray" ,color="red"];
-node0xc0002b7450->node0xc0002b7180 [dir=back]
-node0xc0002b74a0[label="{e9b7e28d3e83fb297fd3e0546f514646b7e887c2ab53d312e250f4111da78d13 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855}", fillcolor="green"];
-node0xc0002b75e0->node0xc0002b74a0 [dir=back]
-node0xc0002b71d0[label="{e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | \n  \n -1}", fillcolor="gray" ,color="red"];
-node0xc0002b74a0->node0xc0002b71d0 [dir=back]
-node0xc0002b7220[label="{e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | \n  \n -1}", fillcolor="gray" ,color="red"];
-node0xc0002b74a0->node0xc0002b7220 [dir=back]
+node0xc000355360[label="{ff32bb716c4219dd9cf025eb0a19b466620dfdf9cda4761b2cbbaa1073ccd25e | 8482a4c27c5a26d89629380cd274b5a8ee3c909caff189a24c1559762724618a\n5f0e2392691b828d464da43d175fe66bcb8b16923305e14ba3b0d60638d02d95}", fillcolor="green"];
+node0xc0003552c0[label="{8482a4c27c5a26d89629380cd274b5a8ee3c909caff189a24c1559762724618a | 5ccbff952cca3978db4296b463272996795615d833e8d80dd4a89444f48f85ac\nc723193c488e0ed441d207643ee93bc81b36ed123c9b291a7d1cf56e34fcb920}", fillcolor="green"];
+node0xc000355360->node0xc0003552c0 [dir=back]
+node0xc000355180[label="{5ccbff952cca3978db4296b463272996795615d833e8d80dd4a89444f48f85ac | eef8da4958e802a2e9fd45b3977e2db76044fad32288dd81d4426c956cec8d69\ndb45f747edce2a84562301452a3c3995f82f8625c159ceedb81fca722f584610}", fillcolor="green"];
+node0xc0003552c0->node0xc000355180 [dir=back]
+node0xc000354f00[label="{eef8da4958e802a2e9fd45b3977e2db76044fad32288dd81d4426c956cec8d69 | 64cae2c30aeb99ab39d1376776617611d5477bbf024f2a21b0048eb8ebd59151\n9de8a8f54f33a1381a48bf9a1c444d937b775519d3ec894191a7674cb4f50641}", fillcolor="green"];
+node0xc000355180->node0xc000354f00 [dir=back]
+node0xc000056870[label="{64cae2c30aeb99ab39d1376776617611d5477bbf024f2a21b0048eb8ebd59151 |Nombre: Arriaga y Dueñas \nDep: GPS y navegacion \nCalif: 1}", fillcolor="green"];
+node0xc000354f00->node0xc000056870 [dir=back]
+node0xc000056960[label="{9de8a8f54f33a1381a48bf9a1c444d937b775519d3ec894191a7674cb4f50641 |Nombre: Aguilera, Oquendo y Ferrer Asociados \nDep: GPS y navegacion \nCalif: 4}", fillcolor="green"];
+node0xc000354f00->node0xc000056960 [dir=back]
+node0xc000354f50[label="{db45f747edce2a84562301452a3c3995f82f8625c159ceedb81fca722f584610 | 864c0ad479ca3faa12a9330bd30e97558edab93a0bdfc2fcd42d6539d78233d7\ncd4864f737e0e9111f8189807cc8e902715a98af5b66c65ed98fb049769bd6e7}", fillcolor="green"];
+node0xc000355180->node0xc000354f50 [dir=back]
+node0xc000056a00[label="{864c0ad479ca3faa12a9330bd30e97558edab93a0bdfc2fcd42d6539d78233d7 |Nombre: Aranda, Aparicio y Navarro Asociados \nDep: GPS y navegacion \nCalif: 4}", fillcolor="green"];
+node0xc000354f50->node0xc000056a00 [dir=back]
+node0xc000056b90[label="{cd4864f737e0e9111f8189807cc8e902715a98af5b66c65ed98fb049769bd6e7 |Nombre: Aguilera, Oquendo y Ferrer Asociados \nDep: Amazon Music \nCalif: 2}", fillcolor="green"];
+node0xc000354f50->node0xc000056b90 [dir=back]
+node0xc0003551d0[label="{c723193c488e0ed441d207643ee93bc81b36ed123c9b291a7d1cf56e34fcb920 | 6ad3ecda812b21f802bed0f6d58614bf141f39cda488839e58766f6ae40b1016\n9c959bf0c52ab21ad9dfd6d3445073d4a236f7c6b83a344f4a7c7cd3081c5f8b}", fillcolor="green"];
+node0xc0003552c0->node0xc0003551d0 [dir=back]
+node0xc000354fa0[label="{6ad3ecda812b21f802bed0f6d58614bf141f39cda488839e58766f6ae40b1016 | 6ffbe2b9e85692555dccc633e9abce50ea5809f686bebd477fac650f8203c648\n6eeb156de5d333c41cd0e44a1d2212de4f6592137b94f471db4aa89b8d9fd14d}", fillcolor="green"];
+node0xc0003551d0->node0xc000354fa0 [dir=back]
+node0xc000056cd0[label="{6ffbe2b9e85692555dccc633e9abce50ea5809f686bebd477fac650f8203c648 |Nombre: Aranda, Aparicio y Navarro Asociados \nDep: Amazon Music \nCalif: 4}", fillcolor="green"];
+node0xc000354fa0->node0xc000056cd0 [dir=back]
+node0xc000057040[label="{6eeb156de5d333c41cd0e44a1d2212de4f6592137b94f471db4aa89b8d9fd14d |Nombre: Arredondo Duarte S.A. \nDep: Amazon Music \nCalif: 4}", fillcolor="green"];
+node0xc000354fa0->node0xc000057040 [dir=back]
+node0xc000354ff0[label="{9c959bf0c52ab21ad9dfd6d3445073d4a236f7c6b83a344f4a7c7cd3081c5f8b | 418d50d8fb969247a4609d941e2c61cf95c49e291e5d0f00ef8382f8424ff43a\n9dfebcd73e6e8fd63b8420a694edf7da7ca71b8e11a9806193baeb22aed08a21}", fillcolor="green"];
+node0xc0003551d0->node0xc000354ff0 [dir=back]
+node0xc000057360[label="{418d50d8fb969247a4609d941e2c61cf95c49e291e5d0f00ef8382f8424ff43a |Nombre: Arriaga y Dueñas \nDep: Amazon Music \nCalif: 4}", fillcolor="green"];
+node0xc000354ff0->node0xc000057360 [dir=back]
+node0xc000057630[label="{9dfebcd73e6e8fd63b8420a694edf7da7ca71b8e11a9806193baeb22aed08a21 |Nombre: Arias, Lucio y Martínez Asociados \nDep: Amazon Music \nCalif: 5}", fillcolor="green"];
+node0xc000354ff0->node0xc000057630 [dir=back]
+node0xc000355310[label="{5f0e2392691b828d464da43d175fe66bcb8b16923305e14ba3b0d60638d02d95 | 2e7b28a9646c5fce6ec68becb16d692341a616cdbac3fb2268857228280994d5\n205a2919294efd84506697d55e58bd165cbffa88ae99be3b0622b35efcf4a57b}", fillcolor="green"];
+node0xc000355360->node0xc000355310 [dir=back]
+node0xc000355220[label="{2e7b28a9646c5fce6ec68becb16d692341a616cdbac3fb2268857228280994d5 | d68eca8f024cae1f9e252420d8f8047dc7f4fa8c2b4ee2b4a67d82e1245c5927\nb268fa5f63b8ebbbf764d9591dfbb4c4a8762756ba08d91df67157a4d3e0c7af}", fillcolor="green"];
+node0xc000355310->node0xc000355220 [dir=back]
+node0xc000355040[label="{d68eca8f024cae1f9e252420d8f8047dc7f4fa8c2b4ee2b4a67d82e1245c5927 | d16e704631d60a998948ea684d791007fd6e8d222cdc73d124a875e58c8fbb93\n3f735012b65d624211148e4fc76d9b32cc1e04ce5e29b93f1ef5afd7efc5579c}", fillcolor="green"];
+node0xc000355220->node0xc000355040 [dir=back]
+node0xc0000578b0[label="{d16e704631d60a998948ea684d791007fd6e8d222cdc73d124a875e58c8fbb93 |Nombre: Banda e Hijos \nDep: GPS y navegacion \nCalif: 1}", fillcolor="green"];
+node0xc000355040->node0xc0000578b0 [dir=back]
+node0xc000354000[label="{3f735012b65d624211148e4fc76d9b32cc1e04ce5e29b93f1ef5afd7efc5579c |Nombre: Baca Jasso S.L. \nDep: GPS y navegacion \nCalif: 3}", fillcolor="green"];
+node0xc000355040->node0xc000354000 [dir=back]
+node0xc000355090[label="{b268fa5f63b8ebbbf764d9591dfbb4c4a8762756ba08d91df67157a4d3e0c7af | 57f73e586d1d31e8d3e06fe44059babac3721f866b70676c2b7cf3e44414ea24\n997d790efa6af44075f24043014b0490327183eee6bd37c1e9076e9331620817}", fillcolor="green"];
+node0xc000355220->node0xc000355090 [dir=back]
+node0xc0003546e0[label="{57f73e586d1d31e8d3e06fe44059babac3721f866b70676c2b7cf3e44414ea24 |Nombre: Bernal, Pelayo y Delafuente Asociados \nDep: GPS y navegacion \nCalif: 3}", fillcolor="green"];
+node0xc000355090->node0xc0003546e0 [dir=back]
+node0xc000354d70[label="{997d790efa6af44075f24043014b0490327183eee6bd37c1e9076e9331620817 |Nombre: Banda e Hijos \nDep: Amazon Music \nCalif: 5}", fillcolor="green"];
+node0xc000355090->node0xc000354d70 [dir=back]
+node0xc000355270[label="{205a2919294efd84506697d55e58bd165cbffa88ae99be3b0622b35efcf4a57b | e9b7e28d3e83fb297fd3e0546f514646b7e887c2ab53d312e250f4111da78d13\ne9b7e28d3e83fb297fd3e0546f514646b7e887c2ab53d312e250f4111da78d13}", fillcolor="green"];
+node0xc000355310->node0xc000355270 [dir=back]
+node0xc0003550e0[label="{e9b7e28d3e83fb297fd3e0546f514646b7e887c2ab53d312e250f4111da78d13 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855}", fillcolor="green"];
+node0xc000355270->node0xc0003550e0 [dir=back]
+node0xc000354dc0[label="{e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | \n  \n -1}", fillcolor="gray" ,color="red"];
+node0xc0003550e0->node0xc000354dc0 [dir=back]
+node0xc000354e10[label="{e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | \n  \n -1}", fillcolor="gray" ,color="red"];
+node0xc0003550e0->node0xc000354e10 [dir=back]
+node0xc000355130[label="{e9b7e28d3e83fb297fd3e0546f514646b7e887c2ab53d312e250f4111da78d13 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855}", fillcolor="green"];
+node0xc000355270->node0xc000355130 [dir=back]
+node0xc000354e60[label="{e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | \n  \n -1}", fillcolor="gray" ,color="red"];
+node0xc000355130->node0xc000354e60 [dir=back]
+node0xc000354eb0[label="{e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | \n  \n -1}", fillcolor="gray" ,color="red"];
+node0xc000355130->node0xc000354eb0 [dir=back]
 }

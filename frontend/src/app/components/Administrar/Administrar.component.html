@@ -22,14 +22,17 @@
       <button class="btn btn-info" (click)="Amatrizlinealizada()" style="margin: auto;">
         <i>Matriz Linealizada</i>
       </button>
+      <button class="btn btn-info" (click)="AAVL()" style="margin: auto;">
+        <i>Arboles AVL</i>
+      </button>
+      <button class="btn btn-info" (click)="AMerkle()" style="margin: auto;">
+        <i>Arboles Merkle</i>
+      </button>
       <button class="btn btn-info" (click)="Acalendarios()" style="margin: auto;">
         <i>Calendarios</i>
       </button>
       <button class="btn btn-info" (click)="Apedidos()" style="margin: auto;">
         <i>Pedidos</i>
-      </button>
-      <button class="btn btn-info" (click)="Aarbol()" style="margin: auto;">
-        <i>Arbol Años</i>
       </button>
   </div>
 </nav>
@@ -202,11 +205,18 @@
       </table>
     </form>
   </ng-container>
-<!---------------------------------------------   ARBOL AÑOS  ------------------------------------------------->
-<ng-container *ngIf="Estado==='Arbol'">
-    <form style="margin: auto; background-color: #4884af; margin-top: 2%; padding: 2%; border-radius: 2%; color:white">
-      <h1>Árbol de años</h1>
-      <img src="assets/img/arbolAnios.png">
+<!---------------------------------------------   ARBOL MERKLE  ------------------------------------------------->
+<ng-container *ngIf="Estado==='Merkle'">
+    <form style="margin: auto; background-color: #4884af; margin-top: 2%;
+     padding: 2%; border-radius: 2%; color:white;">
+      <h1>Merkle de Tiendas</h1>
+      <img src="assets/img/MerkleTiendas.png">
+      <h1>Merkle de Productos</h1>
+      <img src="assets/img/MerkleProductos.png">
+      <h1>Merkle de Usuarios</h1>
+      <img src="assets/img/MerkleUsuarios.png">
+      <h1>Merkle de Pedidos</h1>
+      <img src="assets/img/MerklePedidos.png">
     </form>
   </ng-container>
 
@@ -248,5 +258,18 @@
     </form>
 
   </ng-container>
+
+
+<!---------------------------------------------   ARBOL B  ------------------------------------------------->
+<ng-container *ngIf="Estado==='AVL'">
+  <form style="margin: auto; background-color: #4884af; margin-top: 2%; padding: 2%; border-radius: 2%; color:white">
+    <h1>Arboles AVL</h1>
+    <div *ngFor="let tienda of Tiendas">
+      <h1>{{tienda.Nombre}}</h1>
+      <h2>{{tienda.Departamento}}</h2>
+      <img class="img-fluid" src="../../../assets/img/{{tienda.Nombre}}---{{tienda.Departamento}}---{{tienda.Calificacion}}.png">
+    </div>
+  </form>
+</ng-container>
 
 </div>

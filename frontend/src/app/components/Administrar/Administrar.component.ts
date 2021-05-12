@@ -4,6 +4,7 @@ import { DatosService } from "../../services/Datos/Datos.service";
 import { Producto } from "../../models/Producto/Producto";
 import { Usuario } from "../../models/Usuario/Usuario";
 import { Paso } from "../../models/Paso/Paso";
+import { Tienda } from "../../models/Tienda/Tienda";
 
 @Component({
   selector: 'app-Administrar',
@@ -40,6 +41,9 @@ export class AdministrarComponent implements OnInit {
   Distancia: number = 0
   Usuarios: number[] = []
 
+  //Para AVL
+  Tiendas: Tienda[] = []
+
 
   constructor(private DatosService: DatosService,
     private route: ActivatedRoute,
@@ -47,7 +51,7 @@ export class AdministrarComponent implements OnInit {
     this.DatosService.GetFechas().subscribe((dataList: any) => {
       this.Fechas = dataList.Fechas
       this.Calendario = this.Fechas[0]
-      this.Estado = "Grafos"
+      this.Estado = "AVL"
       this.Valido = false
     }, (err) => {
       console.log('No se pudo cargar la lista de fechas')
@@ -69,6 +73,14 @@ export class AdministrarComponent implements OnInit {
     }, (err) => {
       console.log("error")
     })
+    this.DatosService.GetTiendas().subscribe((dataList: any) => {
+      this.Tiendas = dataList.Tiendas
+      console.log(dataList)
+      console.log(this.Tiendas[0].Nombre)
+    }, (err) => {
+      console.log("no hay tiendas")
+    })
+
   }
 
   ngOnInit(): void {
@@ -128,8 +140,12 @@ export class AdministrarComponent implements OnInit {
     this.Grafo = "GrafoInicial"
   }
 
-  Aarbol() {
-    this.Estado = "Arbol"
+  AMerkle() {
+    this.Estado = "Merkle"
+  }
+
+  AAVL() {
+    this.Estado = "AVL"
   }
 
   Aarbolcuentas() {

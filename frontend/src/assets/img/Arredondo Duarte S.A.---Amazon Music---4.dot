@@ -1,36 +1,33 @@
 digraph G{
 node [shape=circle style=filled];
-"0xc000006080"[label="Genérica Frozen Bike
-278" fillcolor=aquamarine];
-"0xc000006080" -> "0xc000087520";
-"0xc000006080" -> "0xc000087528";
-"0xc000087520"[label="Ergonómico Frozen Teclado
-271" fillcolor=aquamarine];
-"0xc000087520" -> "0xc000087480";
-"0xc000087520" -> "0xc000087488";
-"0xc000087480"[label="Artesanal Frozen Auto
-269" fillcolor=aquamarine];
-"0xc000087480" -> "0xc0000877a8";
-"0xc0000877a8"[label="Refinado Fresco Pelota
-270" fillcolor=aquamarine];
-"0xc000087488"[label="Fantástico Caucho Presidente
-273" fillcolor=aquamarine];
-"0xc000087528"[label="Sin marca Madera Tocino
-301" fillcolor=aquamarine];
-"0xc000087528" -> "0xc0000873e0";
-"0xc000087528" -> "0xc0000873e8";
-"0xc0000873e0"[label="Pequeño Frozen Pantalones
-284" fillcolor=aquamarine];
-"0xc0000873e0" -> "0xc000087660";
-"0xc000087660"[label="Ergonómico Acero Pantalones
-283" fillcolor=aquamarine];
-"0xc0000873e8"[label="Sabrosa Frozen Auto
+"0xc0000d6020"[label="Inteligente Plástico Auto
+306" fillcolor=aquamarine];
+"0xc0000d6020" -> "0xc000224580";
+"0xc0000d6020" -> "0xc000224588";
+"0xc000224580"[label="Sabrosa Frozen Auto
 304" fillcolor=aquamarine];
-
-}
-;
-"0xc0002bc808" -> "0xc0002bc8a0";
-"0xc0002bc8a0"[label="Licencia Acero Tuna
+"0xc000224580" -> "0xc000224260";
+"0xc000224580" -> "0xc000224268";
+"0xc000224260"[label="Increíble Hormigón Tocino
+302" fillcolor=aquamarine];
+"0xc000224260" -> "0xc0002249e0";
+"0xc000224260" -> "0xc0002249e8";
+"0xc0002249e0"[label="Sin marca Madera Tocino
+301" fillcolor=aquamarine];
+"0xc0002249e8"[label="Ergonómico Acero Toallas
+303" fillcolor=aquamarine];
+"0xc000224268"[label="Hecho a mano Hormigón Teclado
+305" fillcolor=aquamarine];
+"0xc000224588"[label="Práctica Frozen Pizza
+308" fillcolor=aquamarine];
+"0xc000224588" -> "0xc000224760";
+"0xc000224588" -> "0xc000224768";
+"0xc000224760"[label="Ergonómico Metal Ensalada
+307" fillcolor=aquamarine];
+"0xc000224768"[label="Licencia Fresco Tocino
+310" fillcolor=aquamarine];
+"0xc000224768" -> "0xc000224800";
+"0xc000224800"[label="Licencia Acero Tuna
 309" fillcolor=aquamarine];
 
 }

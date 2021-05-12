@@ -59,7 +59,7 @@ export class TiendasComponent implements OnInit {
     }, (err) => {
       console.log("no hay tiendas")
     })
-    
+
   }
 
   ngOnInit(): void {
@@ -94,12 +94,12 @@ export class TiendasComponent implements OnInit {
   Regresar() {
     this.pilaComentarios = []
     this.pilaRespuestas = []
-    if(this.Previo=="Tiendas"){
+    if (this.Previo == "Tiendas") {
       this.Estado = "Tiendas"
-      this.Previo=""
-    }else{
-      this.Estado="Productos"
-      this.Previo="Tiendas"
+      this.Previo = ""
+    } else {
+      this.Estado = "Productos"
+      this.Previo = "Tiendas"
     }
   }
 
@@ -115,17 +115,17 @@ export class TiendasComponent implements OnInit {
     this.DatosService.GetInventario(Busqueda).subscribe((dataList: any) => {
       this.Productos = dataList.Productos
       this.Estado = "Productos"
-      this.Previo="Tiendas"
+      this.Previo = "Tiendas"
     }, (err) => {
       console.log("No se pudo cargar inventario")
     })
   }
 
   AComentario(Tienda: Tienda) {
-    if(this.Estado=="Tiendas"){
-      this.Previo="Tiendas"
-    }else{
-      this.Previo="Productos"
+    if (this.Estado == "Tiendas") {
+      this.Previo = "Tiendas"
+    } else {
+      this.Previo = "Productos"
     }
     this.Estado = "Comentarios"
     this.Id = Tienda.Nombre + "&&&" + Tienda.Calificacion + "&&&" + Tienda.Departamento
@@ -136,13 +136,13 @@ export class TiendasComponent implements OnInit {
   }
 
   AComentarioP(Producto: Producto) {
-    if(this.Estado=="Tiendas"){
-      this.Previo="Tiendas"
-    }else{
-      this.Previo="Productos"
+    if (this.Estado == "Tiendas") {
+      this.Previo = "Tiendas"
+    } else {
+      this.Previo = "Productos"
     }
     this.Estado = "Comentarios"
-    this.Id = String(Producto.Codigo)
+    this.Id = this.Tienda + "&&&" + this.Departamento + "&&&" + String(Producto.Codigo)
     this.pilaComentarios.push({
       Id: this.Id, Ruta: "", Usuario: "", Nombre: "", Mensaje: ""
     })
@@ -329,7 +329,7 @@ export class TiendasComponent implements OnInit {
     this.NuevoNombre = ""
     this.NuevoCorreo = ""
     this.NuevoPassword = ""
-    this.Previo="Tiendas"
+    this.Previo = "Tiendas"
     this.Estado = "Cuentas"
   }
 

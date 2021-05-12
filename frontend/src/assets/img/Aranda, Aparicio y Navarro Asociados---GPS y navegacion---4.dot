@@ -1,38 +1,36 @@
 digraph G{
 node [shape=circle style=filled];
-"0xc000006038"[label="Sabrosa Granito Auto
+"0xc0000d6030"[label="Sabrosa Granito Auto
 515" fillcolor=aquamarine];
-"0xc000006038" -> "0xc000086ee0";
-"0xc000006038" -> "0xc000086ee8";
-"0xc000086ee0"[label="Fantástico Frozen Camisa
+"0xc0000d6030" -> "0xc000050d00";
+"0xc0000d6030" -> "0xc000050d08";
+"0xc000050d00"[label="Increíble Caucho Bike
+513" fillcolor=aquamarine];
+"0xc000050d00" -> "0xc000051160";
+"0xc000050d00" -> "0xc000051168";
+"0xc000051160"[label="Fantástico Frozen Camisa
 511" fillcolor=aquamarine];
-"0xc000086ee0" -> "0xc000087160";
-"0xc000086ee0" -> "0xc000087168";
-"0xc000087160"[label="Hecho a mano Soft Pelota
-344" fillcolor=aquamarine];
-"0xc000087168"[label="Genérica Granito Bike
+"0xc000051160" -> "0xc000050f80";
+"0xc000051160" -> "0xc000050f88";
+"0xc000050f80"[label="Pequeño Fresco Sombrero
+510" fillcolor=aquamarine];
+"0xc000050f88"[label="Licencia Metal Sombrero
+512" fillcolor=aquamarine];
+"0xc000051168"[label="Genérica Granito Bike
 514" fillcolor=aquamarine];
-"0xc000086ee8"[label="Pequeño Hormigón Camisa
-518" fillcolor=aquamarine];
-"0xc000086ee8" -> "0xc0000870c0";
-"0xc0000870c0"[label="Hecho a mano Granito Pelota
+"0xc000050d08"[label="Hecho a mano Granito Pelota
 517" fillcolor=aquamarine];
-
-}
- fillcolor=aquamarine];
-"0xc000048ee8"[label="Hecho a mano Granito Pelota
-517" fillcolor=aquamarine];
-"0xc000048ee8" -> "0xc000049200";
-"0xc000048ee8" -> "0xc000049208";
-"0xc000049200"[label="Licencia Granito Zapatos
+"0xc000050d08" -> "0xc000051020";
+"0xc000050d08" -> "0xc000051028";
+"0xc000051020"[label="Licencia Granito Zapatos
 516" fillcolor=aquamarine];
-"0xc000049208"[label="Genérica Madera Tocino
+"0xc000051028"[label="Genérica Madera Tocino
 519" fillcolor=aquamarine];
-"0xc000049208" -> "0xc000049520";
-"0xc000049208" -> "0xc000049528";
-"0xc000049520"[label="Pequeño Hormigón Camisa
+"0xc000051028" -> "0xc000051340";
+"0xc000051028" -> "0xc000051348";
+"0xc000051340"[label="Pequeño Hormigón Camisa
 518" fillcolor=aquamarine];
-"0xc000049528"[label="Increíble Frozen Guantes
+"0xc000051348"[label="Increíble Frozen Guantes
 520" fillcolor=aquamarine];
 
 }

@@ -1,0 +1,25 @@
+digraph {
+rankdir = BT;
+node [shape=rectangle style=filled];
+graph[ nodesep = 0.5];
+{ rank=same; nodoMatriz_D; nodo14;}
+ { rank=same; nodo14; nodo23;}
+ { rank=same; nodoAmazon_Music; nodo23Amazon_Music;}
+ { rank=same; nodoGPS_y_navegacion; nodo14GPS_y_navegacion;}
+ nodoMatriz_D [label="Matriz_D" fillcolor=aquamarine]
+nodo14 [label="14" fillcolor=aquamarine]
+nodoMatriz_D->nodo14 [dir=both]
+nodo23 [label="23" fillcolor=aquamarine]
+nodo14->nodo23 [dir=both]
+nodoAmazon_Music [label="Amazon Music" fillcolor=aquamarine]
+nodoAmazon_Music->nodoMatriz_D [dir=both]
+nodoGPS_y_navegacion [label="GPS y navegacion" fillcolor=aquamarine]
+nodoGPS_y_navegacion->nodoAmazon_Music [dir=both]
+nodo23Amazon_Music [label="3" shape=circle fillcolor=lightgoldenrod]
+nodo23Amazon_Music->nodo23 [dir=both]
+nodoAmazon_Music->nodo23Amazon_Music [constraint=false; dir=both]
+nodo14GPS_y_navegacion [label="2" shape=circle fillcolor=lightgoldenrod]
+nodo14GPS_y_navegacion->nodo14 [dir=both]
+nodoGPS_y_navegacion->nodo14GPS_y_navegacion [constraint=false; dir=both]
+{ rank=same; nodoMatriz_D; nodo14; nodo23; }
+ }
