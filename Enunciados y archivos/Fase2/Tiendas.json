@@ -1,0 +1,558 @@
+{
+    "Datos": [
+        {
+            "Indice": "A",
+            "Departamentos": [
+                {
+                    "Nombre": "Software",
+                    "Tiendas": [
+                        {
+                            "Nombre": "Aguilera y Sotelo",
+                            "Descripcion": "Vel pariatur in aut dolorem quam dolor qui.",
+                            "Contacto": "976.113.163",
+                            "Calificacion": 4,
+                            "Logo": "http://placeimg.com/640/480/sports"
+                        },
+                        {
+                            "Nombre": "Apodaca Tamez S.A.",
+                            "Descripcion": "Quia placeat quibusdam porro necessitatibus aut voluptates earum perspiciatis consequatur.",
+                            "Contacto": "935221669",
+                            "Calificacion": 2,
+                            "Logo": "http://placeimg.com/640/480/city"
+                        },
+                        {
+                            "Nombre": "Alonso, Galván y Rodríguez Asociados",
+                            "Descripcion": "Eos delectus et ipsum autem pariatur culpa.",
+                            "Contacto": "985890934",
+                            "Calificacion": 5,
+                            "Logo": "http://placeimg.com/640/480/sports"
+                        },
+                        {
+                            "Nombre": "Alvarez e Hijos",
+                            "Descripcion": "Voluptatem porro commodi minus pariatur sunt.",
+                            "Contacto": "900445852",
+                            "Calificacion": 2,
+                            "Logo": "http://placeimg.com/640/480/cats"
+                        }
+                    ]
+                },
+                {
+                    "Nombre": "Electrónicos",
+                    "Tiendas": [
+                        {
+                            "Nombre": "Aguilera y Sotelo",
+                            "Descripcion": "Qui et quibusdam velit error et iure ipsa odit.",
+                            "Contacto": "990 142 896",
+                            "Calificacion": 5,
+                            "Logo": "http://placeimg.com/640/480/animals"
+                        }
+                    ]
+                },
+                {
+                    "Nombre": "Seguridad y vigilancia",
+                    "Tiendas": [
+                        {
+                            "Nombre": "Aguilera y Sotelo",
+                            "Descripcion": "Et quidem unde quas et et et.",
+                            "Contacto": "958460097",
+                            "Calificacion": 4,
+                            "Logo": "http://placeimg.com/640/480/transport"
+                        },
+                        {
+                            "Nombre": "Apodaca Tamez S.A.",
+                            "Descripcion": "Repudiandae totam nostrum voluptatem dignissimos occaecati est.",
+                            "Contacto": "906 405 623",
+                            "Calificacion": 2,
+                            "Logo": "http://placeimg.com/640/480/sports"
+                        },
+                        {
+                            "Nombre": "Alonso, Galván y Rodríguez Asociados",
+                            "Descripcion": "Dolorem ratione sed exercitationem.",
+                            "Contacto": "997-003-150",
+                            "Calificacion": 2,
+                            "Logo": "http://placeimg.com/640/480/business"
+                        }
+                    ]
+                },
+                {
+                    "Nombre": "Regalos",
+                    "Tiendas": [
+                        {
+                            "Nombre": "Aguilera y Sotelo",
+                            "Descripcion": "Mollitia voluptatibus exercitationem.",
+                            "Contacto": "972.296.113",
+                            "Calificacion": 1,
+                            "Logo": "http://placeimg.com/640/480/nightlife"
+                        },
+                        {
+                            "Nombre": "Apodaca Tamez S.A.",
+                            "Descripcion": "Iusto dolorem explicabo.",
+                            "Contacto": "967.076.652",
+                            "Calificacion": 2,
+                            "Logo": "http://placeimg.com/640/480/people"
+                        },
+                        {
+                            "Nombre": "Alonso, Galván y Rodríguez Asociados",
+                            "Descripcion": "Quo aut explicabo.",
+                            "Contacto": "945.198.811",
+                            "Calificacion": 3,
+                            "Logo": "http://placeimg.com/640/480/nightlife"
+                        }
+                    ]
+                },
+                {
+                    "Nombre": "Patio y Jardin",
+                    "Tiendas": [
+                        {
+                            "Nombre": "Aguilera y Sotelo",
+                            "Descripcion": "Esse temporibus excepturi aut quo neque molestias in.",
+                            "Contacto": "957.884.537",
+                            "Calificacion": 1,
+                            "Logo": "http://placeimg.com/640/480/cats"
+                        },
+                        {
+                            "Nombre": "Apodaca Tamez S.A.",
+                            "Descripcion": "Quisquam dicta error aut quia voluptate explicabo.",
+                            "Contacto": "925-033-747",
+                            "Calificacion": 1,
+                            "Logo": "http://placeimg.com/640/480/abstract"
+                        },
+                        {
+                            "Nombre": "Alonso, Galván y Rodríguez Asociados",
+                            "Descripcion": "Nihil consequatur molestiae facilis.",
+                            "Contacto": "935-211-002",
+                            "Calificacion": 5,
+                            "Logo": "http://placeimg.com/640/480/nightlife"
+                        },
+                        {
+                            "Nombre": "Alvarez e Hijos",
+                            "Descripcion": "Ea officia vel sed ea sint nulla omnis.",
+                            "Contacto": "961-595-415",
+                            "Calificacion": 1,
+                            "Logo": "http://placeimg.com/640/480/animals"
+                        },
+                        {
+                            "Nombre": "Arriaga y Márquez",
+                            "Descripcion": "Voluptatem doloremque quae aliquam.",
+                            "Contacto": "993-528-414",
+                            "Calificacion": 4,
+                            "Logo": "http://placeimg.com/640/480/food"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "Indice": "B",
+            "Departamentos": [
+                {
+                    "Nombre": "Software",
+                    "Tiendas": [
+                        {
+                            "Nombre": "Bétancourt y Quintero",
+                            "Descripcion": "Beatae dolores voluptas voluptate non recusandae quam.",
+                            "Contacto": "927.224.284",
+                            "Calificacion": 1,
+                            "Logo": "http://placeimg.com/640/480/transport"
+                        }
+                    ]
+                },
+                {
+                    "Nombre": "Electrónicos",
+                    "Tiendas": [
+                        {
+                            "Nombre": "Bétancourt y Quintero",
+                            "Descripcion": "Sunt voluptatum soluta aut.",
+                            "Contacto": "994.616.266",
+                            "Calificacion": 1,
+                            "Logo": "http://placeimg.com/640/480/business"
+                        }
+                    ]
+                },
+                {
+                    "Nombre": "Seguridad y vigilancia",
+                    "Tiendas": [
+                        {
+                            "Nombre": "Bétancourt y Quintero",
+                            "Descripcion": "Architecto doloremque provident dolorem rerum ipsam incidunt modi esse.",
+                            "Contacto": "939 995 029",
+                            "Calificacion": 5,
+                            "Logo": "http://placeimg.com/640/480/abstract"
+                        }
+                    ]
+                },
+                {
+                    "Nombre": "Regalos",
+                    "Tiendas": [
+                        {
+                            "Nombre": "Bétancourt y Quintero",
+                            "Descripcion": "Repellat ea ullam.",
+                            "Contacto": "955.156.415",
+                            "Calificacion": 5,
+                            "Logo": "http://placeimg.com/640/480/animals"
+                        },
+                        {
+                            "Nombre": "Barajas Hermanos",
+                            "Descripcion": "Culpa magnam alias explicabo.",
+                            "Contacto": "975.412.283",
+                            "Calificacion": 2,
+                            "Logo": "http://placeimg.com/640/480/food"
+                        },
+                        {
+                            "Nombre": "Barreto Espino S.A.",
+                            "Descripcion": "Nostrum velit minima voluptatem incidunt iste blanditiis rerum cupiditate.",
+                            "Contacto": "979-021-567",
+                            "Calificacion": 2,
+                            "Logo": "http://placeimg.com/640/480/sports"
+                        }
+                    ]
+                },
+                {
+                    "Nombre": "Patio y Jardin",
+                    "Tiendas": [
+                        {
+                            "Nombre": "Bétancourt y Quintero",
+                            "Descripcion": "Ab labore consequatur.",
+                            "Contacto": "916.074.407",
+                            "Calificacion": 3,
+                            "Logo": "http://placeimg.com/640/480/fashion"
+                        },
+                        {
+                            "Nombre": "Barajas Hermanos",
+                            "Descripcion": "Magni voluptatum totam.",
+                            "Contacto": "941158357",
+                            "Calificacion": 2,
+                            "Logo": "http://placeimg.com/640/480/transport"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "Indice": "C",
+            "Departamentos": [
+                {
+                    "Nombre": "Software",
+                    "Tiendas": [
+                        {
+                            "Nombre": "Concepción, Delacrúz y Gamez Asociados",
+                            "Descripcion": "Sit dolorem corrupti suscipit.",
+                            "Contacto": "979045473",
+                            "Calificacion": 5,
+                            "Logo": "http://placeimg.com/640/480/nature"
+                        },
+                        {
+                            "Nombre": "Carreón Escobar e Hijos",
+                            "Descripcion": "Voluptatem fugiat dicta facilis est veniam magnam nobis totam.",
+                            "Contacto": "987-686-100",
+                            "Calificacion": 5,
+                            "Logo": "http://placeimg.com/640/480/abstract"
+                        },
+                        {
+                            "Nombre": "Carmona Padilla S.L.",
+                            "Descripcion": "Sunt fugiat explicabo.",
+                            "Contacto": "943-752-106",
+                            "Calificacion": 5,
+                            "Logo": "http://placeimg.com/640/480/nature"
+                        },
+                        {
+                            "Nombre": "Curiel, Sierra y Burgos Asociados",
+                            "Descripcion": "Quasi nesciunt voluptate.",
+                            "Contacto": "970809282",
+                            "Calificacion": 3,
+                            "Logo": "http://placeimg.com/640/480/fashion"
+                        }
+                    ]
+                },
+                {
+                    "Nombre": "Electrónicos",
+                    "Tiendas": [
+                        {
+                            "Nombre": "Concepción, Delacrúz y Gamez Asociados",
+                            "Descripcion": "Est dolorem eos officiis officia qui architecto labore.",
+                            "Contacto": "939 548 589",
+                            "Calificacion": 3,
+                            "Logo": "http://placeimg.com/640/480/nature"
+                        },
+                        {
+                            "Nombre": "Carreón Escobar e Hijos",
+                            "Descripcion": "Temporibus est facere aliquid omnis soluta a aut.",
+                            "Contacto": "921583380",
+                            "Calificacion": 1,
+                            "Logo": "http://placeimg.com/640/480/transport"
+                        },
+                        {
+                            "Nombre": "Carmona Padilla S.L.",
+                            "Descripcion": "Laborum possimus fuga deserunt odit consequatur.",
+                            "Contacto": "959 140 569",
+                            "Calificacion": 4,
+                            "Logo": "http://placeimg.com/640/480/abstract"
+                        },
+                        {
+                            "Nombre": "Curiel, Sierra y Burgos Asociados",
+                            "Descripcion": "Corrupti enim ex eum sit omnis ut sed necessitatibus est.",
+                            "Contacto": "945.127.390",
+                            "Calificacion": 5,
+                            "Logo": "http://placeimg.com/640/480/business"
+                        }
+                    ]
+                },
+                {
+                    "Nombre": "Seguridad y vigilancia",
+                    "Tiendas": [
+                        {
+                            "Nombre": "Concepción, Delacrúz y Gamez Asociados",
+                            "Descripcion": "Et ab id.",
+                            "Contacto": "952-461-777",
+                            "Calificacion": 4,
+                            "Logo": "http://placeimg.com/640/480/city"
+                        },
+                        {
+                            "Nombre": "Carreón Escobar e Hijos",
+                            "Descripcion": "Voluptatem dolor aut consectetur aspernatur dolores itaque tempore rerum qui.",
+                            "Contacto": "997-850-397",
+                            "Calificacion": 4,
+                            "Logo": "http://placeimg.com/640/480/nature"
+                        },
+                        {
+                            "Nombre": "Carmona Padilla S.L.",
+                            "Descripcion": "Quia dolorum atque temporibus voluptas fugiat inventore sint doloremque qui.",
+                            "Contacto": "904970700",
+                            "Calificacion": 2,
+                            "Logo": "http://placeimg.com/640/480/people"
+                        },
+                        {
+                            "Nombre": "Curiel, Sierra y Burgos Asociados",
+                            "Descripcion": "Qui aspernatur excepturi et totam reprehenderit est iusto asperiores.",
+                            "Contacto": "992-733-963",
+                            "Calificacion": 1,
+                            "Logo": "http://placeimg.com/640/480/food"
+                        },
+                        {
+                            "Nombre": "Crespo y Vanegas",
+                            "Descripcion": "Neque incidunt deleniti totam sed veniam ducimus.",
+                            "Contacto": "981584809",
+                            "Calificacion": 5,
+                            "Logo": "http://placeimg.com/640/480/people"
+                        }
+                    ]
+                },
+                {
+                    "Nombre": "Regalos",
+                    "Tiendas": [
+                        {
+                            "Nombre": "Concepción, Delacrúz y Gamez Asociados",
+                            "Descripcion": "Quia impedit id fugit mollitia reprehenderit voluptas voluptas voluptas.",
+                            "Contacto": "921.494.845",
+                            "Calificacion": 2,
+                            "Logo": "http://placeimg.com/640/480/fashion"
+                        },
+                        {
+                            "Nombre": "Carreón Escobar e Hijos",
+                            "Descripcion": "Qui omnis aut minus natus aut praesentium.",
+                            "Contacto": "989 596 373",
+                            "Calificacion": 3,
+                            "Logo": "http://placeimg.com/640/480/technics"
+                        },
+                        {
+                            "Nombre": "Carmona Padilla S.L.",
+                            "Descripcion": "Aut culpa praesentium.",
+                            "Contacto": "951132797",
+                            "Calificacion": 1,
+                            "Logo": "http://placeimg.com/640/480/sports"
+                        },
+                        {
+                            "Nombre": "Curiel, Sierra y Burgos Asociados",
+                            "Descripcion": "Qui harum et voluptas enim rerum et at.",
+                            "Contacto": "911.794.550",
+                            "Calificacion": 4,
+                            "Logo": "http://placeimg.com/640/480/abstract"
+                        }
+                    ]
+                },
+                {
+                    "Nombre": "Patio y Jardin",
+                    "Tiendas": [
+                        {
+                            "Nombre": "Concepción, Delacrúz y Gamez Asociados",
+                            "Descripcion": "Culpa architecto et animi provident esse et.",
+                            "Contacto": "944-514-047",
+                            "Calificacion": 2,
+                            "Logo": "http://placeimg.com/640/480/transport"
+                        },
+                        {
+                            "Nombre": "Carreón Escobar e Hijos",
+                            "Descripcion": "Molestias modi totam minima.",
+                            "Contacto": "979 385 739",
+                            "Calificacion": 1,
+                            "Logo": "http://placeimg.com/640/480/technics"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "Indice": "D",
+            "Departamentos": [
+                {
+                    "Nombre": "Software",
+                    "Tiendas": [
+                        {
+                            "Nombre": "Delgado e Hijos",
+                            "Descripcion": "Porro quis labore sed exercitationem nam.",
+                            "Contacto": "931-814-363",
+                            "Calificacion": 4,
+                            "Logo": "http://placeimg.com/640/480/nature"
+                        },
+                        {
+                            "Nombre": "de Jesús, Aranda y Galarza Asociados",
+                            "Descripcion": "Quidem quia est rerum.",
+                            "Contacto": "976-685-921",
+                            "Calificacion": 3,
+                            "Logo": "http://placeimg.com/640/480/nightlife"
+                        },
+                        {
+                            "Nombre": "Dueñas, Ponce y Molina Asociados",
+                            "Descripcion": "Nihil nesciunt sapiente atque in aliquid pariatur quidem inventore dicta.",
+                            "Contacto": "907 679 399",
+                            "Calificacion": 3,
+                            "Logo": "http://placeimg.com/640/480/nature"
+                        }
+                    ]
+                },
+                {
+                    "Nombre": "Electrónicos",
+                    "Tiendas": [
+                        {
+                            "Nombre": "Delgado e Hijos",
+                            "Descripcion": "Odio velit maiores id ex perferendis nihil reiciendis eligendi neque.",
+                            "Contacto": "980 185 764",
+                            "Calificacion": 2,
+                            "Logo": "http://placeimg.com/640/480/animals"
+                        },
+                        {
+                            "Nombre": "de Jesús, Aranda y Galarza Asociados",
+                            "Descripcion": "Tenetur minus dolores non est ut minus.",
+                            "Contacto": "929-171-301",
+                            "Calificacion": 4,
+                            "Logo": "http://placeimg.com/640/480/technics"
+                        },
+                        {
+                            "Nombre": "Dueñas, Ponce y Molina Asociados",
+                            "Descripcion": "Ut sed ea illum deleniti.",
+                            "Contacto": "987-681-733",
+                            "Calificacion": 5,
+                            "Logo": "http://placeimg.com/640/480/sports"
+                        },
+                        {
+                            "Nombre": "Delagarza Noriega Hermanos",
+                            "Descripcion": "Ut laborum ea.",
+                            "Contacto": "958 568 240",
+                            "Calificacion": 4,
+                            "Logo": "http://placeimg.com/640/480/sports"
+                        },
+                        {
+                            "Nombre": "Dueñas y Galindo",
+                            "Descripcion": "Sit blanditiis rerum dolores perspiciatis.",
+                            "Contacto": "938.877.420",
+                            "Calificacion": 1,
+                            "Logo": "http://placeimg.com/640/480/cats"
+                        }
+                    ]
+                },
+                {
+                    "Nombre": "Seguridad y vigilancia",
+                    "Tiendas": [
+                        {
+                            "Nombre": "Delgado e Hijos",
+                            "Descripcion": "Quasi sapiente rerum.",
+                            "Contacto": "944.799.698",
+                            "Calificacion": 3,
+                            "Logo": "http://placeimg.com/640/480/fashion"
+                        },
+                        {
+                            "Nombre": "de Jesús, Aranda y Galarza Asociados",
+                            "Descripcion": "Commodi minus sed qui quaerat qui voluptas sapiente ipsa doloribus.",
+                            "Contacto": "922004637",
+                            "Calificacion": 2,
+                            "Logo": "http://placeimg.com/640/480/technics"
+                        },
+                        {
+                            "Nombre": "Dueñas, Ponce y Molina Asociados",
+                            "Descripcion": "Asperiores beatae iste ipsum neque vel.",
+                            "Contacto": "946 811 612",
+                            "Calificacion": 2,
+                            "Logo": "http://placeimg.com/640/480/technics"
+                        }
+                    ]
+                },
+                {
+                    "Nombre": "Regalos",
+                    "Tiendas": [
+                        {
+                            "Nombre": "Delgado e Hijos",
+                            "Descripcion": "Repellat rem repellendus.",
+                            "Contacto": "996-308-177",
+                            "Calificacion": 2,
+                            "Logo": "http://placeimg.com/640/480/food"
+                        },
+                        {
+                            "Nombre": "de Jesús, Aranda y Galarza Asociados",
+                            "Descripcion": "Et laborum sint at est.",
+                            "Contacto": "964650376",
+                            "Calificacion": 4,
+                            "Logo": "http://placeimg.com/640/480/cats"
+                        },
+                        {
+                            "Nombre": "Dueñas, Ponce y Molina Asociados",
+                            "Descripcion": "Quidem aut nulla quo aut suscipit veniam adipisci et.",
+                            "Contacto": "992-127-144",
+                            "Calificacion": 5,
+                            "Logo": "http://placeimg.com/640/480/animals"
+                        }
+                    ]
+                },
+                {
+                    "Nombre": "Patio y Jardin",
+                    "Tiendas": [
+                        {
+                            "Nombre": "Delgado e Hijos",
+                            "Descripcion": "Excepturi consectetur qui aut nemo minima et qui omnis qui.",
+                            "Contacto": "943 043 073",
+                            "Calificacion": 2,
+                            "Logo": "http://placeimg.com/640/480/technics"
+                        },
+                        {
+                            "Nombre": "de Jesús, Aranda y Galarza Asociados",
+                            "Descripcion": "Voluptate quaerat sapiente excepturi sed provident perspiciatis et in vel.",
+                            "Contacto": "984.890.460",
+                            "Calificacion": 5,
+                            "Logo": "http://placeimg.com/640/480/nightlife"
+                        },
+                        {
+                            "Nombre": "Dueñas, Ponce y Molina Asociados",
+                            "Descripcion": "Reprehenderit reiciendis voluptatem.",
+                            "Contacto": "919 663 483",
+                            "Calificacion": 5,
+                            "Logo": "http://placeimg.com/640/480/sports"
+                        },
+                        {
+                            "Nombre": "Delagarza Noriega Hermanos",
+                            "Descripcion": "Labore ut quas ea quam ut enim.",
+                            "Contacto": "908-280-674",
+                            "Calificacion": 5,
+                            "Logo": "http://placeimg.com/640/480/city"
+                        },
+                        {
+                            "Nombre": "Dueñas y Galindo",
+                            "Descripcion": "Numquam molestiae ex sit id accusamus.",
+                            "Contacto": "909-617-565",
+                            "Calificacion": 5,
+                            "Logo": "http://placeimg.com/640/480/business"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
